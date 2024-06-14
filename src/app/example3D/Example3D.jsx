@@ -2,7 +2,6 @@ import { OrbitControls, useFBO } from "@react-three/drei";
 import { Canvas, useFrame, extend, createPortal } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import './globals.css';
 
 import SimulationMaterial from './SimulationMaterial';
 

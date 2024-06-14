@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { Color, Vector3, Quaternion } from "three";
 import * as THREE from "three";
 
-export default function landingPage3D() {
+export default function LandingPage3D() {
 
   const CustomGeometryParticles = (props) => {
     const { count, shape } = props;
