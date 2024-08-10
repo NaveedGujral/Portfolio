@@ -6,6 +6,7 @@ import './globals.css';
 
 import LandingPage3D from "./components/landingPage3D"
 import Example3D from "./example3D/Example3D";
+import LandingAnim from "./LandingAnim"
 // import ParticlePath from "./example3Dparticlepath/ParticlePath"
 
 export default function Home() {
@@ -31,14 +32,12 @@ export default function Home() {
       </nav>
 
       <div id="home" className="flex bg-custom-grey w-full h-screen top-0 justify-center items-center">
-        <div className="justify-center items-center flex-col">
+        {/* <div className="justify-center items-center flex-col">
           <div className="text-white font-LexendGiga font-extralight text-7xl text-center py-6"> Naveed Gujral </div>
           <div className="text-white font-LexendGiga font-thin text-5xl text-center py-6"> Developer | Designer </div>
-        </div>
+        </div> */}
 
-        <Example3D />
-        {/* <ParticlePath/> */}
-        {/* <LandingPage3D/> */}
+        <LandingAnim/>
 
       </div>
 

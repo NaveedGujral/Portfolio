@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@p5-wrapper/next": "^1.0.3",
+    "@p5-wrapper/react": "^4.4.2",
     "@react-three/drei": "^9.105.6",
     "@react-three/fiber": "^8.16.3",
     "glsl-rotate": "^2.0.0",
