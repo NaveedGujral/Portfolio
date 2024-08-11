@@ -27,7 +27,7 @@ export default function Curves({ screenWidth, screenHeight }) {
     const inc = 0.01;
     const zInc = 0.0003
     const scale = 50;
-    const particleNo = 300;
+    const particleNo = 100;
     const speedCap = 5
     const angleSeed = Math.PI * 4
 
