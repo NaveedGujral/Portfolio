@@ -14,11 +14,11 @@
 import { Sketch } from "@p5-wrapper/react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
-export default function LandingAnim() {
+export default function Points({screenWidth, screenHeight}) {
     const inc = 0.05;
-    const zInc = 0.0005
-    const scale = 50;
-    const particleNo = 800;
+    const zInc = 0.0001
+    const scale = 60;
+    const particleNo = 300;
     const speedCap = 3
     let cols, rows;
     let zOffset = 0;
@@ -46,8 +46,10 @@ export default function LandingAnim() {
 
         this.show = function () {
             p5.stroke(0);
-            p5.strokeWeight(4)
-            p5.point(this.pos.x, this.pos.y)
+            p5.strokeWeight(0)
+            p5.fill(255)
+            // p5.point(this.pos.x, this.pos.y)
+            p5.circle(this.pos.x, this.pos.y, 3)
         }
 
         this.edges = function () {
@@ -76,21 +78,21 @@ export default function LandingAnim() {
     function sketch(p5) {
 
         p5.setup = () => {
-            p5.createCanvas(1920, 1080, p5.WEBGL)
+            p5.createCanvas(screenWidth, screenHeight, p5.WEBGL)
             p5.pixelDensity(1)
             cols = p5.floor(p5.width / scale)
             rows = p5.floor(p5.height / scale)
-
+            
             flowfield = new Array(cols * rows);
-
+            
             for (let i = 0; i < particleNo; i++) {
                 particles[i] = new Particle(p5);
             }
-
+            
         };
-
+        
         p5.draw = () => {
-            p5.background(255)
+            p5.background('#2e2f2f')
             let xOffset = 0
             for (let x = -cols; x < cols; x++) {
                 let yOffset = 0
@@ -112,7 +114,7 @@ export default function LandingAnim() {
                     p5.pop();
                 }
                 xOffset += inc
-                // console.log(p5.frameRate())
+                console.log(p5.frameRate())
                 zOffset += zInc
             }
 
