@@ -17,19 +17,14 @@ import { NextReactP5Wrapper } from "@p5-wrapper/next";
 export default function Curves({ screenWidth, screenHeight }) {
 
     // flow field controls
-    // const inc = 0.1;
-    // const zInc = 0.0003
-    // const scale = 50;
-    // const particleNo = 600;
-    // const speedCap = 5
-    // const angleSeed = Math.PI * 2
 
-    const inc = 0.01;
-    const zInc = 0.0003
-    const scale = 50;
-    const particleNo = 100;
-    const speedCap = 5
-    const angleSeed = Math.PI * 4
+    const inc = 0.0125; // flow field variance - increase for more variation
+    const zInc = 0.0001 // flow field variance over time - increase for more variation but less smooth
+    const scale = 100; // size of flow field cells, decreasing can impact performance
+    const particleNo = 600; // number of lines drawn
+    const speedCap = 4 // speed of particles drawing the lines
+    const angleSeed = Math.PI * 4 // a random angle is picked from 0 to this value in radians
+    const crossLimit = 6
 
     const canvasX = screenWidth
     const canvasY = screenHeight
@@ -39,10 +34,14 @@ export default function Curves({ screenWidth, screenHeight }) {
     let zOffset = 0;
     let particles = [];
     let flowfield = [];
+    let crossCountArr = []
 
     function Particle(p5) {
+        this.crossCount = 0
+        this.arrayPushCount = 0
 
-        this.pos = p5.createVector(-p5.width / 2, p5.random(-p5.height / 6, p5.height / 6))
+        // this.pos = p5.createVector(p5.width / 2, p5.random(-p5.height / 18, p5.height / 18))
+        this.pos = p5.createVector(p5.random(-p5.width / 21, p5.width / 21), -p5.height / 2)
         // this.pos = p5.createVector((p5.random(-p5.width / 2, p5.width / 2)), (p5.random(-p5.height / 2, p5.height / 2)))
         this.vel = p5.createVector(0, 0)
         this.acc = p5.createVector(0, 0)
@@ -79,21 +78,47 @@ export default function Curves({ screenWidth, screenHeight }) {
         }
 
         this.edges = function () {
-            if (this.pos.x > p5.width / 2) {
-                this.pos.x = - p5.width / 2;
-                this.updatePrev();
+            if (this.crossCount < crossLimit) {
+                if (this.pos.x > p5.width / 2) {
+                    this.pos.x = - p5.width / 2;
+                    this.updatePrev();
+                    this.crossCount++
+                }
+                if (this.pos.x < - p5.width / 2) {
+                    this.pos.x = p5.width / 2
+                    this.updatePrev();
+                    this.crossCount++
+                }
+                if (this.pos.y > p5.height / 2) {
+                    this.pos.y = - p5.height / 2
+                    this.updatePrev();
+                    this.crossCount++
+                }
+                if (this.pos.y < - p5.height / 2) {
+                    this.pos.y = p5.height / 2
+                    this.updatePrev();
+                    this.crossCount++
+                }
             }
-            if (this.pos.x < - p5.width / 2) {
-                this.pos.x = p5.width / 2
-                this.updatePrev();
-            }
-            if (this.pos.y > p5.height / 2) {
-                this.pos.y = - p5.height / 2
-                this.updatePrev();
-            }
-            if (this.pos.y < - p5.height / 2) {
-                this.pos.y = p5.height / 2
-                this.updatePrev();
+            else {
+                if (this.arrayPushCount === 0) {
+                    if (this.pos.x > p5.width / 2) {
+                        crossCountArr.push(true)
+                        this.arrayPushCount++
+                    }
+                    if (this.pos.x < - p5.width / 2) {
+                        crossCountArr.push(true)
+                        this.arrayPushCount++
+                    }
+                    if (this.pos.y > p5.height / 2) {
+                        crossCountArr.push(true)
+                        this.arrayPushCount++
+                    }
+                    if (this.pos.y < - p5.height / 2) {
+                        crossCountArr.push(true)
+                        this.arrayPushCount++
+                    }
+                }
             }
         }
 
@@ -109,7 +134,6 @@ export default function Curves({ screenWidth, screenHeight }) {
 
         p5.setup = () => {
             p5.createCanvas(canvasX, canvasY, p5.WEBGL)
-            // p5.createCanvas(screenWidth, screenHeight, p5.WEBGL)
             p5.pixelDensity(1)
             p5.background('#2e2f2f')
             // p5.background(255)
@@ -157,6 +181,10 @@ export default function Curves({ screenWidth, screenHeight }) {
                 particles[i].update();
                 particles[i].edges();
                 particles[i].show();
+            }
+            if (crossCountArr.length > particleNo) {
+                console.log("loop stopped")
+                p5.noLoop()
             }
         };
     }

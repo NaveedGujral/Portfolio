@@ -9,12 +9,14 @@ import Example3D from "./example3D/Example3D";
 import Points from "./Points"
 import TestGradient from "./TestGradient"
 import Curves from "./Curves"
+import TestButton from "./TestButton"
 // import ParticlePath from "./example3Dparticlepath/ParticlePath"
 
 export default function Home() {
 
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
+  const [button, setButton] = useState(false);
 
   const ref = useRef(null);
 
@@ -65,6 +67,7 @@ export default function Home() {
       </div>
 
       <div id="about" className="flex bg-custom-white-50 w-full h-screen items-center justify-center ">
+        <TestButton/>
       </div>
 
       <div id="projects" className="flex bg-green-500 w-full h-screen items-center justify-center ">
