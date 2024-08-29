@@ -21,6 +21,6 @@ body {
 
 @layer components {
   .btn-header {
-    @apply text-custom-white-150 h-8 hover:border-b-2 hover:border-custom-white-50 hover:text-custom-white-50 ;
+    @apply h-8 filter invert text-xl;
   }
 }

@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen w-screen flex-col items-center justify-between p-0 overflow-x-hidden">
 
-      <nav className="flex h-16 w-screen items-center justify-end pr-16 fixed top-0 z-10 bg-custom-grey backdrop-filter backdrop-blur bg-opacity-50">
+      {/* <nav className="flex h-16 w-screen items-center justify-end pr-16 fixed top-0 z-10 bg-custom-grey backdrop-filter backdrop-blur bg-opacity-75 border-b-[1px] border-white border-opacity-25">
         <div className="w-[18rem]">
           <div className="flex w-full justify-between">
             <button onClick={() => handleClick("home")} class="btn-header">Home</button>
@@ -53,7 +53,7 @@ export default function Home() {
             <button onClick={() => handleClick("contact")} class="btn-header">Contact</button>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       <div id="home" className="flex bg-custom-grey w-full h-screen top-0 justify-center items-center ">
         {/* <div className="justify-center items-center flex-col">

@@ -18,13 +18,14 @@ export default function Curves({ screenWidth, screenHeight }) {
 
     // flow field controls
 
-    const inc = 0.0125; // flow field variance - increase for more variation
+    const inc = 0.5; // flow field variance - increase for more variation
     const zInc = 0.0001 // flow field variance over time - increase for more variation but less smooth
-    const scale = 100; // size of flow field cells, decreasing can impact performance
+    const scale = 75; // size of flow field cells, decreasing can impact performance
     const particleNo = 600; // number of lines drawn
-    const speedCap = 4 // speed of particles drawing the lines
-    const angleSeed = Math.PI * 4 // a random angle is picked from 0 to this value in radians
-    const crossLimit = 6
+    const speedCap = 2 // speed of particles drawing the lines
+    const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
+    const crossLimit = 3
+    const brushFactor = 9
 
     const canvasX = screenWidth
     const canvasY = screenHeight
@@ -40,8 +41,9 @@ export default function Curves({ screenWidth, screenHeight }) {
         this.crossCount = 0
         this.arrayPushCount = 0
 
-        // this.pos = p5.createVector(p5.width / 2, p5.random(-p5.height / 18, p5.height / 18))
-        this.pos = p5.createVector(p5.random(-p5.width / 21, p5.width / 21), -p5.height / 2)
+        this.pos = p5.createVector(-p5.width / 2, p5.random(-p5.height / brushFactor, p5.height / brushFactor), 10)
+        // this.pos = p5.createVector(p5.random(-p5.width / brushFactor, p5.width / brushFactor), -p5.height / 2)
+        // this.pos = p5.createVector((p5.random(-p5.width / brushFactor, p5.width / brushFactor)), (p5.random(-p5.height / brushFactor, p5.height / brushFactor)))
         // this.pos = p5.createVector((p5.random(-p5.width / 2, p5.width / 2)), (p5.random(-p5.height / 2, p5.height / 2)))
         this.vel = p5.createVector(0, 0)
         this.acc = p5.createVector(0, 0)
@@ -67,13 +69,16 @@ export default function Curves({ screenWidth, screenHeight }) {
         }
 
         this.show = function () {
-            p5.stroke(255, 5); // determines line colour
-            // p5.stroke(0, 5); // determines line colour
-            p5.strokeWeight(1)
-            // p5.fill(255)
-            // p5.point(this.pos.x, this.pos.y)
-            p5.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y)
-            // p5.circle(this.pos.x, this.pos.y, 3)
+
+            // p5.stroke(255, 113, 91, 10); // determines line colour - pastel red
+            // p5.strokeWeight(1)
+            // p5.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y)
+
+            p5.fill(255, 113, 91, 5)
+            p5.strokeWeight(0)
+            p5.ellipse(this.pos.x, this.pos.y, 2.5)
+
+
             this.updatePrev()
         }
 
@@ -81,21 +86,25 @@ export default function Curves({ screenWidth, screenHeight }) {
             if (this.crossCount < crossLimit) {
                 if (this.pos.x > p5.width / 2) {
                     this.pos.x = - p5.width / 2;
+                    this.pos.y = - this.pos.y;
                     this.updatePrev();
                     this.crossCount++
                 }
                 if (this.pos.x < - p5.width / 2) {
                     this.pos.x = p5.width / 2
+                    this.pos.y = - this.pos.y;
                     this.updatePrev();
                     this.crossCount++
                 }
                 if (this.pos.y > p5.height / 2) {
                     this.pos.y = - p5.height / 2
+                    this.pos.x = - this.pos.x;
                     this.updatePrev();
                     this.crossCount++
                 }
                 if (this.pos.y < - p5.height / 2) {
                     this.pos.y = p5.height / 2
+                    this.pos.x = - this.pos.x;
                     this.updatePrev();
                     this.crossCount++
                 }
@@ -135,7 +144,9 @@ export default function Curves({ screenWidth, screenHeight }) {
         p5.setup = () => {
             p5.createCanvas(canvasX, canvasY, p5.WEBGL)
             p5.pixelDensity(1)
-            p5.background('#2e2f2f')
+            p5.background(0, 2 ,51)
+            // p5.background('#ff715b') // deep purple
+            // p5.background('#2e2f2f')
             // p5.background(255)
             cols = p5.floor(p5.width / scale)
             rows = p5.floor(p5.height / scale)
@@ -150,7 +161,7 @@ export default function Curves({ screenWidth, screenHeight }) {
 
         p5.draw = () => {
 
-            // p5.background('#2e2f2f') // debugging
+            // p5.background(29,7,108, 5) // debugging
 
             let xOffset = 0
             for (let x = -cols; x < cols; x++) {
