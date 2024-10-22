@@ -1,16 +1,3 @@
-'use client'
-
-/*
-
-1) Fill Canvas with perlin noise values X
-    1a) convert greyscale vals to vectors - X
-2) Change perlin noise over time with a third noise value
-4) draw particles on one side of the screen
-5) have the particles accelerate based on it's positon and relevant vector, acceleration needs to be capped
-6) have the mouse repulse particles around it
-
-*/
-
 import { Sketch } from "@p5-wrapper/react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
@@ -21,16 +8,30 @@ export default function Curves({ screenWidth, screenHeight }) {
     const inc = 0.5; // flow field variance - increase for more variation
     const zInc = 0.0001 // flow field variance over time - increase for more variation but less smooth
     const scale = 75; // size of flow field cells, decreasing can impact performance
-    const particleNo = 600; // number of lines drawn
+    
+    // const particleNo = 1; // number of lines drawn
+    const particleNo = 450; // number of lines drawn
+    
     const speedCap = 2 // speed of particles drawing the lines
     const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
-    const crossLimit = 3
+    // const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
+    const crossLimit = 2
     const brushFactor = 9
+    // const brushFactor = 9
 
     const canvasX = screenWidth
     const canvasY = screenHeight
-    // const canvasX = 600
-    // const canvasY = 600
+
+    // colours
+    const bgCol = {r:26, g:26 , b:26}
+    const col1 = {r:151, g:71, b:255} // purple
+    const col2 = {r:255, g:61, b:31} // orange
+
+
+
+    // const bgCol = {r:0, g:2 , b:51}
+    // const col1 = {r:255, g:113, b:91}
+
     let cols, rows;
     let zOffset = 0;
     let particles = [];
@@ -41,7 +42,7 @@ export default function Curves({ screenWidth, screenHeight }) {
         this.crossCount = 0
         this.arrayPushCount = 0
 
-        this.pos = p5.createVector(-p5.width / 2, p5.random(-p5.height / brushFactor, p5.height / brushFactor), 10)
+        this.pos = p5.createVector(p5.width / 2, p5.random(-p5.height / brushFactor, p5.height / brushFactor), 10)
         // this.pos = p5.createVector(p5.random(-p5.width / brushFactor, p5.width / brushFactor), -p5.height / 2)
         // this.pos = p5.createVector((p5.random(-p5.width / brushFactor, p5.width / brushFactor)), (p5.random(-p5.height / brushFactor, p5.height / brushFactor)))
         // this.pos = p5.createVector((p5.random(-p5.width / 2, p5.width / 2)), (p5.random(-p5.height / 2, p5.height / 2)))
@@ -69,17 +70,28 @@ export default function Curves({ screenWidth, screenHeight }) {
         }
 
         this.show = function () {
+            
+            // top to bottom LOOKS GOOD
+            this.outR = p5.map(this.pos.y, -p5.height/2, p5.height/2, col1.r, col2.r, true)
+            this.outG = p5.map(this.pos.y, -p5.height/2, p5.height/2, col1.g, col2.g, true)
+            this.outB = p5.map(this.pos.y, -p5.height/2, p5.height/2, col1.b, col2.b, true)
+            
+            // center to out looks shit
 
-            // p5.stroke(255, 113, 91, 10); // determines line colour - pastel red
-            // p5.strokeWeight(1)
-            // p5.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y)
+            // this.dist = Math.sqrt((this.pos.x ** 2) + (this.pos.y ** 2))
+            // this.maxDist = Math.sqrt(((p5.height/4) ** 2) + ((p5.width/4) ** 2))
 
-            p5.fill(255, 113, 91, 5)
+            // this.outR = p5.map(this.dist, 0, this.maxDist, col1.r, col2.r, true)
+            // this.outG = p5.map(this.dist, 0, this.maxDist, col1.g, col2.g, true)
+            // this.outB = p5.map(this.dist, 0, this.maxDist, col1.b, col2.b, true)
+            
+            p5.fill(this.outR, this.outG, this.outB, 15)
+            // p5.fill(col1.r, col1.g, col1.b, 5)
             p5.strokeWeight(0)
-            p5.ellipse(this.pos.x, this.pos.y, 2.5)
+            p5.ellipse(this.pos.x, this.pos.y, 2)
 
 
-            this.updatePrev()
+            // this.updatePrev()
         }
 
         this.edges = function () {
@@ -144,10 +156,7 @@ export default function Curves({ screenWidth, screenHeight }) {
         p5.setup = () => {
             p5.createCanvas(canvasX, canvasY, p5.WEBGL)
             p5.pixelDensity(1)
-            p5.background(0, 2 ,51)
-            // p5.background('#ff715b') // deep purple
-            // p5.background('#2e2f2f')
-            // p5.background(255)
+            p5.background(bgCol.r, bgCol.g, bgCol.b)
             cols = p5.floor(p5.width / scale)
             rows = p5.floor(p5.height / scale)
 
@@ -193,11 +202,12 @@ export default function Curves({ screenWidth, screenHeight }) {
                 particles[i].edges();
                 particles[i].show();
             }
-            if (crossCountArr.length > particleNo) {
-                console.log("loop stopped")
-                p5.noLoop()
-            }
         };
+
+        if (crossCountArr.length >= particleNo) {
+            console.log("loop stopped")
+            p5.noLoop()
+        }
     }
 
     return (

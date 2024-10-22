@@ -15,7 +15,7 @@ const config: Config = {
       },
       colors: {
         custom: {
-          grey: '#2e2f2f',
+          grey: '#1a1a1a',
           white: 
             {
               50:'#f7f9f9',
@@ -28,6 +28,7 @@ const config: Config = {
       }
     },
     fontFamily: {
+      JosefinSans: ["JosefinSans", "sans-serif"],
       LexendGiga: ["LexendGiga","sans-serif"],
     }
   },

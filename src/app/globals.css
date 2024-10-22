@@ -13,6 +13,14 @@ body {
   src: url("../../public/fonts/LexendGiga-VariableFont_wght.ttf");
 }
 
+@font-face {
+  font-family: "JosefinSans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url("../../public/fonts/JosefinSans-VariableFont_wght.ttf") format("truetype");
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
