@@ -8,6 +8,17 @@ body {
   padding: 0;
 }
 
+.masked {
+  position: absolute;
+  backdrop-filter: invert(100%) grayscale(100%);
+  width: 100%;
+  height: 100%;
+  mask-image: url(#svgTextPath);
+  mask-size: contain; /* Changed to 100% */
+  mask-position: center; /* This can be adjusted */
+  mask-repeat: no-repeat; /* Added to prevent tiling */
+}
+
 @font-face {
   font-family: "LexendGiga";
   src: url("../../public/fonts/LexendGiga-VariableFont_wght.ttf");

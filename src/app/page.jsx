@@ -26,8 +26,10 @@ export default function Home() {
   })
 
   const handleResize = useCallback(() => {
-    setScreenWidth(window.innerWidth);
-    setScreenHeight(window.innerHeight);
+    if (window) {
+      setScreenWidth(window.innerWidth);
+      setScreenHeight(window.innerHeight);
+    }
   }, [setScreenWidth, setScreenHeight]);
 
   const handleContentLoad = (imgId) => {
@@ -41,7 +43,9 @@ export default function Home() {
   useEffect(() => {
     handleResize();
 
-    window.addEventListener('resize', handleResize);
+    if (window) {
+      window.addEventListener('resize', handleResize);
+    }
 
     // Cleanup function to remove the event listener when the component unmounts
     return () => {
@@ -68,16 +72,17 @@ export default function Home() {
 
         {
           contentLoaded ?
-            <div className="w-full h-full flex static">
+            <div className="w-full h-full flex relative">
               <Curves screenWidth={screenWidth} screenHeight={screenHeight} className='z-0' />
 
-              <div className='w-screen h-screen absolute z-20 top-0 flex justify-center items-center'>
-
-                {/* <h1 className='font-JosefinSans text-[16rem] tracking-widest font-normal text-center invert'>NAVEED<br></br>GUJRAL</h1> */}
-                <LandingTitle />
+              <div className='absolute w-full h-full flex justify-center items-center p-20'>
+                <LandingTitle className="max-h-screen text-custom-white-50"/>
               </div>
 
+              {/* <h1 className='font-JosefinSans text-[16rem] tracking-widest font-normal text-center invert'>NAVEED<br></br>GUJRAL</h1> */}
+
             </div>
+
             :
             <div>
               <h1 className=' font-JosefinSans text-custom-white-50 text-4xl'>Loading</h1>
@@ -94,51 +99,7 @@ export default function Home() {
         </div>
       </section> */}
 
-    </main>
-
-
-
-    // <main className="flex min-h-screen w-screen flex-col items-center justify-between p-0 overflow-x-hidden">
-
-    //   {/* <nav className="flex h-16 w-screen items-center justify-end pr-16 fixed top-0 z-10 bg-custom-grey backdrop-filter backdrop-blur bg-opacity-75 border-b-[1px] border-white border-opacity-25">
-    //     <div className="w-[18rem]">
-    //       <div className="flex w-full justify-between">
-    //         <button onClick={() => handleClick("home")} class="btn-header">Home</button>
-    //         <button onClick={() => handleClick("about")} class="btn-header">About</button>
-    //         <button onClick={() => handleClick("projects")} class="btn-header">Projects</button>
-    //         <button onClick={() => handleClick("contact")} class="btn-header">Contact</button>
-    //       </div>
-    //     </div>
-    //   </nav> */}
-
-    //   <div id="home" className="flex bg-custom-grey w-full h-screen top-0 justify-center items-center ">
-    //     {/* <div className="justify-center items-center flex-col">
-    //       <div className="text-white font-LexendGiga font-extralight text-7xl text-center py-6"> Naveed Gujral </div>
-    //       <div className="text-white font-LexendGiga font-thin text-5xl text-center py-6"> Developer | Designer </div>
-    //     </div> */}
-
-    //     {/* <Curves screenWidth={screenWidth} screenHeight={screenHeight} /> */}
-
-    //   </div>
-
-    //   <div id="about" className=" overflow-x-hidden flex bg-custom-white-50 w-screen min-h-screen items-center justify-center ">
-    //     {/* <TestButton/>
-    //      */}
-    //     <div className='w-[1080px] p-20'>
-    //       <img src='/images/PTWF_3.png' />
-    //     </div>
-    //   </div>
-
-    //   {/* <div id="projects" className="flex bg-green-500 w-full h-screen items-center justify-center ">
-    //     <p className="text-white"> Projects </p>
-    //   </div>
-
-    //   <div id="contact" className="flex bg-violet-600 w-full h-screen items-center justify-center ">
-    //     <p className="text-white"> Contact </p>
-    //   </div> */}
-
-    // </main>
-
+    </main >
 
   );
 }

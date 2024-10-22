@@ -18,7 +18,7 @@ const config: Config = {
           grey: '#1a1a1a',
           white: 
             {
-              50:'#f7f9f9',
+              50:'#f8f8f8',
               100:'#e8eded',
               150:'#d0dcdc',
             },       
