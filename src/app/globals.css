@@ -8,9 +8,39 @@ body {
   padding: 0;
 }
 
-.gradBorder {
-  background-image: conic-gradient(from 45deg, #ff3d1f, #9747ff ,#ff3d1f);
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
+
+.gradBorder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background-image: conic-gradient(from var(--angle), transparent 85%, #9747ff ,#ff3d1f);
+  animation: 10s spin linear infinite;
+}
+
+.gradBorderCore {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background-image: conic-gradient(from var(--angle), transparent 90%, white, white);
+  animation: 10s spin linear infinite;
+}
+
+@keyframes spin {
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
+}
+
 
 @font-face {
   font-family: "LexendGiga";
@@ -38,5 +68,13 @@ body {
 
   .content-container {
     @apply w-screen min-h-screen flex justify-center items-center
+  }
+
+  .subHeading {
+    @apply font-JosefinSans font-light text-xl
+  }
+
+  .body {
+    @apply font-JosefinSans font-extralight text-lg
   }
 }

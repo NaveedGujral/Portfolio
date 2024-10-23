@@ -94,21 +94,32 @@ export default function Home() {
       <section id="about" className='relative overflow-x-hidden flex flex-col w-screen min-h-screen items-center justify-center'>
         <div className=' bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] '>
         </div>
-        
-        
+
+
         <div id='intro' className='content-container bg-custom-grey'>
           <div className='w-[1080px] m-20 flex justify-between'>
-            <div className='w-[352px] h-[352px] justify-center items-center flex'>
-              
-              <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[342px] h-[342px] z-10 rounded-[10px]'></img>
-              <div className='gradBorder absolute w-[352px] h-[352px] rounded-[15px]'></div>
-            
+            <div className='w-[352px] h-[352px] justify-center items-center flex relative'>
+              <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[348px] h-[348px] z-10 rounded-[10px]'></img>
+              <div className='gradBorderCore blur-[2px]' />
+              <div className='gradBorder blur-sm' />
+              <div className='gradBorder blur-md' />
             </div>
-            <div className='w-[625px] h-[352px] bg-green-500'></div>
+            <div className='w-[625px] h-[352px] flex flex-col justify-between'>
+              <h1 className=" font-JosefinSans text-custom-white-50 text-[10rem] leading-[10rem] font-extralight -translate-x-4">
+                I design
+              </h1>
+              <h2 className="subHeading text-custom-white-50">
+                I’m an industrial designer turned digital designer & developer.
+              </h2>
+              <p className="body text-custom-white-50">
+                My training, experience and skillset as an industrial designer significantly overlaps with digital design and development.
+                I love to work on projects that intersect creativity and technology.
+              </p>
+            </div>
           </div>
         </div>
 
-        
+
         <div id='tech' className='content-container bg-blue-500'>
         </div>
         <div id='projects' className='content-container bg-green-500'>
