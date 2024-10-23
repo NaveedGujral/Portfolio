@@ -8,15 +8,8 @@ body {
   padding: 0;
 }
 
-.masked {
-  position: absolute;
-  backdrop-filter: invert(100%) grayscale(100%);
-  width: 100%;
-  height: 100%;
-  mask-image: url(#svgTextPath);
-  mask-size: contain; /* Changed to 100% */
-  mask-position: center; /* This can be adjusted */
-  mask-repeat: no-repeat; /* Added to prevent tiling */
+.gradBorder {
+  background-image: conic-gradient(from 45deg, #ff3d1f, #9747ff ,#ff3d1f);
 }
 
 @font-face {
@@ -41,5 +34,9 @@ body {
 @layer components {
   .btn-header {
     @apply h-8 filter invert text-xl;
+  }
+
+  .content-container {
+    @apply w-screen min-h-screen flex justify-center items-center
   }
 }

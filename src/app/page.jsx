@@ -11,7 +11,7 @@ export default function Home() {
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
   const [button, setButton] = useState(false);
-  const [contentLoaded, setContentLoaded] = useState(true)
+  const [contentLoaded, setContentLoaded] = useState(false)
   const ref = useRef(null);
   const handleClick = (section) => {
     const element = document.getElementById(section)
@@ -19,10 +19,11 @@ export default function Home() {
   };
 
   const content = [
-    { id: 'testIMG', src: '/images/PTWF_3.png' }
+    { id: 'profilePic', src: '/images/Me.png' }
   ]
 
   const [loadingProgress, setLoadingProgress] = useState({
+
   })
 
   const handleResize = useCallback(() => {
@@ -61,26 +62,25 @@ export default function Home() {
       return
     }
 
-    // setContentLoaded(false)
+    setContentLoaded(false)
 
   }, [loadingProgress]);
 
   return (
-    <main className="flex min-h-screen w-screen flex-col items-center justify-between p-0 overflow-x-hidden">
+    <main className="min-h-screen w-screen flex-col items-center justify-between p-0 overflow-x-hidden">
 
-      <section id="landing" className="fixed flex bg-custom-grey w-screen h-screen top-0 justify-center items-center overflow-hidden">
+      <section id="landing" className="flex bg-custom-grey w-screen h-screen top-0 justify-center items-center overflow-hidden">
 
         {
           contentLoaded ?
-            <div className="w-full h-full flex relative">
-              <Curves screenWidth={screenWidth} screenHeight={screenHeight} className='z-0' />
-
-              <div className='absolute w-full h-full flex justify-center items-center p-20'>
-                <LandingTitle className="max-h-screen text-custom-white-50"/>
+            <div className='flex fixed justify-center items-center w-screen h-screen overflow-hidden'>
+              <div className="w-full h-full flex  left-0">
+                <Curves screenWidth={screenWidth} screenHeight={screenHeight} className='z-0' />
               </div>
 
-              {/* <h1 className='font-JosefinSans text-[16rem] tracking-widest font-normal text-center invert'>NAVEED<br></br>GUJRAL</h1> */}
-
+              <div className='absolute w-full h-full flex justify-center items-center p-10'>
+                <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
+              </div>
             </div>
 
             :
@@ -91,13 +91,31 @@ export default function Home() {
 
       </section>
 
-      {/* <section className='py-[100vh] px-0 relative flex flex-col w-screen min-h-screen items-center justify-center overflow-hidden'>
-        <div id="about" className={` relative overflow-x-hidden flex flex-col w-screen min-h-screen items-center justify-center`}>
-          <div className='w-[1080px]'>
-            <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} />
+      <section id="about" className='relative overflow-x-hidden flex flex-col w-screen min-h-screen items-center justify-center'>
+        <div className=' bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] '>
+        </div>
+        
+        
+        <div id='intro' className='content-container bg-custom-grey'>
+          <div className='w-[1080px] m-20 flex justify-between'>
+            <div className='w-[352px] h-[352px] justify-center items-center flex'>
+              
+              <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[342px] h-[342px] z-10 rounded-[10px]'></img>
+              <div className='gradBorder absolute w-[352px] h-[352px] rounded-[15px]'></div>
+            
+            </div>
+            <div className='w-[625px] h-[352px] bg-green-500'></div>
           </div>
         </div>
-      </section> */}
+
+        
+        <div id='tech' className='content-container bg-blue-500'>
+        </div>
+        <div id='projects' className='content-container bg-green-500'>
+        </div>
+        <div id='footer' className='content-container'>
+        </div>
+      </section>
 
     </main >
 
