@@ -5,19 +5,18 @@ export default function Curves({ screenWidth, screenHeight }) {
 
     // flow field controls
 
-    const inc = 0.5; // flow field variance - increase for more variation
-    const zInc = 0.0001 // flow field variance over time - increase for more variation but less smooth
-    const scale = 75; // size of flow field cells, decreasing can impact performance
+    const inc = 0.75; // flow field variance - increase for more variation
+    const zInc = 0.00025 // flow field variance over time - increase for more variation but less smooth
+    const scale = 120; // size of flow field cells, decreasing can impact performance
     
     // const particleNo = 1; // number of lines drawn
-    const particleNo = 450; // number of lines drawn
+    const particleNo = 150; // number of lines drawn
     
     const speedCap = 2 // speed of particles drawing the lines
     const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
     // const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
     const crossLimit = 2
-    const brushFactor = 9
-    // const brushFactor = 9
+    const brushFactor = 27
 
     const canvasX = screenWidth
     const canvasY = screenHeight
@@ -43,9 +42,6 @@ export default function Curves({ screenWidth, screenHeight }) {
         this.arrayPushCount = 0
 
         this.pos = p5.createVector(p5.width / 2, p5.random(-p5.height / brushFactor, p5.height / brushFactor), 10)
-        // this.pos = p5.createVector(p5.random(-p5.width / brushFactor, p5.width / brushFactor), -p5.height / 2)
-        // this.pos = p5.createVector((p5.random(-p5.width / brushFactor, p5.width / brushFactor)), (p5.random(-p5.height / brushFactor, p5.height / brushFactor)))
-        // this.pos = p5.createVector((p5.random(-p5.width / 2, p5.width / 2)), (p5.random(-p5.height / 2, p5.height / 2)))
         this.vel = p5.createVector(0, 0)
         this.acc = p5.createVector(0, 0)
         this.maxSpeed = speedCap
@@ -76,16 +72,7 @@ export default function Curves({ screenWidth, screenHeight }) {
             this.outG = p5.map(this.pos.y, -p5.height/2, p5.height/2, col1.g, col2.g, true)
             this.outB = p5.map(this.pos.y, -p5.height/2, p5.height/2, col1.b, col2.b, true)
             
-            // center to out looks shit
-
-            // this.dist = Math.sqrt((this.pos.x ** 2) + (this.pos.y ** 2))
-            // this.maxDist = Math.sqrt(((p5.height/4) ** 2) + ((p5.width/4) ** 2))
-
-            // this.outR = p5.map(this.dist, 0, this.maxDist, col1.r, col2.r, true)
-            // this.outG = p5.map(this.dist, 0, this.maxDist, col1.g, col2.g, true)
-            // this.outB = p5.map(this.dist, 0, this.maxDist, col1.b, col2.b, true)
-            
-            p5.fill(this.outR, this.outG, this.outB, 15)
+            p5.fill(this.outR, this.outG, this.outB, 25)
             // p5.fill(col1.r, col1.g, col1.b, 5)
             p5.strokeWeight(0)
             p5.ellipse(this.pos.x, this.pos.y, 2)
@@ -184,7 +171,7 @@ export default function Curves({ screenWidth, screenHeight }) {
                     flowfield[index] = vector;
                     yOffset += inc
 
-                    p5.stroke(255); // debugging
+                    // p5.stroke(255); // debugging
                     p5.push();
                     p5.translate(x * scale, y * scale);
                     p5.rotate(vector.heading());

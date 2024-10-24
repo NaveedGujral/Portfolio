@@ -1,10 +1,13 @@
 'use client'
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import './globals.css';
 
-import Curves from "./Curves"
-import LandingTitle from "./components/SVG/LandingTitle"
+// components
+import Curves from "./Curves";
+import LandingTitle from "./components/SVG/LandingTitle";
+import SmoothScroll from "./components/SmoothScroll";
+import TypedComp from "./components/TypedComp";
 
 export default function Home() {
 
@@ -12,27 +15,18 @@ export default function Home() {
   const [screenHeight, setScreenHeight] = useState();
   const [button, setButton] = useState(false);
   const [contentLoaded, setContentLoaded] = useState(false)
-  const ref = useRef(null);
   const handleClick = (section) => {
     const element = document.getElementById(section)
     element.scrollIntoView({ behavior: 'smooth' });
   };
+  const typed1Ref = useRef(null);
 
   const content = [
     { id: 'profilePic', src: '/images/Me.png' }
   ]
-
   const [loadingProgress, setLoadingProgress] = useState({
 
   })
-
-  const handleResize = useCallback(() => {
-    if (window) {
-      setScreenWidth(window.innerWidth);
-      setScreenHeight(window.innerHeight);
-    }
-  }, [setScreenWidth, setScreenHeight]);
-
   const handleContentLoad = (imgId) => {
 
     setLoadingProgress(prevState => ({
@@ -40,6 +34,13 @@ export default function Home() {
       [imgId]: true
     }));
   }
+
+  const handleResize = useCallback(() => {
+    if (window) {
+      setScreenWidth(window.innerWidth);
+      setScreenHeight(window.innerHeight);
+    }
+  }, [setScreenWidth, setScreenHeight]);
 
   useEffect(() => {
     handleResize();
@@ -66,6 +67,22 @@ export default function Home() {
 
   }, [loadingProgress]);
 
+  // useEffect(() => {
+  //   const typed1 = new Typed(typed1Ref.current, {
+  //     strings: ['sign', 'velop'],
+  //     typeSpeed: 150,
+  //     backSpeed: 150,
+  //     backDelay: 1000,
+  //     loop: true
+  //   })
+
+  //   return () => {
+  //     // Destroy Typed instance during cleanup to stop animation
+  //     typed1.destroy();
+  //   };
+  // }, [])
+
+
   return (
     <main className="min-h-screen w-screen flex-col items-center justify-between p-0 overflow-x-hidden">
 
@@ -91,45 +108,44 @@ export default function Home() {
 
       </section>
 
-      <section id="about" className='relative overflow-x-hidden flex flex-col w-screen min-h-screen items-center justify-center'>
-        <div className=' bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] '>
-        </div>
+      <SmoothScroll>
+        <section id="about" className='relative top-[100vh] overflow-x-hidden flex flex-col w-screen min-h-screen items-center justify-center'>
+          <div className=' bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] '>
+          </div>
 
 
-        <div id='intro' className='content-container bg-custom-grey'>
-          <div className='w-[1080px] m-20 flex justify-between'>
-            <div className='w-[352px] h-[352px] justify-center items-center flex relative'>
-              <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[348px] h-[348px] z-10 rounded-[10px]'></img>
-              <div className='gradBorderCore blur-[2px]' />
-              <div className='gradBorder blur-sm' />
-              <div className='gradBorder blur-md' />
-            </div>
-            <div className='w-[625px] h-[352px] flex flex-col justify-between'>
-              <h1 className=" font-JosefinSans text-custom-white-50 text-[10rem] leading-[10rem] font-extralight -translate-x-4">
-                I design
-              </h1>
-              <h2 className="subHeading text-custom-white-50">
-                I’m an industrial designer turned digital designer & developer.
-              </h2>
-              <p className="body text-custom-white-50">
-                My training, experience and skillset as an industrial designer significantly overlaps with digital design and development.
-                I love to work on projects that intersect creativity and technology.
-              </p>
+          <div id='intro' className='content-container bg-custom-grey'>
+            <div className='w-[1080px] m-20 flex justify-between'>
+              <div className='w-[352px] h-[352px] justify-center items-center flex relative'>
+                <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[348px] h-[348px] z-10 rounded-[10px]'></img>
+                <div className='gradBorderCore blur-[2px]' />
+                <div className='gradBorder blur-sm' />
+                <div className='gradBorder blur-md' />
+              </div>
+              <div className='w-[625px] h-[352px] flex flex-col justify-between'>
+                <TypedComp />
+                <h2 className="subHeading text-custom-white-50">
+                  I’m an industrial designer turned digital designer & developer.
+                </h2>
+                <p className="body text-custom-white-50">
+                  My training, experience and skillset as an industrial designer significantly overlaps with digital design and development.
+                  I love to work on projects that intersect creativity and technology.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
 
-        <div id='tech' className='content-container bg-blue-500'>
-        </div>
-        <div id='projects' className='content-container bg-green-500'>
-        </div>
-        <div id='footer' className='content-container'>
-        </div>
-      </section>
+          <div id='tech' className='content-container bg-blue-500'>
+          </div>
+          <div id='projects' className='content-container bg-green-500'>
+          </div>
+          <div id='footer' className='content-container'>
+          </div>
+        </section>
+      </SmoothScroll >
 
     </main >
-
   );
 }
 
