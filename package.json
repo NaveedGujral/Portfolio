@@ -16,6 +16,7 @@
     "framer-motion": "^11.11.9",
     "glsl-rotate": "^2.0.0",
     "glslify-loader": "^2.0.0",
+    "lenis": "^1.1.14",
     "next": "^14.2.16",
     "raw-loader": "^4.0.2",
     "react": "^18",
