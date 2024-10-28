@@ -15,10 +15,10 @@ const TypedComp = ({ props }) => {
 
                 startAnim ?
 
-                    <div ref={ref} className={`h-[9rem] w-full transition-opacity -translate-x-4 flex-row flex ${startAnim ? "opacity-100" : "opacity-0"}`}>
-                        <h1  className={`font-JosefinSans text-[9rem] leading-[9rem] font-thin text-custom-white-50`} >I</h1>&nbsp;
+                    <div ref={ref} className={`h-[5rem] lg:h-[9rem] w-full transition-opacity -translate-x-2 lg:-translate-x-4 flex-row flex ${startAnim ? "opacity-100" : "opacity-0"}`}>
+                        <h1  className={`font-JosefinSans text-7xl leading-[5rem] lg:text-[9rem] lg:leading-[9rem] font-thin text-custom-white-50`} >I</h1>&nbsp;
                         <ReactTyped strings={["design", "develop"]}
-                            className={`font-JosefinSans text-[9rem] leading-[9rem] font-extralight ${pos === 0 ? " text-purple-800" : "text-orange-500"}`}
+                            className={`font-JosefinSans text-7xl leading-[5rem] lg:text-[9rem] lg:leading-[9rem] font-extralight ${pos === 0 ? " text-purple-800" : "text-orange-500"}`}
                             typeSpeed={150}
                             backSpeed={150}
                             backDelay={1000}

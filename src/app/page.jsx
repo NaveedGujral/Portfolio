@@ -87,52 +87,108 @@ export default function Home() {
     <main className="min-h-screen w-screen flex-col bg-custom-grey items-center justify-between p-0 overflow-x-hidden">
 
       <section id="landing" className="flex w-screen h-screen top-0 justify-center items-center overflow-hidden">
-            <motion.div className='flex fixed justify-center items-center w-screen h-screen overflow-hidden'
-            initial={{
-              opacity: 0,
-              filter: 'blur(12px)'
-            }}
-            animate={{
-              opacity: 1,
-              filter: 'blur(0)'
-            }}
-            transition={{
-              duration: 2,
-              easings: easeInOut
-            }}
-            >
-              <div className="w-full h-full flex  left-0">
-                <Curves screenWidth={screenWidth} screenHeight={screenHeight} className='z-0' />
-              </div>
+        <motion.div className='flex fixed justify-center items-center w-screen h-screen overflow-hidden'
+          initial={{
+            opacity: 0,
+            filter: 'blur(12px)'
+          }}
+          animate={{
+            opacity: 1,
+            filter: 'blur(0)'
+          }}
+          transition={{
+            duration: 1,
+            easings: easeInOut
+          }}
+        >
+          <div className="w-full h-full flex  left-0">
+            <Curves screenWidth={screenWidth} screenHeight={screenHeight} className='z-0' />
+          </div>
 
-              <div className='absolute w-full h-full flex justify-center items-center p-10'>
-                <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
-              </div>
-            </motion.div>
+          <div className='absolute w-full h-full flex justify-center items-center p-10'>
+            <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
+          </div>
+        </motion.div>
       </section>
 
       <section id="about" className='relative top-[0vh] overflow-x-hidden flex flex-col w-screen min-h-screen items-center justify-center'>
         <div className=' bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] '>
         </div>
-
-
-        <div id='intro' className='content-container bg-custom-grey'>
-          <div className='w-[1080px] m-20 flex justify-between'>
-            <div className='w-[352px] h-[352px] justify-center items-center flex relative'>
-              <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[348px] h-[348px] z-10 rounded-[10px]'></img>
+        <div id='intro' className='content-wrapper bg-custom-grey'>
+          <div className='content-container'>
+            <motion.div
+              className=' w-[284px] h-[284px] md:w-[209px] md:h-[209px] lg:w-[276px] lg:h-[276px] xl:w-[405px] xl:h-[405px] 2xl:w-[488px] 2xl:h-[488px] justify-center items-center flex relative'
+              initial={{
+                opacity: 0,
+                x: -50,
+                filter: 'blur(12px)'
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0, // Slide in to its original position
+                filter: 'blur(0)',
+                transition: {
+                  duration: 1 // Animation duration
+                }
+              }}
+              viewport={{
+                amount: "all", 
+                once: true
+               }}
+            >
+              <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[280px] h-[280px] md:w-[205px] md:h-[205px] lg:w-[272px] lg:h-[272px] xl:w-[401px] xl:h-[401px] 2xl:w-[484px] 2xl:h-[484px] z-10 rounded-xl'></img>
               <div className='gradBorderCore blur-[2px]' />
               <div className='gradBorder blur-sm' />
               <div className='gradBorder blur-md' />
-            </div>
-            <div className='w-[625px] h-[352px] flex flex-col justify-between'>
-              <TypedComp />
-              <h2 className="subHeading text-custom-white-50">
+            </motion.div>
+            <div className='w-[284px] gap-4 md:w-[368px] md:h-[209px] lg:w-[492px] lg:h-[276px] xl:w-[720px] xl:h-[405px] 2xl:w-[866px] 2xl:h-[488px] flex flex-col justify-around'>
+              <motion.h2 
+              className="subHeading text-custom-white-50"
+              initial={{
+                opacity: 0,
+                x: 50,
+                filter: 'blur(12px)'
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0, // Slide in to its original position
+                filter: 'blur(0)',
+                transition: {
+                  delay: 1,
+                  duration: 0.5 // Animation duration
+                }
+              }}
+              viewport={{
+                amount: "all", 
+                once: true
+               }}
+              >
                 I’m an industrial designer turned digital designer & developer.
-              </h2>
-              <p className="body text-custom-white-50">
+              </motion.h2>
+              <motion.p 
+              className="body text-custom-white-50"
+              initial={{
+                opacity: 0,
+                x: 50,
+                filter: 'blur(12px)'
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0, // Slide in to its original position
+                filter: 'blur(0)',
+                transition: {
+                  delay: 1,
+                  duration: 0.5 // Animation duration
+                }
+              }}
+              viewport={{
+                amount: "all", 
+                once: true
+               }}
+              >
                 My training, experience and skillset as an industrial designer significantly overlaps with digital design and development.
                 I love to work on projects that intersect creativity and technology.
-              </p>
+              </motion.p>
             </div>
           </div>
         </div>

@@ -76,15 +76,18 @@ body {
     @apply h-8 filter invert text-xl;
   }
 
+  .content-wrapper {
+    @apply w-screen flex flex-col justify-center items-center
+  }
   .content-container {
-    @apply w-screen min-h-screen flex justify-center items-center
+    @apply w-[284px] md:w-[633px] lg:w-[852px] xl:w-[1245px] 2xl:w-[1496px] min-h-screen flex flex-col justify-center items-center md:flex-row md:justify-between
   }
 
   .subHeading {
-    @apply font-JosefinSans font-light text-xl
+    @apply font-JosefinSans font-light text-xl md:text-2xl lg:text-3xl xl:text-5xl
   }
 
   .body {
-    @apply font-JosefinSans font-extralight text-lg
+    @apply font-JosefinSans font-extralight md:text-lg lg:text-xl xl:text-2xl
   }
 }

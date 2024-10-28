@@ -15,7 +15,7 @@ export default function Curves({ screenWidth, screenHeight }) {
     const speedCap = 2 // speed of particles drawing the lines
     const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
     // const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
-    const crossLimit = 2
+    const crossLimit = 3
     const brushFactor = 27
 
     const canvasX = screenWidth
