@@ -11,6 +11,32 @@ import Lenis from 'lenis'
 import { motion } from "framer-motion";
 import { easeInOut } from "framer-motion/dom";
 
+// svg's
+import HTMLIcon from "./components/SVG/Tech/HTMLIcon"
+import CSSIcon from "./components/SVG/Tech/CSSIcon"
+import JavascriptIcon from "./components/SVG/Tech/JavascriptIcon"
+import PythonIcon from "./components/SVG/Tech/PythonIcon"
+import CIcon from "./components/SVG/Tech/CIcon"
+import TailwindIcon from "./components/SVG/Tech/TailwindIcon"
+import ReactNativeIcon from "./components/SVG/Tech/ReactNativeIcon"
+import ReactIcon from "./components/SVG/Tech/ReactIcon"
+import ReactSpringIcon from "./components/SVG/Tech/ReactSpringIcon"
+import NodeIcon from "./components/SVG/Tech/NodeIcon"
+import NextIcon from "./components/SVG/Tech/NextIcon"
+import FramerMotionIcon from "./components/SVG/Tech/FramerMotionIcon"
+import PlasmoIcon from "./components/SVG/Tech/PlasmoIcon"
+import P5JSIcon from "./components/SVG/Tech/P5JSIcon"
+import ThreeIcon from "./components/SVG/Tech/ThreeIcon"
+import GLSLIcon from "./components/SVG/Tech/GLSLIcon"
+import SQLIcon from "./components/SVG/Tech/SQLIcon"
+import PostGresSQLIcon from "./components/SVG/Tech/PostGresSQLIcon"
+import SupabaseIcon from "./components/SVG/Tech/SupabaseIcon"
+import FigmaIcon from "./components/SVG/Tech/FigmaIcon"
+import PhotoshopIcon from "./components/SVG/Tech/PhotoshopIcon"
+import IllustratorIcon from "./components/SVG/Tech/IllustratorIcon"
+import IndesignIcon from "./components/SVG/Tech/IndesignIcon"
+import BlenderIcon from "./components/SVG/Tech/BlenderIcon"
+
 export default function Home() {
 
   const [screenWidth, setScreenWidth] = useState();
@@ -26,6 +52,106 @@ export default function Home() {
   const content = [
     { id: 'profilePic', src: '/images/Me.png' }
   ]
+
+  const svgicons = [
+    {
+      id: "html",
+      Icon: HTMLIcon
+    },
+    {
+      id: "javascript",
+      Icon: JavascriptIcon
+    },
+    {
+      id: "css",
+      Icon: CSSIcon
+    },
+    {
+      id: "python",
+      Icon: PythonIcon
+    },
+    {
+      id: "c++",
+      Icon: CIcon
+    },
+    {
+      id: "tailwind",
+      Icon: TailwindIcon
+    },
+    {
+      id: "reactNative",
+      Icon: ReactNativeIcon
+    },
+    {
+      id: "react",
+      Icon: ReactIcon
+    },
+    {
+      id: "node",
+      Icon: NodeIcon
+    },
+    {
+      id: "next",
+      Icon: NextIcon
+    },
+    {
+      id: "reactSpring",
+      Icon: ReactSpringIcon
+    },
+    {
+      id: "framerMotion",
+      Icon: FramerMotionIcon
+    },
+    {
+      id: "plasmo",
+      Icon: PlasmoIcon
+    },
+    {
+      id: "p5js",
+      Icon: P5JSIcon
+    },
+    {
+      id: "threejs",
+      Icon: ThreeIcon
+    },
+    {
+      id: "glsl",
+      Icon: GLSLIcon
+    },
+    {
+      id: "sql",
+      Icon: SQLIcon
+    },
+    {
+      id: "postgresSQL",
+      Icon: PostGresSQLIcon
+    },
+    {
+      id: "supabase",
+      Icon: SupabaseIcon
+    },
+    {
+      id: "figma",
+      Icon: FigmaIcon
+    },
+    {
+      id: "photoshop",
+      Icon: PhotoshopIcon
+    },
+    {
+      id: "illustrator",
+      Icon: IllustratorIcon
+    },
+    {
+      id: "indesign",
+      Icon: IndesignIcon
+    },
+    {
+      id: "blender",
+      Icon: BlenderIcon
+    },
+  ]
+
   const [loadingProgress, setLoadingProgress] = useState({
 
   })
@@ -132,59 +258,59 @@ export default function Home() {
                 }
               }}
               viewport={{
-                amount: "all", 
+                amount: "all",
                 once: true
-               }}
+              }}
             >
-              <img src={content[0].src} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[280px] h-[280px] md:w-[205px] md:h-[205px] lg:w-[272px] lg:h-[272px] xl:w-[401px] xl:h-[401px] 2xl:w-[484px] 2xl:h-[484px] z-10 rounded-xl'></img>
+              <img src={content[0].Icon} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[280px] h-[280px] md:w-[205px] md:h-[205px] lg:w-[272px] lg:h-[272px] xl:w-[401px] xl:h-[401px] 2xl:w-[484px] 2xl:h-[484px] z-10 rounded-xl'></img>
               <div className='gradBorderCore blur-[2px]' />
               <div className='gradBorder blur-sm' />
               <div className='gradBorder blur-md' />
             </motion.div>
             <div className='w-[284px] gap-4 md:w-[368px] md:h-[209px] lg:w-[492px] lg:h-[276px] xl:w-[720px] xl:h-[405px] 2xl:w-[866px] 2xl:h-[488px] flex flex-col justify-around'>
-              <motion.h2 
-              className="subHeading text-custom-white-50"
-              initial={{
-                opacity: 0,
-                x: 50,
-                filter: 'blur(12px)'
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0, // Slide in to its original position
-                filter: 'blur(0)',
-                transition: {
-                  delay: 1,
-                  duration: 0.5 // Animation duration
-                }
-              }}
-              viewport={{
-                amount: "all", 
-                once: true
-               }}
+              <motion.h2
+                className="subHeading text-custom-white-50"
+                initial={{
+                  opacity: 0,
+                  x: 50,
+                  filter: 'blur(12px)'
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0, // Slide in to its original position
+                  filter: 'blur(0)',
+                  transition: {
+                    delay: 1,
+                    duration: 0.5 // Animation duration
+                  }
+                }}
+                viewport={{
+                  amount: "all",
+                  once: true
+                }}
               >
                 I’m an industrial designer turned digital designer & developer.
               </motion.h2>
-              <motion.p 
-              className="body text-custom-white-50"
-              initial={{
-                opacity: 0,
-                x: 50,
-                filter: 'blur(12px)'
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0, // Slide in to its original position
-                filter: 'blur(0)',
-                transition: {
-                  delay: 1,
-                  duration: 0.5 // Animation duration
-                }
-              }}
-              viewport={{
-                amount: "all", 
-                once: true
-               }}
+              <motion.p
+                className="body text-custom-white-50"
+                initial={{
+                  opacity: 0,
+                  x: 50,
+                  filter: 'blur(12px)'
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0, // Slide in to its original position
+                  filter: 'blur(0)',
+                  transition: {
+                    delay: 1,
+                    duration: 0.5 // Animation duration
+                  }
+                }}
+                viewport={{
+                  amount: "all",
+                  once: true
+                }}
               >
                 My training, experience and skillset as an industrial designer significantly overlaps with digital design and development.
                 I love to work on projects that intersect creativity and technology.
