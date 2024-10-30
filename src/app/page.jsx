@@ -1,7 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, Fragment } from "react";
 import './globals.css';
+import dynamic from 'next/dynamic'
 
 // components
 import Curves from "./Curves";
@@ -10,32 +11,6 @@ import TypedComp from "./components/TypedComp";
 import Lenis from 'lenis'
 import { motion } from "framer-motion";
 import { easeInOut } from "framer-motion/dom";
-
-// svg's
-import HTMLIcon from "./components/SVG/Tech/HTMLIcon"
-import CSSIcon from "./components/SVG/Tech/CSSIcon"
-import JavascriptIcon from "./components/SVG/Tech/JavascriptIcon"
-import PythonIcon from "./components/SVG/Tech/PythonIcon"
-import CIcon from "./components/SVG/Tech/CIcon"
-import TailwindIcon from "./components/SVG/Tech/TailwindIcon"
-import ReactNativeIcon from "./components/SVG/Tech/ReactNativeIcon"
-import ReactIcon from "./components/SVG/Tech/ReactIcon"
-import ReactSpringIcon from "./components/SVG/Tech/ReactSpringIcon"
-import NodeIcon from "./components/SVG/Tech/NodeIcon"
-import NextIcon from "./components/SVG/Tech/NextIcon"
-import FramerMotionIcon from "./components/SVG/Tech/FramerMotionIcon"
-import PlasmoIcon from "./components/SVG/Tech/PlasmoIcon"
-import P5JSIcon from "./components/SVG/Tech/P5JSIcon"
-import ThreeIcon from "./components/SVG/Tech/ThreeIcon"
-import GLSLIcon from "./components/SVG/Tech/GLSLIcon"
-import SQLIcon from "./components/SVG/Tech/SQLIcon"
-import PostGresSQLIcon from "./components/SVG/Tech/PostGresSQLIcon"
-import SupabaseIcon from "./components/SVG/Tech/SupabaseIcon"
-import FigmaIcon from "./components/SVG/Tech/FigmaIcon"
-import PhotoshopIcon from "./components/SVG/Tech/PhotoshopIcon"
-import IllustratorIcon from "./components/SVG/Tech/IllustratorIcon"
-import IndesignIcon from "./components/SVG/Tech/IndesignIcon"
-import BlenderIcon from "./components/SVG/Tech/BlenderIcon"
 
 export default function Home() {
 
@@ -49,112 +24,112 @@ export default function Home() {
   };
   const typed1Ref = useRef(null);
 
-  const content = [
+  const aboutContent = [
     { id: 'profilePic', src: '/images/Me.png' }
   ]
 
-  const svgicons = [
+  const techIcons = [
     {
-      id: "html",
-      Icon: HTMLIcon
+      id: "HTML",
+      src: "/images/Icons/Tech/HTMLIcon.png"
     },
     {
-      id: "javascript",
-      Icon: JavascriptIcon
+      id: "Javascript",
+      src: "/images/Icons/Tech/JavascriptIcon.png"
     },
     {
-      id: "css",
-      Icon: CSSIcon
+      id: "CSS",
+      src: "/images/Icons/Tech/CSSIcon.png"
     },
     {
-      id: "python",
-      Icon: PythonIcon
+      id: "Python",
+      src: "/images/Icons/Tech/PythonIcon.png"
     },
     {
-      id: "c++",
-      Icon: CIcon
+      id: "C++",
+      src: "/images/Icons/Tech/CIcon.png"
     },
     {
-      id: "tailwind",
-      Icon: TailwindIcon
+      id: "Tailwind CSS",
+      src: "/images/Icons/Tech/TailwindIcon.png"
     },
     {
-      id: "reactNative",
-      Icon: ReactNativeIcon
+      id: "React Native",
+      src: "/images/Icons/Tech/ReactNativeIcon.png"
     },
     {
-      id: "react",
-      Icon: ReactIcon
+      id: "React",
+      src: "/images/Icons/Tech/ReactIcon.png"
     },
     {
-      id: "node",
-      Icon: NodeIcon
+      id: "Node.js",
+      src: "/images/Icons/Tech/NodeIcon.png"
     },
     {
-      id: "next",
-      Icon: NextIcon
+      id: "Next.js",
+      src: "/images/Icons/Tech/NextIcon.png"
     },
     {
-      id: "reactSpring",
-      Icon: ReactSpringIcon
+      id: "React Spring",
+      src: "/images/Icons/Tech/ReactSpringIcon.png"
     },
     {
-      id: "framerMotion",
-      Icon: FramerMotionIcon
+      id: "Framer Motion",
+      src: "/images/Icons/Tech/FramerMotionIcon.png"
     },
     {
-      id: "plasmo",
-      Icon: PlasmoIcon
+      id: "Plasmo",
+      src: "/images/Icons/Tech/PlasmoIcon.png"
     },
     {
-      id: "p5js",
-      Icon: P5JSIcon
+      id: "p5.js",
+      src: "/images/Icons/Tech/P5JSIcon.png"
     },
     {
-      id: "threejs",
-      Icon: ThreeIcon
+      id: "Three.js",
+      src: "/images/Icons/Tech/ThreeIcon.png"
     },
     {
-      id: "glsl",
-      Icon: GLSLIcon
+      id: "GLSL",
+      src: "/images/Icons/Tech/GLSLIcon.png"
     },
     {
-      id: "sql",
-      Icon: SQLIcon
+      id: "SQL",
+      src: "/images/Icons/Tech/SQLIcon.png"
     },
     {
       id: "postgresSQL",
-      Icon: PostGresSQLIcon
+      src: "/images/Icons/Tech/PostGresSQLIcon.png"
     },
     {
-      id: "supabase",
-      Icon: SupabaseIcon
+      id: "Supabase",
+      src: "/images/Icons/Tech/SupabaseIcon.png"
     },
     {
-      id: "figma",
-      Icon: FigmaIcon
+      id: "Figma",
+      src: "/images/Icons/Tech/FigmaIcon.png"
     },
     {
-      id: "photoshop",
-      Icon: PhotoshopIcon
+      id: "Photoshop",
+      src: "/images/Icons/Tech/PhotoshopIcon.png"
     },
     {
-      id: "illustrator",
-      Icon: IllustratorIcon
+      id: "Illustrator",
+      src: "/images/Icons/Tech/IllustratorIcon.png"
     },
     {
-      id: "indesign",
-      Icon: IndesignIcon
+      id: "Indesign",
+      src: "/images/Icons/Tech/IndesignIcon.png"
     },
     {
-      id: "blender",
-      Icon: BlenderIcon
+      id: "Blender",
+      src: "/images/Icons/Tech/BlenderIcon.png"
     },
   ]
 
-  const [loadingProgress, setLoadingProgress] = useState({
+  const noOfContentItems = aboutContent.length + techIcons.length
 
-  })
+  const [loadingProgress, setLoadingProgress] = useState({})
   const handleContentLoad = (imgId) => {
 
     setLoadingProgress(prevState => ({
@@ -170,6 +145,7 @@ export default function Home() {
     }
   }, [setScreenWidth, setScreenHeight]);
 
+  // smooth scrolling
   useEffect(() => {
     // Initialize Lenis
     const lenis = new Lenis();
@@ -187,7 +163,7 @@ export default function Home() {
   useEffect(() => {
     handleResize();
 
-    if (window) {
+    if (typeof window !== 'undefined') {
       window.addEventListener('resize', handleResize);
     }
 
@@ -200,7 +176,7 @@ export default function Home() {
   useEffect(() => {
 
     // checks if all content has loaded and there is the correct amount of props in the loading progress object
-    if (Object.values(loadingProgress).every(item => item === true) && Object.keys(loadingProgress).length === content.length) {
+    if (Object.values(loadingProgress).every(item => item === true) && Object.keys(loadingProgress).length === noOfContentItems) {
       setContentLoaded(true)
       return
     }
@@ -262,7 +238,7 @@ export default function Home() {
                 once: true
               }}
             >
-              <img src={content[0].Icon} onLoad={() => handleContentLoad(content[0].id)} className='relative w-[280px] h-[280px] md:w-[205px] md:h-[205px] lg:w-[272px] lg:h-[272px] xl:w-[401px] xl:h-[401px] 2xl:w-[484px] 2xl:h-[484px] z-10 rounded-xl'></img>
+              <img src={aboutContent[0].src} onLoad={() => handleContentLoad(aboutContent[0].id)} className='relative w-[280px] h-[280px] md:w-[205px] md:h-[205px] lg:w-[272px] lg:h-[272px] xl:w-[401px] xl:h-[401px] 2xl:w-[484px] 2xl:h-[484px] z-10 rounded-xl'></img>
               <div className='gradBorderCore blur-[2px]' />
               <div className='gradBorder blur-sm' />
               <div className='gradBorder blur-md' />
@@ -320,7 +296,20 @@ export default function Home() {
         </div>
 
 
-        <div id='tech' className='content-container bg-blue-500'>
+        <div id='tech' className='content-wrapper bg-custom-white-50'>
+          <div className='content-container flex-col justify-around'>
+            <div className="tech-icon-container">
+              {
+                techIcons.slice(0, 8).map(({ id, src }, index) => (
+                  <div className='tech-icon group' >
+                    <h1 className='body flex justify-center items-center text-lg font-light text-center absolute top-0 py-2 w-auto min-w-full -translate-y-[100%] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500'>{id}</h1>
+                    <img src={src} key={id} />
+                  </div>
+                )
+                )
+              }
+            </div>
+          </div>
         </div>
         <div id='projects' className='content-container bg-green-500'>
         </div>

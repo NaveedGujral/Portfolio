@@ -1,3 +1,5 @@
+'use client'
+
 import { Sketch } from "@p5-wrapper/react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
