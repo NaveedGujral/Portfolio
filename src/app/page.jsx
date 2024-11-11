@@ -133,7 +133,14 @@ export default function Home() {
     },
   ];
 
-  const noOfContentItems = aboutContent.length + techIcons.length;
+  const projectContent = [
+    { id: "visualThumb", src: "/images/Thumbs/VisualThumb.png" },
+    { id: "PlotTwistThumb", src: "/images/Thumbs/PlotTwistThumb.png" },
+    { id: "RCThumb", src: "/images/Thumbs/RCThumb.png" },
+  ];
+
+  const noOfContentItems =
+    aboutContent.length + techIcons.length + projectContent.length;
 
   const [loadingProgress, setLoadingProgress] = useState({});
   const handleContentLoad = (imgId) => {
@@ -182,12 +189,16 @@ export default function Home() {
   }, [handleResize]);
 
   useEffect(() => {
+    // console.log(loadingProgress)
+    console.log(Object.keys(loadingProgress).length);
     // checks if all content has loaded and there is the correct amount of props in the loading progress object
     if (
       Object.values(loadingProgress).every((item) => item === true) &&
-      Object.keys(loadingProgress).length === noOfContentItems.length
+      Object.keys(loadingProgress).length === noOfContentItems &&
+      window !== undefined
     ) {
       setContentLoaded(true);
+      console.log("content loaded");
       return;
     }
 
@@ -195,8 +206,6 @@ export default function Home() {
   }, [loadingProgress]);
 
   // framer motion variants
-
-  const techContainer = {};
 
   const techIconContainer = {
     hidden: { opacity: 0 },
@@ -213,8 +222,12 @@ export default function Home() {
     show: { opacity: 1 },
   };
 
+  //
+
   return (
-    <main className="min-h-screen w-screen flex-col bg-custom-grey items-center justify-between p-0 overflow-x-hidden">
+    <main
+      className={`min-h-screen w-screen flex-col bg-custom-grey items-center justify-between p-0 overflow-x-hidden`}
+    >
       <section
         id="landing"
         className="flex w-screen h-screen top-0 justify-center items-center overflow-hidden"
@@ -250,13 +263,15 @@ export default function Home() {
 
       <section
         id="content"
-        className="relative top-[0vh] overflow-x-hidden flex flex-col w-screen min-h-screen items-center justify-center"
+        className={`relative top-[0vh] overflow-x-hidden flex-col w-screen min-h-screen items-center justify-center ${
+          contentLoaded ? "flex" : "hidden"
+        }`}
       >
         <div className=" bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] "></div>
         <div id="intro" className="content-wrapper bg-custom-grey">
           <div className="content-container">
             <motion.div
-              className=" w-[284px] h-[284px] md:w-[209px] md:h-[209px] lg:w-[276px] lg:h-[276px] xl:w-[405px] xl:h-[405px] 2xl:w-[488px] 2xl:h-[488px] justify-center items-center flex relative"
+              className="w-[284px] h-[284px] md:w-[209px] md:h-[209px] lg:w-[276px] lg:h-[276px] xl:w-[405px] xl:h-[405px] 2xl:w-[488px] 2xl:h-[488px] justify-center items-center flex relative"
               initial={{
                 opacity: 0,
                 y: 50,
@@ -335,6 +350,7 @@ export default function Home() {
                         </h1>
                         <img
                           src={src}
+                          onLoad={() => handleContentLoad(id)}
                           className="w-auto h-full object-contain"
                         />
                       </motion.div>
@@ -346,10 +362,47 @@ export default function Home() {
           </div>
         </div>
         <div id="projects" className="content-wrapper bg-custom-white-50">
-          <div className="content-container bg-green-500"></div>
+          <div className="content-container flex-col">
+
+            <div className="project-card">
+              <div className="project-card-img">
+                <img
+                  src={projectContent[0].src}
+                  onLoad={() => {
+                    handleContentLoad(projectContent[0].id);
+                  }}
+                ></img>
+              </div>
+            </div>
+
+            <div className="project-card">
+              <div className="project-card-img">
+                <img
+                  src={projectContent[1].src}
+                  onLoad={() => {
+                    handleContentLoad(projectContent[1].id);
+                  }}
+                ></img>
+              </div>
+            </div>
+
+            <div className="project-card">
+              <div className="project-card-img">
+                <img
+                  src={projectContent[2].src}
+                  onLoad={() => {
+                    handleContentLoad(projectContent[2].id);
+                  }}
+                ></img>
+              </div>
+            </div>
+
+          </div>
         </div>
         <div id="footer" className="content-container"></div>
       </section>
+
+      <div className="absolute h-screen w-screen bg-red-500 z-50 top-0"></div>
     </main>
   );
 }

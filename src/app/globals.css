@@ -98,4 +98,12 @@ body {
   .tech-icon {
     @apply w-[44px] h-[44px] md:w-[50px] md:h-[50px] lg:w-[60px] lg:h-[60px] xl:w-[90px] xl:h-[90px] 2xl:w-[110px] 2xl:h-[110px] object-contain hover:scale-125 flex flex-col justify-center relative transition-transform duration-500
   }
+
+  .project-card {
+    @apply w-full flex flex-row
+  }
+
+  .project-card-img {
+    @apply md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center
+  }
 }
