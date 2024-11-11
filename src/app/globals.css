@@ -80,7 +80,7 @@ body {
     @apply w-screen min-h-screen flex flex-col justify-center items-center
   }
   .content-container {
-    @apply w-[284px] md:w-[633px] lg:w-[852px] xl:w-[1245px] 2xl:w-[1496px] min-h-screen flex flex-col justify-center items-center md:flex-row md:justify-between
+    @apply w-[260px] md:w-[633px] lg:w-[852px] xl:w-[1245px] 2xl:w-[1496px] min-h-screen flex flex-col justify-center items-center md:flex-row md:justify-between
   }
 
   .subHeading {
@@ -96,6 +96,6 @@ body {
   }
 
   .tech-icon {
-    @apply w-[44px] h-[44px] md:w-[61px] md:h-[61px] lg:w-[75px] lg:h-[75px] xl:w-[111px] xl:h-[111px] 2xl:w-[135px] 2xl:h-[135px] object-contain hover:scale-125 flex flex-col justify-center relative transition-transform duration-500
+    @apply w-[44px] h-[44px] md:w-[50px] md:h-[50px] lg:w-[60px] lg:h-[60px] xl:w-[90px] xl:h-[90px] 2xl:w-[110px] 2xl:h-[110px] object-contain hover:scale-125 flex flex-col justify-center relative transition-transform duration-500
   }
 }

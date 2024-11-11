@@ -14,11 +14,13 @@ export default function Curves({ screenWidth, screenHeight }) {
     // const particleNo = 1; // number of lines drawn
     const particleNo = 150; // number of lines drawn
     
-    const speedCap = 2 // speed of particles drawing the lines
+    const speedCap = 1.5 // speed of particles drawing the lines
     const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
     // const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
     const crossLimit = 3
     const brushFactor = 27
+    const bristleRad = 3
+    const bristleOpacity = 15
 
     const canvasX = screenWidth
     const canvasY = screenHeight
@@ -74,10 +76,10 @@ export default function Curves({ screenWidth, screenHeight }) {
             this.outG = p5.map(this.pos.y, -p5.height/2, p5.height/2, col1.g, col2.g, true)
             this.outB = p5.map(this.pos.y, -p5.height/2, p5.height/2, col1.b, col2.b, true)
             
-            p5.fill(this.outR, this.outG, this.outB, 25)
+            p5.fill(this.outR, this.outG, this.outB, bristleOpacity)
             // p5.fill(col1.r, col1.g, col1.b, 5)
             p5.strokeWeight(0)
-            p5.ellipse(this.pos.x, this.pos.y, 2)
+            p5.ellipse(this.pos.x, this.pos.y, bristleRad)
 
 
             // this.updatePrev()
