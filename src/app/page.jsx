@@ -15,6 +15,8 @@ import { chunk } from "lodash"; // Make sure to import the chunk utility
 // components
 import Curves from "./Curves";
 import LandingTitle from "./components/SVG/LandingTitle";
+import InternetIcon from "./components/SVG/InternetIcon"
+import GithubIcon from "./components/SVG/GithubIcon"
 import TypedComp from "./components/TypedComp";
 import Lenis from "lenis";
 import { motion } from "framer-motion";
@@ -137,6 +139,7 @@ export default function Home() {
     { id: "visualThumb", src: "/images/Thumbs/VisualThumb.png" },
     { id: "PlotTwistThumb", src: "/images/Thumbs/PlotTwistThumb.png" },
     { id: "RCThumb", src: "/images/Thumbs/RCThumb.png" },
+    { id: "ChromeWebstore", src: "/images/Icons/Webstore.png" },
   ];
 
   const noOfContentItems =
@@ -361,11 +364,11 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div id="projects" className="content-wrapper bg-custom-white-50">
-          <div className="content-container flex-col">
 
+        <div id="projects" className="content-wrapper bg-custom-white-50">
+          <div className="content-container flex-col gap-64 py-64">
             <div className="project-card">
-              <div className="project-card-img">
+              <div className="md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center">
                 <img
                   src={projectContent[0].src}
                   onLoad={() => {
@@ -373,9 +376,43 @@ export default function Home() {
                   }}
                 ></img>
               </div>
+              <div className="project-card-info">
+                <div className="project-card-title-row">
+                  <h1 className="project-card-title">Visual</h1>
+                  <div className="md:w-[103px] lg:w-[132px] xl:w-[195px] 2xl:w-[236px]">
+                    <img
+                      src={projectContent[3].src}
+                      onLoad={() => {
+                        handleContentLoad(projectContent[3].id);
+                      }}
+                    ></img>
+                  </div>
+                </div>
+
+                <p className="project-card-desc">
+                  A chrome extension for visualising music
+                </p>
+
+                <button className="project-button">Case Study</button>
+              </div>
             </div>
 
             <div className="project-card">
+              <div className="project-card-info">
+                <div className="project-card-title-row">
+                  <h1 className="project-card-title">PlotTwist</h1>
+                  <div className="project-card-icon">
+                    <GithubIcon />
+                  </div>
+                </div>
+
+                <p className="project-card-desc">
+                  A MVP mobile app for swapping books
+                </p>
+
+                <button className="project-button">Case Study</button>
+              </div>
+
               <div className="project-card-img">
                 <img
                   src={projectContent[1].src}
@@ -395,8 +432,22 @@ export default function Home() {
                   }}
                 ></img>
               </div>
-            </div>
 
+              <div className="project-card-info">
+                <div className="project-card-title-row">
+                  <h1 className="project-card-title">Reine Creative</h1>
+                  <div className="project-card-icon">
+                    <InternetIcon />
+                  </div>
+                </div>
+
+                <p className="project-card-desc">
+                  A website for a film production company
+                </p>
+
+                <button className="project-button">Case Study</button>
+              </div>
+            </div>
           </div>
         </div>
         <div id="footer" className="content-container"></div>

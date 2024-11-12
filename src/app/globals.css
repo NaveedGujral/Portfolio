@@ -100,10 +100,35 @@ body {
   }
 
   .project-card {
-    @apply w-full flex flex-row
+    @apply w-full flex flex-row justify-between py-8
   }
 
   .project-card-img {
     @apply md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center
+  }
+  
+  .project-card-info {
+    @apply flex flex-col items-start gap-8 md:w-[262px] lg:w-[348px] xl:w-[510px] 2xl:w-[614px]
+  }
+
+  .project-card-title-row {
+    @apply h-auto w-full flex flex-row justify-between items-center
+  }
+
+  .project-card-title {
+    @apply subHeading -translate-x-2
+  }
+
+  .project-card-desc {
+    @apply body py-4
+  }
+  
+  .project-card-icon {
+    @apply md:w-[25px] lg:w-[30px] xl:w-[45px] 2xl:w-[55px] text-custom-purple opacity-85 hover:opacity-100 transition-opacity duration-500
+
+  }
+
+  .project-button {
+    @apply p-4 py-2 my-2 rounded-md flex justify-center items-center bg-custom-purple body text-custom-white-50 font-light opacity-85 hover:opacity-100 transition-opacity duration-500
   }
 }
