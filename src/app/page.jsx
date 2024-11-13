@@ -11,16 +11,16 @@ import React, {
 import "./globals.css";
 import dynamic from "next/dynamic";
 import { chunk } from "lodash"; // Make sure to import the chunk utility
+import Lenis from "lenis";
+import { motion } from "framer-motion";
+import { easeInOut } from "framer-motion/dom";
 
 // components
 import Curves from "./Curves";
 import LandingTitle from "./components/SVG/LandingTitle";
-import InternetIcon from "./components/SVG/InternetIcon"
-import GithubIcon from "./components/SVG/GithubIcon"
-import TypedComp from "./components/TypedComp";
-import Lenis from "lenis";
-import { motion } from "framer-motion";
-import { easeInOut } from "framer-motion/dom";
+import InternetIcon from "./components/SVG/InternetIcon";
+import GithubIcon from "./components/SVG/GithubIcon";
+import CaseStudyButton from "./components/CaseStudyButton";
 
 export default function Home() {
   const [screenWidth, setScreenWidth] = useState();
@@ -28,11 +28,14 @@ export default function Home() {
   const [button, setButton] = useState(false);
   const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
-  const handleClick = (section) => {
+  const [visualContentOpen, setVisualContentOpen] = useState(false);
+
+  const visualContentRef = useRef(null);
+
+  const scrollTo = (section) => {
     const element = document.getElementById(section);
     element.scrollIntoView({ behavior: "smooth" });
   };
-  const typed1Ref = useRef(null);
 
   const aboutContent = [{ id: "profilePic", src: "/images/Me.png" }];
 
@@ -229,11 +232,11 @@ export default function Home() {
 
   return (
     <main
-      className={`min-h-screen w-screen flex-col bg-custom-grey items-center justify-between p-0 overflow-x-hidden`}
+      className={`min-h-screen w-full flex-col bg-custom-grey items-center justify-between p-0 overflow-y-visible`}
     >
       <section
         id="landing"
-        className="flex w-screen h-screen top-0 justify-center items-center overflow-hidden"
+        className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
       >
         <motion.div
           className="flex fixed justify-center items-center w-screen h-screen overflow-hidden"
@@ -266,7 +269,7 @@ export default function Home() {
 
       <section
         id="content"
-        className={`relative top-[0vh] overflow-x-hidden flex-col w-screen min-h-screen items-center justify-center ${
+        className={`relative top-[0vh] overflow-x-hidden flex-col w-full min-h-screen items-center justify-center ${
           contentLoaded ? "flex" : "hidden"
         }`}
       >
@@ -365,95 +368,124 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="projects" className="content-wrapper bg-custom-white-50">
-          <div className="content-container flex-col gap-64 py-64">
-            <div className="project-card">
-              <div className="md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center">
-                <img
-                  src={projectContent[0].src}
-                  onLoad={() => {
-                    handleContentLoad(projectContent[0].id);
-                  }}
-                ></img>
-              </div>
-              <div className="project-card-info">
-                <div className="project-card-title-row">
-                  <h1 className="project-card-title">Visual</h1>
-                  <div className="md:w-[103px] lg:w-[132px] xl:w-[195px] 2xl:w-[236px]">
-                    <img
-                      src={projectContent[3].src}
-                      onLoad={() => {
-                        handleContentLoad(projectContent[3].id);
-                      }}
-                    ></img>
-                  </div>
+        {/* <div id="projects" className="content-wrapper bg-custom-white-50"> */}
+        <div className="content-wrapper bg-custom-white-50 flex-col gap-64 py-64">
+          <div className="project-card">
+            <div className="md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center">
+              <img
+                src={projectContent[0].src}
+                onLoad={() => {
+                  handleContentLoad(projectContent[0].id);
+                }}
+              ></img>
+            </div>
+            <div className="project-card-info">
+              <div className="project-card-title-row">
+                <h1 className="project-card-title">Visual</h1>
+                <div className="md:w-[103px] lg:w-[132px] xl:w-[195px] 2xl:w-[236px]">
+                  <img
+                    src={projectContent[3].src}
+                    onLoad={() => {
+                      handleContentLoad(projectContent[3].id);
+                    }}
+                  ></img>
                 </div>
-
-                <p className="project-card-desc">
-                  A chrome extension for visualising music
-                </p>
-
-                <button className="project-button">Case Study</button>
               </div>
+
+              <p className="project-card-desc">
+                A chrome extension for visualising music
+              </p>
+              <motion.button
+                className="project-button"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={(event) => {
+                  if (visualContentOpen === true) {
+                    event.preventDefault();
+                    setVisualContentOpen(false);
+                  } 
+                  else {
+                    event.preventDefault();
+                    setVisualContentOpen(true);
+                    scrollTo("visualContent") 
+                  }
+                }}
+              >
+                Case Study
+              </motion.button>
+            </div>
+          </div>
+          <div
+            id="visualContent" 
+            className={`project-card-content-parent bg-green-500 transition-[max-height] duration-500 ease-in-out ${
+              visualContentOpen ? "max-h-screen" : "max-h-0"
+            }`}
+          >
+            <div className="h-screen w-full"></div>
+          </div>
+
+          <div className="project-card">
+            <div className="project-card-info">
+              <div className="project-card-title-row">
+                <h1 className="project-card-title">PlotTwist</h1>
+                <button className="project-card-icon">
+                  <GithubIcon />
+                </button>
+              </div>
+
+              <p className="project-card-desc">
+                A MVP mobile app for swapping books
+              </p>
+
+              <CaseStudyButton />
             </div>
 
-            <div className="project-card">
-              <div className="project-card-info">
-                <div className="project-card-title-row">
-                  <h1 className="project-card-title">PlotTwist</h1>
-                  <div className="project-card-icon">
-                    <GithubIcon />
-                  </div>
-                </div>
+            <div className="project-card-img">
+              <img
+                src={projectContent[1].src}
+                onLoad={() => {
+                  handleContentLoad(projectContent[1].id);
+                }}
+              ></img>
+            </div>
+          </div>
 
-                <p className="project-card-desc">
-                  A MVP mobile app for swapping books
-                </p>
-
-                <button className="project-button">Case Study</button>
-              </div>
-
-              <div className="project-card-img">
-                <img
-                  src={projectContent[1].src}
-                  onLoad={() => {
-                    handleContentLoad(projectContent[1].id);
-                  }}
-                ></img>
-              </div>
+          <div className="project-card">
+            <div className="project-card-img">
+              <img
+                src={projectContent[2].src}
+                onLoad={() => {
+                  handleContentLoad(projectContent[2].id);
+                }}
+              ></img>
             </div>
 
-            <div className="project-card">
-              <div className="project-card-img">
-                <img
-                  src={projectContent[2].src}
-                  onLoad={() => {
-                    handleContentLoad(projectContent[2].id);
-                  }}
-                ></img>
+            <div className="project-card-info">
+              <div className="project-card-title-row">
+                <h1 className="project-card-title">Reine Creative</h1>
+                <button className="project-card-icon">
+                  <InternetIcon />
+                </button>
               </div>
 
-              <div className="project-card-info">
-                <div className="project-card-title-row">
-                  <h1 className="project-card-title">Reine Creative</h1>
-                  <div className="project-card-icon">
-                    <InternetIcon />
-                  </div>
-                </div>
+              <p className="project-card-desc">
+                A website for a film production company
+              </p>
 
-                <p className="project-card-desc">
-                  A website for a film production company
-                </p>
-
-                <button className="project-button">Case Study</button>
-              </div>
+              <CaseStudyButton />
             </div>
           </div>
         </div>
+        {/* </div> */}
+
         <div id="footer" className="content-container"></div>
       </section>
 
-      <div className="absolute h-screen w-screen bg-red-500 z-50 top-0"></div>
+      <div
+        className={`absolute h-screen w-full bg-red-500 z-50 top-0 transition-opacity duration-500 ${
+          contentLoaded ? "opacity-0" : "opacity-100"
+        }`}
+      ></div>
     </main>
   );
 }
