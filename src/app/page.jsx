@@ -8,6 +8,7 @@ import React, {
   useState,
   Fragment,
 } from "react";
+import Video from 'next-video';
 import "./globals.css";
 import dynamic from "next/dynamic";
 import { chunk } from "lodash"; // Make sure to import the chunk utility
@@ -22,6 +23,10 @@ import InternetIcon from "./components/SVG/InternetIcon";
 import GithubIcon from "./components/SVG/GithubIcon";
 import CaseStudyButton from "./components/CaseStudyButton";
 
+// assets
+// import visualL from "../../public/videos/VisualLandscape.mp4";
+// import visualP from "/videos/VisualPortrait.mp4";
+
 export default function Home() {
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
@@ -29,6 +34,7 @@ export default function Home() {
   const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
   const [visualContentOpen, setVisualContentOpen] = useState(false);
+  const [visualVidSrc, setVisualVidSrc] = useState("");
 
   const visualContentRef = useRef(null);
 
@@ -146,26 +152,32 @@ export default function Home() {
   ];
 
   const noOfContentItems =
-    aboutContent.length + techIcons.length + projectContent.length;
+    aboutContent.length + techIcons.length + projectContent.length
 
   const [loadingProgress, setLoadingProgress] = useState({});
-  const handleContentLoad = (imgId) => {
+  const handleContentLoad = (imgId, bool = true) => {
     setLoadingProgress((prevState) => ({
       ...prevState,
-      [imgId]: true,
+      [imgId]: bool,
     }));
   };
 
   const handleResize = useCallback(() => {
+    let visualSrc = "";
     if (window) {
       setScreenWidth(window.innerWidth);
       setScreenHeight(window.innerHeight);
 
       if (window.innerWidth < window.innerHeight) {
         setIconChunks(chunk(techIcons, 4));
-      } else setIconChunks(chunk(techIcons, 8));
+        // visualSrc = visualP;
+      } else {
+        setIconChunks(chunk(techIcons, 8));
+        // visualSrc = visualL;
+      }
     }
-  }, [setScreenWidth, setScreenHeight]);
+    setVisualVidSrc(visualSrc);
+  }, [setScreenWidth, setScreenHeight, setVisualVidSrc]);
 
   // smooth scrolling
   useEffect(() => {
@@ -234,7 +246,7 @@ export default function Home() {
     <main
       className={`min-h-screen w-full flex-col bg-custom-grey items-center justify-between p-0 overflow-y-visible`}
     >
-      <section
+      {/* <section
         id="landing"
         className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
       >
@@ -265,7 +277,7 @@ export default function Home() {
             <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
           </div>
         </motion.div>
-      </section>
+      </section> */}
 
       <section
         id="content"
@@ -368,8 +380,10 @@ export default function Home() {
           </div>
         </div>
 
-        {/* <div id="projects" className="content-wrapper bg-custom-white-50"> */}
-        <div className="content-wrapper bg-custom-white-50 flex-col gap-64 py-64">
+        <div
+          id="projects"
+          className="content-wrapper bg-custom-white-50 flex-col gap-64 py-64"
+        >
           <div className="project-card">
             <div className="md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center">
               <img
@@ -403,11 +417,10 @@ export default function Home() {
                   if (visualContentOpen === true) {
                     event.preventDefault();
                     setVisualContentOpen(false);
-                  } 
-                  else {
+                  } else {
                     event.preventDefault();
                     setVisualContentOpen(true);
-                    scrollTo("visualContent") 
+                    scrollTo("visualContent");
                   }
                 }}
               >
@@ -416,12 +429,26 @@ export default function Home() {
             </div>
           </div>
           <div
-            id="visualContent" 
-            className={`project-card-content-parent bg-green-500 transition-[max-height] duration-500 ease-in-out ${
+            id="visualContent"
+            className={`project-card-content-parent transition-[max-height] duration-500 ease-in-out ${
               visualContentOpen ? "max-h-screen" : "max-h-0"
             }`}
           >
-            <div className="h-screen w-full"></div>
+            <div className="h-screen w-full">
+              <Video
+                src={"/videos/VisualLandscape.mp4"}
+                // onLoadStart={() => {
+                //   handleContentLoad("visualVid", false);
+                // }}
+                // onLoadedData={() => {
+                //   handleContentLoad("visualVid");
+                // }}
+                autoPlay
+                loop
+                muted
+                className="object-cover h-screen w-screen"
+              />
+            </div>
           </div>
 
           <div className="project-card">
@@ -476,7 +503,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        {/* </div> */}
 
         <div id="footer" className="content-container"></div>
       </section>
