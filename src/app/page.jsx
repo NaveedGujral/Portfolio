@@ -32,6 +32,7 @@ export default function Home() {
   const [screenHeight, setScreenHeight] = useState();
   const [button, setButton] = useState(false);
   const [contentLoaded, setContentLoaded] = useState(true);
+  // const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
   const [visualContentOpen, setVisualContentOpen] = useState(false);
   const [visualVidSrc, setVisualVidSrc] = useState("");
@@ -218,7 +219,7 @@ export default function Home() {
       return;
     }
 
-    setContentLoaded(false);
+    // setContentLoaded(false);
   }, [loadingProgress]);
 
   // useEffect(() => {
@@ -250,7 +251,7 @@ export default function Home() {
     <main
       className={`min-h-screen w-full flex-col bg-custom-grey items-center justify-between p-0 overflow-y-visible`}
     >
-      <section
+      {/* <section
         id="landing"
         className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
       >
@@ -281,7 +282,7 @@ export default function Home() {
             <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
           </div>
         </motion.div>
-      </section>
+      </section> */}
 
       <section
         id="content"
@@ -289,7 +290,7 @@ export default function Home() {
           contentLoaded ? "flex" : "hidden"
         }`}
       >
-        <div className=" bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] "></div>
+        {/* <div className=" bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] "></div>
         <div id="intro" className="content-wrapper bg-custom-grey">
           <div className="content-container">
             <motion.div
@@ -382,7 +383,7 @@ export default function Home() {
               </motion.div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div
           id="projects"
@@ -437,7 +438,7 @@ export default function Home() {
           </div>
           <div
             id="visualContent"
-            className={`project-card-content-parent transition-[max-height] duration-1000 ease-in-out ${
+            className={`project-card-content-parent flex flex-col justify-center items-center transition-[max-height] duration-1000 ease-in-out ${
               visualContentOpen ? "max-h-[350vh]" : "max-h-0"
             }`}
           >
@@ -459,20 +460,28 @@ export default function Home() {
               />
             </div>
             <div
-              className={`w-full transition-[height] duration-1000 ease-in-out bg-green-200 ${
-                visualContentOpen ? "h-[50vh]" : "h-0"
+              className={`content-container flex-col gap-12 flex items-start min-h-0 transition-transform transition-opacity duration-1000 ease-in-out ${
+                visualContentOpen
+                  ? "scale-y-100 opacity-100"
+                  : "scale-y-0 opacity-0"
               }`}
-            ></div>
-            <div
-              className={` w-full transition-[height] duration-1000 ease-in-out bg-red-200 ${
-                visualContentOpen ? "h-[50vh]" : "h-0"
-              }`}
-            ></div>
-            <div
-              className={`w-full transition-[height] duration-1000 ease-in-out bg-blue-200 ${
-                visualContentOpen ? "h-[50vh]" : "h-0"
-              }`}
-            ></div>
+            >
+              <div className="h-8" />
+              <h1 className="subHeading font-extralight">Technologies</h1>
+              <h1 className="subHeading font-extralight">Context</h1>
+              <p className="body">
+                Visual is a chrome extension that can visualise audio from any
+                tab. The visualiser is created in a stand-alone tab which can
+                then be put onto a project or second monitor for the user to
+                enjoy. My role during the project focused on{" "}
+                <span className=" italic font-light">
+                  UI/UX Design, Identity Design, Front-end development
+                </span>{" "}
+                & <span className=" italic font-light">3D Graphics</span>. The
+                project is currently in beta and we are conducting user research
+                which will inform the next round of development.
+              </p>
+            </div>
           </div>
 
           <div className="project-card">
@@ -531,11 +540,11 @@ export default function Home() {
         <div id="footer" className="content-container"></div>
       </section>
 
-      <div
+      {/* <div
         className={`absolute h-screen w-full bg-red-500 z-50 top-0 transition-opacity duration-500 ${
           contentLoaded ? "opacity-0" : "opacity-100"
         }`}
-      ></div>
+      ></div> */}
     </main>
   );
 }
