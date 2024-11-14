@@ -8,7 +8,7 @@ import React, {
   useState,
   Fragment,
 } from "react";
-import Video from 'next-video';
+import Video from "next-video";
 import "./globals.css";
 import dynamic from "next/dynamic";
 import { chunk } from "lodash"; // Make sure to import the chunk utility
@@ -152,7 +152,7 @@ export default function Home() {
   ];
 
   const noOfContentItems =
-    aboutContent.length + techIcons.length + projectContent.length
+    aboutContent.length + techIcons.length + projectContent.length;
 
   const [loadingProgress, setLoadingProgress] = useState({});
   const handleContentLoad = (imgId, bool = true) => {
@@ -191,6 +191,10 @@ export default function Home() {
     }
 
     requestAnimationFrame(raf);
+
+    fetch("/videos/VisualLandscape.mp4")
+      .then((response) => response.url)
+      .then((url) => setVisualVidSrc(url));
   }, []);
 
   useEffect(() => {
@@ -246,7 +250,7 @@ export default function Home() {
     <main
       className={`min-h-screen w-full flex-col bg-custom-grey items-center justify-between p-0 overflow-y-visible`}
     >
-      {/* <section
+      <section
         id="landing"
         className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
       >
@@ -277,7 +281,7 @@ export default function Home() {
             <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
           </div>
         </motion.div>
-      </section> */}
+      </section>
 
       <section
         id="content"
@@ -434,9 +438,9 @@ export default function Home() {
               visualContentOpen ? "max-h-screen" : "max-h-0"
             }`}
           >
-            <div className="h-screen w-full">
-              <Video
-                src={"/videos/VisualLandscape.mp4"}
+            <div className="h-full w-full">
+              <video
+                src={visualVidSrc}
                 // onLoadStart={() => {
                 //   handleContentLoad("visualVid", false);
                 // }}
@@ -446,7 +450,9 @@ export default function Home() {
                 autoPlay
                 loop
                 muted
-                className="object-cover h-screen w-screen"
+                className={`object-cover w-screen transition-[height] duration-500 ease-in-out ${
+                  visualContentOpen ? "h-screen" : "h-0"
+                }`}
               />
             </div>
           </div>

@@ -65,7 +65,7 @@ body {
 
 @font-face {
   font-family: "LexendGiga";
-  src: url("/assets/fonts/LexendGiga-VariableFont_wght.ttf");
+  src: url("/fonts/LexendGiga-VariableFont_wght.ttf");
 }
 
 @font-face {
@@ -73,7 +73,7 @@ body {
   font-style: normal;
   font-weight: 100 900;
   font-display: block;
-  src: url("/assets/fonts/JosefinSans-VariableFont_wght.ttf")
+  src: url("/fonts/JosefinSans-VariableFont_wght.ttf")
     format("truetype");
 }
 
