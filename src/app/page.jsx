@@ -421,13 +421,13 @@ export default function Home() {
                   if (visualContentOpen === true) {
                     event.preventDefault();
                     setVisualContentOpen(false);
-                    document.getElementById("visualVideo").pause()
+                    document.getElementById("visualVideo").pause();
                   } else {
                     event.preventDefault();
                     setVisualContentOpen(true);
                     scrollTo("visualContent");
-                    document.getElementById("visualVideo").currentTime = 0
-                    document.getElementById("visualVideo").play()
+                    document.getElementById("visualVideo").currentTime = 0;
+                    document.getElementById("visualVideo").play();
                   }
                 }}
               >
@@ -438,7 +438,7 @@ export default function Home() {
           <div
             id="visualContent"
             className={`project-card-content-parent transition-[max-height] duration-1000 ease-in-out ${
-              visualContentOpen ? "max-h-screen" : "max-h-0"
+              visualContentOpen ? "max-h-[350vh]" : "max-h-0"
             }`}
           >
             <div className="w-full">
@@ -458,6 +458,21 @@ export default function Home() {
                 }`}
               />
             </div>
+            <div
+              className={`w-full transition-[height] duration-1000 ease-in-out bg-green-200 ${
+                visualContentOpen ? "h-[50vh]" : "h-0"
+              }`}
+            ></div>
+            <div
+              className={` w-full transition-[height] duration-1000 ease-in-out bg-red-200 ${
+                visualContentOpen ? "h-[50vh]" : "h-0"
+              }`}
+            ></div>
+            <div
+              className={`w-full transition-[height] duration-1000 ease-in-out bg-blue-200 ${
+                visualContentOpen ? "h-[50vh]" : "h-0"
+              }`}
+            ></div>
           </div>
 
           <div className="project-card">
