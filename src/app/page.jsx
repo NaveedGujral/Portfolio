@@ -24,19 +24,19 @@ import GithubIcon from "./components/SVG/GithubIcon";
 import CaseStudyButton from "./components/CaseStudyButton";
 
 // assets
-// import visualL from "../../public/videos/VisualLandscape.mp4";
-// import visualP from "/videos/VisualPortrait.mp4";
+import visualL from "../../public/videos/VisualLandscape.mp4";
+import visualP from "../../public/videos/VisualPortrait.mp4";
 
 export default function Home() {
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
   const [button, setButton] = useState(false);
-  const [contentLoaded, setContentLoaded] = useState(false);
+  const [contentLoaded, setContentLoaded] = useState(true);
   const [iconChunks, setIconChunks] = useState([]);
   const [visualContentOpen, setVisualContentOpen] = useState(false);
   const [visualVidSrc, setVisualVidSrc] = useState("");
 
-  const visualContentRef = useRef(null);
+  const visualVidRef = useRef(null);
 
   const scrollTo = (section) => {
     const element = document.getElementById(section);
@@ -152,7 +152,7 @@ export default function Home() {
   ];
 
   const noOfContentItems =
-    aboutContent.length + techIcons.length + projectContent.length;
+    aboutContent.length + techIcons.length + projectContent.length + 1;
 
   const [loadingProgress, setLoadingProgress] = useState({});
   const handleContentLoad = (imgId, bool = true) => {
@@ -162,6 +162,16 @@ export default function Home() {
     }));
   };
 
+  useEffect(() => {
+    // smooth scrolling
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }, []);
+
   const handleResize = useCallback(() => {
     let visualSrc = "";
     if (window) {
@@ -170,32 +180,18 @@ export default function Home() {
 
       if (window.innerWidth < window.innerHeight) {
         setIconChunks(chunk(techIcons, 4));
-        // visualSrc = visualP;
+        if (visualVidSrc !== visualP) {
+          visualSrc = visualP;
+        }
       } else {
         setIconChunks(chunk(techIcons, 8));
-        // visualSrc = visualL;
+        if (visualVidSrc !== visualL) {
+          visualSrc = visualL;
+        }
       }
     }
     setVisualVidSrc(visualSrc);
   }, [setScreenWidth, setScreenHeight, setVisualVidSrc]);
-
-  // smooth scrolling
-  useEffect(() => {
-    // Initialize Lenis
-    const lenis = new Lenis();
-
-    // Use requestAnimationFrame to continuously update the scroll
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    fetch("/videos/VisualLandscape.mp4")
-      .then((response) => response.url)
-      .then((url) => setVisualVidSrc(url));
-  }, []);
 
   useEffect(() => {
     handleResize();
@@ -211,8 +207,6 @@ export default function Home() {
   }, [handleResize]);
 
   useEffect(() => {
-    // console.log(loadingProgress)
-    console.log(Object.keys(loadingProgress).length);
     // checks if all content has loaded and there is the correct amount of props in the loading progress object
     if (
       Object.values(loadingProgress).every((item) => item === true) &&
@@ -226,6 +220,14 @@ export default function Home() {
 
     setContentLoaded(false);
   }, [loadingProgress]);
+
+  // useEffect(() => {
+  //   if (visualContentOpen) {
+  //     visualVidRef.play()
+  //     return
+  //   }
+  //   visualVidRef.pause()
+  // }, [visualContentOpen]);
 
   // framer motion variants
 
@@ -243,8 +245,6 @@ export default function Home() {
     hidden: { opacity: 0 },
     show: { opacity: 1 },
   };
-
-  //
 
   return (
     <main
@@ -421,10 +421,13 @@ export default function Home() {
                   if (visualContentOpen === true) {
                     event.preventDefault();
                     setVisualContentOpen(false);
+                    document.getElementById("visualVideo").pause()
                   } else {
                     event.preventDefault();
                     setVisualContentOpen(true);
                     scrollTo("visualContent");
+                    document.getElementById("visualVideo").currentTime = 0
+                    document.getElementById("visualVideo").play()
                   }
                 }}
               >
@@ -434,23 +437,23 @@ export default function Home() {
           </div>
           <div
             id="visualContent"
-            className={`project-card-content-parent transition-[max-height] duration-500 ease-in-out ${
+            className={`project-card-content-parent transition-[max-height] duration-1000 ease-in-out ${
               visualContentOpen ? "max-h-screen" : "max-h-0"
             }`}
           >
-            <div className="h-full w-full">
+            <div className="w-full">
               <video
+                id="visualVideo"
                 src={visualVidSrc}
-                // onLoadStart={() => {
-                //   handleContentLoad("visualVid", false);
-                // }}
-                // onLoadedData={() => {
-                //   handleContentLoad("visualVid");
-                // }}
-                autoPlay
+                onLoadStart={() => {
+                  handleContentLoad("visualVid", false);
+                }}
+                onLoadedData={() => {
+                  handleContentLoad("visualVid");
+                }}
                 loop
                 muted
-                className={`object-cover w-screen transition-[height] duration-500 ease-in-out ${
+                className={`object-cover w-screen transition-[height] duration-1000 ease-in-out ${
                   visualContentOpen ? "h-screen" : "h-0"
                 }`}
               />
