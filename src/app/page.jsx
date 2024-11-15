@@ -68,7 +68,7 @@ export default function Home() {
       src: "/images/Icons/Tech/CIcon.png",
     },
     {
-      id: "Tailwind CSS",
+      id: "Tailwind",
       src: "/images/Icons/Tech/TailwindIcon.png",
     },
     {
@@ -142,6 +142,53 @@ export default function Home() {
     {
       id: "Blender",
       src: "/images/Icons/Tech/BlenderIcon.png",
+    },
+  ];
+
+  const visTechIcons = [
+    {
+      id: "HTML",
+      src: "/images/Icons/Tech/HTMLIcon.png",
+    },
+    {
+      id: "Javascript",
+      src: "/images/Icons/Tech/JavascriptIcon.png",
+    },
+    {
+      id: "CSS",
+      src: "/images/Icons/Tech/CSSIcon.png",
+    },
+    {
+      id: "Tailwind",
+      src: "/images/Icons/Tech/TailwindIcon.png",
+    },
+    {
+      id: "React",
+      src: "/images/Icons/Tech/ReactIcon.png",
+    },
+    {
+      id: "Node.js",
+      src: "/images/Icons/Tech/NodeIcon.png",
+    },
+    {
+      id: "Next.js",
+      src: "/images/Icons/Tech/NextIcon.png",
+    },
+    {
+      id: "Plasmo",
+      src: "/images/Icons/Tech/PlasmoIcon.png",
+    },
+    {
+      id: "Three.js",
+      src: "/images/Icons/Tech/ThreeIcon.png",
+    },
+    {
+      id: "GLSL",
+      src: "/images/Icons/Tech/GLSLIcon.png",
+    },
+    {
+      id: "Illustrator",
+      src: "/images/Icons/Tech/IllustratorIcon.png",
     },
   ];
 
@@ -222,16 +269,7 @@ export default function Home() {
     // setContentLoaded(false);
   }, [loadingProgress]);
 
-  // useEffect(() => {
-  //   if (visualContentOpen) {
-  //     visualVidRef.play()
-  //     return
-  //   }
-  //   visualVidRef.pause()
-  // }, [visualContentOpen]);
-
   // framer motion variants
-
   const techIconContainer = {
     hidden: { opacity: 0 },
     show: {
@@ -389,6 +427,9 @@ export default function Home() {
           id="projects"
           className="content-wrapper bg-custom-white-50 flex-col gap-64 py-64"
         >
+
+
+          
           <div className="project-card">
             <div className="md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center">
               <img
@@ -468,6 +509,33 @@ export default function Home() {
             >
               <div className="h-8" />
               <h1 className="subHeading font-extralight">Technologies</h1>
+              <motion.div
+                className="project-icon-container"
+                // variants={techIconContainer}
+                // initial="hidden"
+                // whileInView="show"
+                // viewport={{
+                //   amount: "some",
+                //   once: true,
+                // }}
+              >
+                {visTechIcons.map(({ id, src }, index) => (
+                  <motion.div
+                    key={index}
+                    className="tech-icon md:w-[12.5%] lg:w-1/12 h-auto group -ml-8"
+                    // variants={techIcon}
+                  >
+                    <h1 className="body flex justify-center items-center text-lg font-light text-center absolute top-0 py-2 w-full min-w-full -translate-y-[85%] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      {id}
+                    </h1>
+                    <img
+                      src={src}
+                      onLoad={() => handleContentLoad(id)}
+                      className="w-full px-8 mb-8 h-auto object-contain"
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
               <h1 className="subHeading font-extralight">Context</h1>
               <p className="body">
                 Visual is a chrome extension that can visualise audio from any
@@ -483,6 +551,8 @@ export default function Home() {
               </p>
             </div>
           </div>
+
+
 
           <div className="project-card">
             <div className="project-card-info">
