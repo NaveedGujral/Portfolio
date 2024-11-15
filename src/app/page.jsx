@@ -197,6 +197,7 @@ export default function Home() {
     { id: "PlotTwistThumb", src: "/images/Thumbs/PlotTwistThumb.png" },
     { id: "RCThumb", src: "/images/Thumbs/RCThumb.png" },
     { id: "ChromeWebstore", src: "/images/Icons/Webstore.png" },
+    { id: "visWF1", src: "/images/Wireframes/visWF1.png" },
   ];
 
   const noOfContentItems =
@@ -427,9 +428,6 @@ export default function Home() {
           id="projects"
           className="content-wrapper bg-custom-white-50 flex-col gap-64 py-64"
         >
-
-
-          
           <div className="project-card">
             <div className="md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center">
               <img
@@ -480,7 +478,7 @@ export default function Home() {
           <div
             id="visualContent"
             className={`project-card-content-parent flex flex-col justify-center items-center transition-[max-height] duration-1000 ease-in-out ${
-              visualContentOpen ? "max-h-[350vh]" : "max-h-0"
+              visualContentOpen ? "max-h-[500vh]" : "max-h-0"
             }`}
           >
             <div className="w-full">
@@ -549,10 +547,10 @@ export default function Home() {
                 project is currently in beta and we are conducting user research
                 which will inform the next round of development.
               </p>
+              <h1 className="subHeading font-extralight">Process</h1>
+              <img src={projectContent[4].src} className="w-full h-auto shadow-xl"/>
             </div>
           </div>
-
-
 
           <div className="project-card">
             <div className="project-card-info">

@@ -108,7 +108,7 @@ body {
   }
 
   .project-icon-container {
-    @apply w-full h-auto flex flex-row flex-wrap py-8;
+    @apply w-full h-auto flex flex-row flex-wrap;
   }
 
   .tech-icon {
