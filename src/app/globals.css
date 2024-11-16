@@ -44,15 +44,11 @@ body {
   animation: 10s spin linear infinite;
 }
 
-/* .project-card-content-parent {
-  height: 0;
-  transition: height 0.7s ease-in-out;
-} 
-
-.project-card-content-parent .toggled {
-  height: auto;
-  transition: height 0.7s ease-in-out;
-}  */
+.tech-icon-label {
+  transition-property: box-shadow;
+  transition-property: opacity;
+  transition-duration: 500ms;
+}
 
 @keyframes spin {
   from {
@@ -73,8 +69,7 @@ body {
   font-style: normal;
   font-weight: 100 900;
   font-display: block;
-  src: url("/fonts/JosefinSans-VariableFont_wght.ttf")
-    format("truetype");
+  src: url("/fonts/JosefinSans-VariableFont_wght.ttf") format("truetype");
 }
 
 @layer utilities {
@@ -89,10 +84,11 @@ body {
   }
 
   .content-wrapper {
-    @apply w-full min-h-screen flex flex-col justify-center items-center;
+    @apply w-full h-auto flex flex-col justify-center items-center py-20;
   }
+
   .content-container {
-    @apply w-[260px] md:w-[633px] lg:w-[852px] xl:w-[1245px] 2xl:w-[1496px] flex flex-col justify-center items-center md:flex-row md:justify-between;
+    @apply w-[89%] gap-[1vw] justify-center items-center;
   }
 
   .subHeading {
@@ -100,19 +96,31 @@ body {
   }
 
   .body {
-    @apply font-JosefinSans font-extralight md:text-lg lg:text-xl xl:text-2xl;
+    @apply font-JosefinSans font-extralight md:text-base lg:text-lg xl:text-xl;
   }
 
   .tech-icon-container {
-    @apply w-full flex flex-row justify-between;
+    @apply w-full h-auto flex flex-row justify-between;
   }
 
   .project-icon-container {
-    @apply w-full h-auto flex flex-row flex-wrap;
+    @apply w-full h-auto flex flex-row flex-wrap -ml-8;
   }
 
   .tech-icon {
-    @apply w-[44px] h-[44px] md:w-[50px] md:h-[50px] lg:w-[60px] lg:h-[60px] xl:w-[90px] xl:h-[90px] 2xl:w-[110px] 2xl:h-[110px] object-contain hover:scale-125 flex flex-col justify-center relative transition-transform duration-500;
+    @apply w-1/4 md:w-1/6 lg:w-1/12 h-auto object-contain lg:hover:scale-125 flex flex-col justify-center relative transition-transform duration-500;
+  }
+
+  .tech-icon-label {
+    @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 -translate-y-[50%] whitespace-nowrap px-2 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-white-50 ;
+  }
+
+  .tech-icon-label-h {
+    @apply opacity-100 shadow-xl
+  }
+
+  .tech-icon-img {
+    @apply w-full px-4 my-4 xl:px-8 xl:my-8 h-auto object-contain;
   }
 
   .project-card {
@@ -139,11 +147,20 @@ body {
     @apply body;
   }
 
-  .project-card-content-parent {
-    @apply w-full;
+  .project-content-parent {
+    @apply w-full flex flex-col justify-center items-center transition-[max-height] duration-1000 ease-in-out overflow-hidden;
   }
-  .project-card-content {
-    @apply w-full h-screen bg-red-300;
+
+  .project-collapsible-content {
+    @apply content-container flex-col gap-20 flex items-start min-h-0 py-24 transition-transform duration-1000 ease-in-out;
+  }
+
+  .pcc-open {
+    @apply scale-y-100 opacity-100
+  }
+
+  .pcc-closed {
+    @apply scale-y-0 opacity-0
   }
 
   .project-card-icon {

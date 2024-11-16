@@ -288,9 +288,10 @@ export default function Home() {
 
   return (
     <main
-      className={`min-h-screen w-full flex-col bg-custom-grey items-center justify-between p-0 overflow-y-visible`}
+      className={`min-h-screen w-full flex flex-col bg-custom-grey items-center justify-between p-0 overflow-y-visible`}
     >
-      {/* <section
+
+      <section
         id="landing"
         className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
       >
@@ -321,19 +322,19 @@ export default function Home() {
             <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
           </div>
         </motion.div>
-      </section> */}
+      </section>
 
       <section
         id="content"
-        className={`relative top-[0vh] overflow-x-hidden flex-col w-full min-h-screen items-center justify-center ${
+        className={`relative top-[0vh] overflow-x-hidden flex-col gap-0 w-full min-h-screen items-center justify-center ${
           contentLoaded ? "flex" : "hidden"
         }`}
       >
-        {/* <div className=" bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] "></div>
+        <div className=" bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] "></div>
         <div id="intro" className="content-wrapper bg-custom-grey">
-          <div className="content-container">
+          <div className="content-container flex flex-col md:flex-row md:justify-between">
             <motion.div
-              className="w-[284px] h-[284px] md:w-[209px] md:h-[209px] lg:w-[276px] lg:h-[276px] xl:w-[405px] xl:h-[405px] 2xl:w-[488px] 2xl:h-[488px] justify-center items-center flex relative"
+              className="flex-[4_4_0%] w-full justify-center items-center flex relative"
               initial={{
                 opacity: 0,
                 y: 50,
@@ -353,13 +354,14 @@ export default function Home() {
               <img
                 src={aboutContent[0].src}
                 onLoad={() => handleContentLoad(aboutContent[0].id)}
-                className="relative w-[280px] h-[280px] md:w-[205px] md:h-[205px] lg:w-[272px] lg:h-[272px] xl:w-[401px] xl:h-[401px] 2xl:w-[484px] 2xl:h-[484px] z-10 rounded-xl"
+                className="relative w-full h-full z-10 rounded-[14px] scale-[0.99]"
               ></img>
               <div className="gradBorderCore blur-[2px]" />
               <div className="gradBorder blur-sm" />
               <div className="gradBorder blur-md" />
             </motion.div>
-            <div className="w-[284px] gap-4 md:w-[368px] md:h-[209px] lg:w-[492px] lg:h-[276px] xl:w-[720px] xl:h-[405px] 2xl:w-[866px] 2xl:h-[488px] flex flex-col justify-around">
+            <div className=" flex-[1_1_0%]"></div>
+            <div className=" flex-[7_7_0%]">
               <motion.h2
                 className="subHeading text-custom-white-50 pt-8 pb-2 md:p-0"
                 initial={{
@@ -386,43 +388,43 @@ export default function Home() {
           </div>
         </div>
         <div id="tech" className="content-wrapper bg-custom-white-50">
-          <div className="content-container flex-col justify-around py-20">
-            <div className="tech-icon-container">
-              <motion.div className="content-container flex-col justify-around">
+          
+          <div className="content-container flex-col justify-around py-12">
+              <motion.div className="w-full flex-col justify-around">
                 {iconChunks.map((chunk, index) => (
                   <motion.div
                     key={index}
                     className="tech-icon-container"
-                    variants={techIconContainer}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{
-                      amount: "some",
-                      once: true,
-                    }}
+                    // variants={techIconContainer}
+                    // initial="hidden"
+                    // whileInView="show"
+                    // viewport={{
+                    //   amount: "some",
+                    //   once: true,
+                    // }}
                   >
                     {chunk.map(({ id, src }, subIndex) => (
                       <motion.div
                         key={subIndex}
                         className="tech-icon group"
-                        variants={techIcon}
+                        // variants={techIcon}
                       >
-                        <h1 className="body flex justify-center items-center text-lg font-light text-center absolute top-0 py-2 w-auto min-w-full -translate-y-[100%] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                           {id}
                         </h1>
                         <img
                           src={src}
                           onLoad={() => handleContentLoad(id)}
-                          className="w-auto h-full object-contain"
+                          className="tech-icon-img"
                         />
                       </motion.div>
                     ))}
                   </motion.div>
                 ))}
               </motion.div>
-            </div>
           </div>
-        </div> */}
+        
+        </div>
 
         <div
           id="projects"
@@ -477,8 +479,8 @@ export default function Home() {
           </div>
           <div
             id="visualContent"
-            className={`project-card-content-parent flex flex-col justify-center items-center transition-[max-height] duration-1000 ease-in-out ${
-              visualContentOpen ? "max-h-[500vh]" : "max-h-0"
+            className={`project-content-parent ${
+              visualContentOpen ? "max-h-[700vh]" : "max-h-0"
             }`}
           >
             <div className="w-full">
@@ -498,38 +500,51 @@ export default function Home() {
                 }`}
               />
             </div>
-            <div
-              className={`content-container flex-col gap-12 flex items-start min-h-0 transition-transform transition-opacity duration-1000 ease-in-out ${
+            <motion.div
+              className={`project-collapsible-content ${
                 visualContentOpen
-                  ? "scale-y-100 opacity-100"
-                  : "scale-y-0 opacity-0"
+                  ? "pcc-open"
+                  : "pcc-closed"
               }`}
+              initial={{
+                opacity: 0
+              }}
+              whileInView={{
+                opacity: 1,
+                transition: {
+                  delay: 0.5,
+                  duration: 1, // Animation duration
+                },
+              }}
+              viewport={{
+                amount: "some",
+              }}
             >
               <div className="h-8" />
               <h1 className="subHeading font-extralight">Technologies</h1>
               <motion.div
                 className="project-icon-container"
-                // variants={techIconContainer}
-                // initial="hidden"
-                // whileInView="show"
-                // viewport={{
-                //   amount: "some",
-                //   once: true,
-                // }}
+                variants={techIconContainer}
+                initial="hidden"
+                whileInView="show"
+                viewport={{
+                  amount: "some",
+                  once: true,
+                }}
               >
                 {visTechIcons.map(({ id, src }, index) => (
                   <motion.div
                     key={index}
-                    className="tech-icon md:w-[12.5%] lg:w-1/12 h-auto group -ml-8"
-                    // variants={techIcon}
+                    className="tech-icon group"
+                    variants={techIcon}
                   >
-                    <h1 className="body flex justify-center items-center text-lg font-light text-center absolute top-0 py-2 w-full min-w-full -translate-y-[85%] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                       {id}
                     </h1>
                     <img
                       src={src}
                       onLoad={() => handleContentLoad(id)}
-                      className="w-full px-8 mb-8 h-auto object-contain"
+                      className="tech-icon-img"
                     />
                   </motion.div>
                 ))}
@@ -548,8 +563,11 @@ export default function Home() {
                 which will inform the next round of development.
               </p>
               <h1 className="subHeading font-extralight">Process</h1>
-              <img src={projectContent[4].src} className="w-full h-auto shadow-xl"/>
-            </div>
+              <img
+                src={projectContent[4].src}
+                className="w-full h-auto shadow-xl"
+              />
+            </motion.div>
           </div>
 
           <div className="project-card">
@@ -605,14 +623,24 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="footer" className="content-container"></div>
+        <div id="footer" className="content-container h-screen"></div>
       </section>
 
-      {/* <div
+      <div
         className={`absolute h-screen w-full bg-red-500 z-50 top-0 transition-opacity duration-500 ${
           contentLoaded ? "opacity-0" : "opacity-100"
         }`}
-      ></div> */}
+      ></div>
+
+      {/* <div className="w-[89%] flex h-screen bg-red-500 gap-[1vw]">
+          <div className="flex-1 h-screen bg-blue-500"></div>
+          <div className="flex-1 h-screen bg-green-500"></div>
+          <div className="flex-1 h-screen bg-blue-500"></div>
+          <div className="flex-1 h-screen bg-green-500"></div>
+          <div className="flex-1 h-screen bg-blue-500"></div>
+          <div className="flex-1 h-screen bg-green-500"></div>
+      </div> */}
+
     </main>
   );
 }
