@@ -84,11 +84,11 @@ body {
   }
 
   .content-wrapper {
-    @apply w-full h-auto flex flex-col justify-center items-center py-20;
+    @apply w-full h-auto flex flex-col justify-center items-center py-20 xl:py-80;
   }
 
   .content-container {
-    @apply w-[89%] gap-[1vw] justify-center items-center;
+    @apply w-[78%] gap-[2vw] justify-center items-center;
   }
 
   .subHeading {
@@ -103,36 +103,40 @@ body {
     @apply w-full h-auto flex flex-row justify-between;
   }
 
-  .project-icon-container {
-    @apply w-full h-auto flex flex-row flex-wrap -ml-8;
-  }
-
   .tech-icon {
     @apply w-1/4 md:w-1/6 lg:w-1/12 h-auto object-contain lg:hover:scale-125 flex flex-col justify-center relative transition-transform duration-500;
   }
 
   .tech-icon-label {
-    @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 -translate-y-[50%] whitespace-nowrap px-2 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-white-50 ;
+    @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 translate-y-[25%] whitespace-nowrap px-2 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-white-50;
   }
 
   .tech-icon-label-h {
-    @apply opacity-100 shadow-xl
+    @apply opacity-100 shadow-xl;
   }
 
   .tech-icon-img {
-    @apply w-full px-4 my-4 xl:px-8 xl:my-8 h-auto object-contain;
+    @apply w-full px-6 my-12 lg:px-4 lg:my-8 2xl:px-8 2xl:my-16 h-auto object-contain;
   }
 
   .project-card {
-    @apply w-[260px] md:w-[633px] lg:w-[852px] xl:w-[1245px] 2xl:w-[1496px] flex flex-row justify-between py-8;
+    @apply content-container flex flex-row justify-between items-start;
+  }
+
+  .project-thumb {
+    @apply flex-[6_6_0%] h-auto justify-center items-center
+  }
+
+  .project-icon-container {
+    @apply w-full h-auto flex flex-row flex-wrap;
   }
 
   .project-card-img {
-    @apply md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center;
+    @apply w-full h-auto object-contain;
   }
 
   .project-card-info {
-    @apply flex flex-col items-start justify-start gap-12 md:w-[262px] lg:w-[348px] xl:w-[510px] 2xl:w-[614px];
+    @apply flex flex-col items-start justify-start gap-6 flex-[5_5_0%];
   }
 
   .project-card-title-row {
@@ -152,15 +156,15 @@ body {
   }
 
   .project-collapsible-content {
-    @apply content-container flex-col gap-20 flex items-start min-h-0 py-24 transition-transform duration-1000 ease-in-out;
+    @apply content-container flex-col gap-20 flex justify-start items-start min-h-0 py-24 transition-transform duration-1000 ease-in-out;
   }
 
   .pcc-open {
-    @apply scale-y-100 opacity-100
+    @apply scale-y-100 opacity-100;
   }
 
   .pcc-closed {
-    @apply scale-y-0 opacity-0
+    @apply scale-y-0 opacity-0;
   }
 
   .project-card-icon {
@@ -168,6 +172,6 @@ body {
   }
 
   .project-button {
-    @apply p-4 py-2 rounded-md flex justify-center items-center bg-custom-purple body text-custom-white-50 font-light;
+    @apply p-4 py-2 h-12 flex justify-center items-center whitespace-nowrap bg-custom-purple body text-custom-white-50 font-light;
   }
 }

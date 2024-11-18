@@ -290,7 +290,6 @@ export default function Home() {
     <main
       className={`min-h-screen w-full flex flex-col bg-custom-grey items-center justify-between p-0 overflow-y-visible`}
     >
-
       <section
         id="landing"
         className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
@@ -334,7 +333,7 @@ export default function Home() {
         <div id="intro" className="content-wrapper bg-custom-grey">
           <div className="content-container flex flex-col md:flex-row md:justify-between">
             <motion.div
-              className="flex-[4_4_0%] w-full justify-center items-center flex relative"
+              className="flex-[4_4_0%] w-[80%] md:w-full justify-center items-center flex relative"
               initial={{
                 opacity: 0,
                 y: 50,
@@ -361,7 +360,7 @@ export default function Home() {
               <div className="gradBorder blur-md" />
             </motion.div>
             <div className=" flex-[1_1_0%]"></div>
-            <div className=" flex-[7_7_0%]">
+            <div className=" w-[80%] md:flex-[7_7_0%]">
               <motion.h2
                 className="subHeading text-custom-white-50 pt-8 pb-2 md:p-0"
                 initial={{
@@ -378,7 +377,7 @@ export default function Home() {
                   },
                 }}
                 viewport={{
-                  amount: "all",
+                  amount: "some",
                   once: true,
                 }}
               >
@@ -388,62 +387,87 @@ export default function Home() {
           </div>
         </div>
         <div id="tech" className="content-wrapper bg-custom-white-50">
-          
-          <div className="content-container flex-col justify-around py-12">
-              <motion.div className="w-full flex-col justify-around">
-                {iconChunks.map((chunk, index) => (
-                  <motion.div
-                    key={index}
-                    className="tech-icon-container"
-                    // variants={techIconContainer}
-                    // initial="hidden"
-                    // whileInView="show"
-                    // viewport={{
-                    //   amount: "some",
-                    //   once: true,
-                    // }}
-                  >
-                    {chunk.map(({ id, src }, subIndex) => (
-                      <motion.div
-                        key={subIndex}
-                        className="tech-icon group"
-                        // variants={techIcon}
-                      >
-                        <h1 className="tech-icon-label group-hover:tech-icon-label-h">
-                          {id}
-                        </h1>
-                        <img
-                          src={src}
-                          onLoad={() => handleContentLoad(id)}
-                          className="tech-icon-img"
-                        />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                ))}
-              </motion.div>
+          <div className="content-container flex-col justify-around">
+            <motion.div className="w-full flex-col justify-around">
+              {iconChunks.map((chunk, index) => (
+                <motion.div
+                  key={index}
+                  className="tech-icon-container"
+                  // variants={techIconContainer}
+                  // initial="hidden"
+                  // whileInView="show"
+                  // viewport={{
+                  //   amount: "some",
+                  //   once: true,
+                  // }}
+                >
+                  {chunk.map(({ id, src }, subIndex) => (
+                    <motion.div
+                      key={subIndex}
+                      className="tech-icon group"
+                      // variants={techIcon}
+                    >
+                      <h1 className="tech-icon-label group-hover:tech-icon-label-h">
+                        {id}
+                      </h1>
+                      <img
+                        src={src}
+                        onLoad={() => handleContentLoad(id)}
+                        className="tech-icon-img"
+                      />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
-        
         </div>
 
         <div
           id="projects"
-          className="content-wrapper bg-custom-white-50 flex-col gap-64 py-64"
+          className="content-wrapper bg-custom-white-50 flex-col gap-24 "
         >
           <div className="project-card">
-            <div className="md:w-[315px] lg:w-[420px] xl:w-[615px] 2xl:w-[740px] justify-center items-center">
+            <div className="project-thumb ">
               <img
                 src={projectContent[0].src}
                 onLoad={() => {
                   handleContentLoad(projectContent[0].id);
                 }}
+                className="project-card-img"
               ></img>
             </div>
+            <div className="flex-[1_1_0%]" />
             <div className="project-card-info">
-              <div className="project-card-title-row">
-                <h1 className="project-card-title">Visual</h1>
-                <div className="md:w-[103px] lg:w-[132px] xl:w-[195px] 2xl:w-[236px]">
+              <h1 className="project-card-title">Visual</h1>
+
+              <p className="project-card-desc">
+                A chrome extension for visualising music
+              </p>
+              <div className="h-auto w-full flex flex-row gap-8">
+                <motion.button
+                  className="project-button"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={(event) => {
+                    if (visualContentOpen === true) {
+                      // event.preventDefault();
+                      setVisualContentOpen(false);
+                      document.getElementById("visualVideo").pause();
+                    } else {
+                      // event.preventDefault();
+                      setVisualContentOpen(true);
+                      document.getElementById("visualVideo").currentTime = 0;
+                      document.getElementById("visualVideo").play();
+                      scrollTo("visualContent");
+                    }
+                  }}
+                >
+                  Case Study
+                </motion.button>
+                <div className="h-12 w-auto">
                   <img
+                  className="object-contain w-1/3"
                     src={projectContent[3].src}
                     onLoad={() => {
                       handleContentLoad(projectContent[3].id);
@@ -451,32 +475,9 @@ export default function Home() {
                   ></img>
                 </div>
               </div>
-
-              <p className="project-card-desc">
-                A chrome extension for visualising music
-              </p>
-              <motion.button
-                className="project-button"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={(event) => {
-                  if (visualContentOpen === true) {
-                    event.preventDefault();
-                    setVisualContentOpen(false);
-                    document.getElementById("visualVideo").pause();
-                  } else {
-                    event.preventDefault();
-                    setVisualContentOpen(true);
-                    scrollTo("visualContent");
-                    document.getElementById("visualVideo").currentTime = 0;
-                    document.getElementById("visualVideo").play();
-                  }
-                }}
-              >
-                Case Study
-              </motion.button>
             </div>
           </div>
+
           <div
             id="visualContent"
             className={`project-content-parent ${
@@ -502,12 +503,10 @@ export default function Home() {
             </div>
             <motion.div
               className={`project-collapsible-content ${
-                visualContentOpen
-                  ? "pcc-open"
-                  : "pcc-closed"
+                visualContentOpen ? "pcc-open" : "pcc-closed"
               }`}
               initial={{
-                opacity: 0
+                opacity: 0,
               }}
               whileInView={{
                 opacity: 1,
@@ -585,27 +584,29 @@ export default function Home() {
 
               <CaseStudyButton />
             </div>
-
-            <div className="project-card-img">
+            <div className="flex-[1_1_0%]" />
+            <div className="project-thumb">
               <img
                 src={projectContent[1].src}
                 onLoad={() => {
                   handleContentLoad(projectContent[1].id);
                 }}
+                className="project-card-img"
               ></img>
             </div>
           </div>
 
           <div className="project-card">
-            <div className="project-card-img">
+            <div className="project-thumb ">
               <img
                 src={projectContent[2].src}
                 onLoad={() => {
                   handleContentLoad(projectContent[2].id);
                 }}
+                className="project-card-img"
               ></img>
             </div>
-
+            <div className="flex-[1_1_0%]" />
             <div className="project-card-info">
               <div className="project-card-title-row">
                 <h1 className="project-card-title">Reine Creative</h1>
@@ -640,7 +641,6 @@ export default function Home() {
           <div className="flex-1 h-screen bg-blue-500"></div>
           <div className="flex-1 h-screen bg-green-500"></div>
       </div> */}
-
     </main>
   );
 }
