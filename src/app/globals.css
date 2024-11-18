@@ -83,6 +83,18 @@ body {
     @apply h-8 filter invert text-xl;
   }
 
+  .body {
+    @apply font-JosefinSans font-extralight md:text-base lg:text-lg xl:text-xl;
+  }
+  
+  .subHeading {
+    @apply font-JosefinSans font-light text-xl md:text-2xl lg:text-3xl xl:text-5xl;
+  }
+
+  .project-subHeading {
+    @apply subHeading font-extralight py-4 sm:py-12
+  }
+
   .content-wrapper {
     @apply w-full h-auto flex flex-col justify-center items-center py-20 xl:py-80;
   }
@@ -91,22 +103,22 @@ body {
     @apply w-[78%] gap-[2vw] justify-center items-center;
   }
 
-  .subHeading {
-    @apply font-JosefinSans font-light text-xl md:text-2xl lg:text-3xl xl:text-5xl;
-  }
-
-  .body {
-    @apply font-JosefinSans font-extralight md:text-base lg:text-lg xl:text-xl;
-  }
-
   .tech-icon-container {
     @apply w-full h-auto flex flex-row justify-between;
+  }
+
+  
+  .project-icon-container {
+    @apply w-full h-auto flex flex-row flex-wrap -ml-4 lg:-ml-4 2xl:-ml-8;
   }
 
   .tech-icon {
     @apply w-1/4 md:w-1/6 lg:w-1/12 h-auto object-contain lg:hover:scale-125 flex flex-col justify-center relative transition-transform duration-500;
   }
 
+  .tech-icon-img {
+    @apply w-full px-4 my-4 lg:px-4 lg:my-4 2xl:px-8 2xl:my-8 h-auto object-contain;
+  }
   .tech-icon-label {
     @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 translate-y-[25%] whitespace-nowrap px-2 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-white-50;
   }
@@ -115,20 +127,12 @@ body {
     @apply opacity-100 shadow-xl;
   }
 
-  .tech-icon-img {
-    @apply w-full px-6 my-12 lg:px-4 lg:my-8 2xl:px-8 2xl:my-16 h-auto object-contain;
-  }
-
   .project-card {
-    @apply content-container flex flex-row justify-between items-start;
+    @apply content-container flex flex-col sm:flex-row justify-between items-start;
   }
 
   .project-thumb {
-    @apply flex-[6_6_0%] h-auto justify-center items-center
-  }
-
-  .project-icon-container {
-    @apply w-full h-auto flex flex-row flex-wrap;
+    @apply w-full sm:flex-[5_5_0%] h-auto justify-center items-center
   }
 
   .project-card-img {
@@ -144,7 +148,7 @@ body {
   }
 
   .project-card-title {
-    @apply subHeading -translate-x-2;
+    @apply subHeading;
   }
 
   .project-card-desc {
@@ -152,11 +156,15 @@ body {
   }
 
   .project-content-parent {
-    @apply w-full flex flex-col justify-center items-center transition-[max-height] duration-1000 ease-in-out overflow-hidden;
+    @apply w-full flex flex-col justify-start items-center transition-[max-height] duration-1000 ease-in-out overflow-hidden;
   }
 
   .project-collapsible-content {
-    @apply content-container flex-col gap-20 flex justify-start items-start min-h-0 py-24 transition-transform duration-1000 ease-in-out;
+    @apply content-container flex-col gap-8 sm:gap-12 flex justify-start items-start min-h-0 pb-24 pt-12 transition-transform duration-1000 ease-in-out;
+  }
+
+  .pcc-section {
+    @apply w-full flex flex-col
   }
 
   .pcc-open {
@@ -173,5 +181,9 @@ body {
 
   .project-button {
     @apply p-4 py-2 h-12 flex justify-center items-center whitespace-nowrap bg-custom-purple body text-custom-white-50 font-light;
+  }
+
+  .project-flex-spacer {
+    @apply hidden sm:block flex-[2_2_0%]
   }
 }

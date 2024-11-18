@@ -427,6 +427,8 @@ export default function Home() {
           id="projects"
           className="content-wrapper bg-custom-white-50 flex-col gap-24 "
         >
+          {/* Visual card & content */}
+
           <div className="project-card">
             <div className="project-thumb ">
               <img
@@ -437,7 +439,7 @@ export default function Home() {
                 className="project-card-img"
               ></img>
             </div>
-            <div className="flex-[1_1_0%]" />
+            <div className="project-flex-spacer" />
             <div className="project-card-info">
               <h1 className="project-card-title">Visual</h1>
 
@@ -467,7 +469,7 @@ export default function Home() {
                 </motion.button>
                 <div className="h-12 w-auto">
                   <img
-                  className="object-contain w-1/3"
+                    className="object-contain h-full"
                     src={projectContent[3].src}
                     onLoad={() => {
                       handleContentLoad(projectContent[3].id);
@@ -519,55 +521,62 @@ export default function Home() {
                 amount: "some",
               }}
             >
-              <div className="h-8" />
-              <h1 className="subHeading font-extralight">Technologies</h1>
-              <motion.div
-                className="project-icon-container"
-                variants={techIconContainer}
-                initial="hidden"
-                whileInView="show"
-                viewport={{
-                  amount: "some",
-                  once: true,
-                }}
-              >
-                {visTechIcons.map(({ id, src }, index) => (
-                  <motion.div
-                    key={index}
-                    className="tech-icon group"
-                    variants={techIcon}
-                  >
-                    <h1 className="tech-icon-label group-hover:tech-icon-label-h">
-                      {id}
-                    </h1>
-                    <img
-                      src={src}
-                      onLoad={() => handleContentLoad(id)}
-                      className="tech-icon-img"
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
-              <h1 className="subHeading font-extralight">Context</h1>
-              <p className="body">
-                Visual is a chrome extension that can visualise audio from any
-                tab. The visualiser is created in a stand-alone tab which can
-                then be put onto a project or second monitor for the user to
-                enjoy. My role during the project focused on{" "}
-                <span className=" italic font-light">
-                  UI/UX Design, Identity Design, Front-end development
-                </span>{" "}
-                & <span className=" italic font-light">3D Graphics</span>. The
-                project is currently in beta and we are conducting user research
-                which will inform the next round of development.
-              </p>
-              <h1 className="subHeading font-extralight">Process</h1>
-              <img
-                src={projectContent[4].src}
-                className="w-full h-auto shadow-xl"
-              />
+              <div className="pcc-section">
+                <h1 className="project-subHeading">Context</h1>
+                <p className="body">
+                  Visual is a chrome extension that can visualise audio from any
+                  tab. The visualiser is created in a stand-alone tab which can
+                  then be put onto a project or second monitor for the user to
+                  enjoy. My role during the project focused on{" "}
+                  <span className=" italic font-light">
+                    UI/UX Design, Identity Design, Front-end development
+                  </span>{" "}
+                  & <span className=" italic font-light">3D Graphics</span>. The
+                  project is currently in beta and we are conducting user
+                  research which will inform the next round of development.
+                </p>
+              </div>
+              <div className="pcc-section">
+                <h1 className="project-subHeading">Technologies</h1>
+                <motion.div
+                  className="project-icon-container"
+                  variants={techIconContainer}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{
+                    amount: "some",
+                    once: true,
+                  }}
+                >
+                  {visTechIcons.map(({ id, src }, index) => (
+                    <motion.div
+                      key={index}
+                      className="tech-icon group"
+                      variants={techIcon}
+                    >
+                      <h1 className="tech-icon-label group-hover:tech-icon-label-h">
+                        {id}
+                      </h1>
+                      <img
+                        src={src}
+                        onLoad={() => handleContentLoad(id)}
+                        className="tech-icon-img"
+                      />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+              <div className="pcc-section">
+                <h1 className="project-subHeading">Process</h1>
+                <img
+                  src={projectContent[4].src}
+                  className="w-full h-auto shadow-xl"
+                />
+              </div>
             </motion.div>
           </div>
+
+          {/* PlotTwist card & content */}
 
           <div className="project-card">
             <div className="project-card-info">
@@ -584,8 +593,8 @@ export default function Home() {
 
               <CaseStudyButton />
             </div>
-            <div className="flex-[1_1_0%]" />
-            <div className="project-thumb">
+            <div className="project-flex-spacer" />
+            <div className="project-thumb order-first sm:order-2">
               <img
                 src={projectContent[1].src}
                 onLoad={() => {
@@ -595,6 +604,8 @@ export default function Home() {
               ></img>
             </div>
           </div>
+
+          {/* Reine Creative card & content */}
 
           <div className="project-card">
             <div className="project-thumb ">
@@ -606,7 +617,7 @@ export default function Home() {
                 className="project-card-img"
               ></img>
             </div>
-            <div className="flex-[1_1_0%]" />
+            <div className="project-flex-spacer" />
             <div className="project-card-info">
               <div className="project-card-title-row">
                 <h1 className="project-card-title">Reine Creative</h1>
@@ -632,15 +643,6 @@ export default function Home() {
           contentLoaded ? "opacity-0" : "opacity-100"
         }`}
       ></div>
-
-      {/* <div className="w-[89%] flex h-screen bg-red-500 gap-[1vw]">
-          <div className="flex-1 h-screen bg-blue-500"></div>
-          <div className="flex-1 h-screen bg-green-500"></div>
-          <div className="flex-1 h-screen bg-blue-500"></div>
-          <div className="flex-1 h-screen bg-green-500"></div>
-          <div className="flex-1 h-screen bg-blue-500"></div>
-          <div className="flex-1 h-screen bg-green-500"></div>
-      </div> */}
     </main>
   );
 }
