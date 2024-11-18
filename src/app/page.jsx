@@ -28,6 +28,8 @@ import visualL from "../../public/videos/VisualLandscape.mp4";
 import visualP from "../../public/videos/VisualPortrait.mp4";
 
 export default function Home() {
+  // states
+
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
   const [button, setButton] = useState(false);
@@ -36,16 +38,15 @@ export default function Home() {
   const [iconChunks, setIconChunks] = useState([]);
   const [visualContentOpen, setVisualContentOpen] = useState(false);
   const [visualVidSrc, setVisualVidSrc] = useState("");
+  const [loadingProgress, setLoadingProgress] = useState({});
+
+  // refs
 
   const visualVidRef = useRef(null);
 
-  const scrollTo = (section) => {
-    const element = document.getElementById(section);
-    element.scrollIntoView({ behavior: "smooth" });
-  };
+  // content to be loaded
 
   const aboutContent = [{ id: "profilePic", src: "/images/Me.png" }];
-
   const techIcons = [
     {
       id: "HTML",
@@ -144,7 +145,6 @@ export default function Home() {
       src: "/images/Icons/Tech/BlenderIcon.png",
     },
   ];
-
   const visTechIcons = [
     {
       id: "HTML",
@@ -191,7 +191,6 @@ export default function Home() {
       src: "/images/Icons/Tech/IllustratorIcon.png",
     },
   ];
-
   const projectContent = [
     { id: "visualThumb", src: "/images/Thumbs/VisualThumb.png" },
     { id: "PlotTwistThumb", src: "/images/Thumbs/PlotTwistThumb.png" },
@@ -199,27 +198,15 @@ export default function Home() {
     { id: "ChromeWebstore", src: "/images/Icons/Webstore.png" },
     { id: "visWF1", src: "/images/Wireframes/visWF1.png" },
   ];
-
   const noOfContentItems =
     aboutContent.length + techIcons.length + projectContent.length + 1;
 
-  const [loadingProgress, setLoadingProgress] = useState({});
-  const handleContentLoad = (imgId, bool = true) => {
-    setLoadingProgress((prevState) => ({
-      ...prevState,
-      [imgId]: bool,
-    }));
-  };
+  // functions
 
-  useEffect(() => {
-    // smooth scrolling
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }, []);
+  const scrollTo = (section) => {
+    const element = document.getElementById(section);
+    element.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleResize = useCallback(() => {
     let visualSrc = "";
@@ -241,6 +228,25 @@ export default function Home() {
     }
     setVisualVidSrc(visualSrc);
   }, [setScreenWidth, setScreenHeight, setVisualVidSrc]);
+
+  const handleContentLoad = (imgId, bool = true) => {
+    setLoadingProgress((prevState) => ({
+      ...prevState,
+      [imgId]: bool,
+    }));
+  };
+
+  // use effects
+
+  useEffect(() => {
+    // smooth scrolling
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }, []);
 
   useEffect(() => {
     handleResize();
@@ -270,7 +276,21 @@ export default function Home() {
     // setContentLoaded(false);
   }, [loadingProgress]);
 
-  // framer motion variants
+  useEffect(() => {
+    if (visualContentOpen) {
+      pccSection.viewport = {
+        amount: "some",
+        once: "true",
+      };
+    } else {
+      pccSection.viewport = {
+        amount: "some",
+      };
+    }
+  }, [visualContentOpen]);
+
+  // framer motion
+
   const techIconContainer = {
     hidden: { opacity: 0 },
     show: {
@@ -284,6 +304,17 @@ export default function Home() {
   const techIcon = {
     hidden: { opacity: 0 },
     show: { opacity: 1 },
+  };
+
+  const caseStudyButton = {
+    hover: { scale: 1.05 },
+    tap: { scale: 0.95 },
+  };
+
+  const pccSection = {
+    transition: {
+      duration: 1,
+    },
   };
 
   return (
@@ -393,19 +424,19 @@ export default function Home() {
                 <motion.div
                   key={index}
                   className="tech-icon-container"
-                  // variants={techIconContainer}
-                  // initial="hidden"
-                  // whileInView="show"
-                  // viewport={{
-                  //   amount: "some",
-                  //   once: true,
-                  // }}
+                  variants={techIconContainer}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{
+                    amount: "some",
+                    once: true,
+                  }}
                 >
                   {chunk.map(({ id, src }, subIndex) => (
                     <motion.div
                       key={subIndex}
                       className="tech-icon group"
-                      // variants={techIcon}
+                      variants={techIcon}
                     >
                       <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                         {id}
@@ -449,15 +480,15 @@ export default function Home() {
               <div className="h-auto w-full flex flex-row gap-8">
                 <motion.button
                   className="project-button"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={caseStudyButton.hover}
+                  whileTap={caseStudyButton.tap}
                   onClick={(event) => {
                     if (visualContentOpen === true) {
-                      // event.preventDefault();
+                      event.preventDefault();
                       setVisualContentOpen(false);
                       document.getElementById("visualVideo").pause();
                     } else {
-                      // event.preventDefault();
+                      event.preventDefault();
                       setVisualContentOpen(true);
                       document.getElementById("visualVideo").currentTime = 0;
                       document.getElementById("visualVideo").play();
@@ -507,18 +538,11 @@ export default function Home() {
               className={`project-collapsible-content ${
                 visualContentOpen ? "pcc-open" : "pcc-closed"
               }`}
-              initial={{
-                opacity: 0,
-              }}
-              whileInView={{
-                opacity: 1,
-                transition: {
-                  delay: 0.5,
-                  duration: 1, // Animation duration
-                },
-              }}
-              viewport={{
-                amount: "some",
+              initial={{ opacity: 0 }}
+              animate={visualContentOpen ? { opacity: 1 } : { opacity: 0 }}
+              transition={{
+                duration: visualContentOpen ? 1 : 0,
+                delay: visualContentOpen ? 1 : 0
               }}
             >
               <div className="pcc-section">
@@ -536,9 +560,14 @@ export default function Home() {
                   research which will inform the next round of development.
                 </p>
               </div>
-              <div className="pcc-section">
+              <div
+                className="pcc-section"
+                initial={pccSection.initial}
+                whileInView={pccSection.whileInView}
+                viewport={pccSection.viewport}
+              >
                 <h1 className="project-subHeading">Technologies</h1>
-                <motion.div
+                <div
                   className="project-icon-container"
                   variants={techIconContainer}
                   initial="hidden"
@@ -549,7 +578,7 @@ export default function Home() {
                   }}
                 >
                   {visTechIcons.map(({ id, src }, index) => (
-                    <motion.div
+                    <div
                       key={index}
                       className="tech-icon group"
                       variants={techIcon}
@@ -562,11 +591,16 @@ export default function Home() {
                         onLoad={() => handleContentLoad(id)}
                         className="tech-icon-img"
                       />
-                    </motion.div>
+                    </div>
                   ))}
-                </motion.div>
+                </div>
               </div>
-              <div className="pcc-section">
+              <div
+                className="pcc-section"
+                initial={pccSection.initial}
+                whileInView={pccSection.whileInView}
+                viewport={pccSection.viewport}
+              >
                 <h1 className="project-subHeading">Process</h1>
                 <img
                   src={projectContent[4].src}

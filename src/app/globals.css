@@ -96,7 +96,7 @@ body {
   }
 
   .content-wrapper {
-    @apply w-full h-auto flex flex-col justify-center items-center py-20 xl:py-80;
+    @apply w-full h-auto flex flex-col justify-center items-center py-40;
   }
 
   .content-container {
@@ -128,7 +128,7 @@ body {
   }
 
   .project-card {
-    @apply content-container flex flex-col sm:flex-row justify-between items-start;
+    @apply content-container flex flex-col sm:flex-row justify-between items-start py-20;
   }
 
   .project-thumb {
