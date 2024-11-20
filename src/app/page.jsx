@@ -230,6 +230,9 @@ export default function Home() {
     { id: "PT_ReqSwap", src: "/images/PT_ReqSwap.png" },
     { id: "PT_Chat", src: "/images/PT_Chat.png" },
     { id: "PT_Offer", src: "/images/PT_Offer.png" },
+    { id: "PTWF_1", src: "/images/Wireframes/PTWF_1.png" },
+    { id: "PTWF_2", src: "/images/Wireframes/PTWF_2.png" },
+    { id: "PTWF_3", src: "/images/Wireframes/PTWF_3.png" },
   ];
   const noOfContentItems =
     aboutContent.length + techIcons.length + projectContent.length + 1;
@@ -691,7 +694,7 @@ export default function Home() {
           <div
             id="PTContent"
             className={`project-content-parent ${
-              plotTwistContentOpen ? "max-h-[700vh]" : "max-h-0"
+              plotTwistContentOpen ? "max-h-[4000vh]" : "max-h-0"
             }`}
           >
             <div className="w-full">
@@ -778,7 +781,7 @@ export default function Home() {
                 viewport={pccSection.viewport}
               >
                 <div className="features-section">
-                  <p className="features-copy pr-4 text-right">
+                  <p className="features-copy pr-8 text-right">
                     List your unused books easily with Google Books API
                   </p>
                   <div className="features-img-parent">
@@ -801,12 +804,12 @@ export default function Home() {
                       className="features-img"
                     />
                   </div>
-                  <p className="features-copy pl-4">
+                  <p className="features-copy pl-8">
                     Find people with the books you want
                   </p>
                 </div>
                 <div className="features-section">
-                  <p className="features-copy text-right pr-4">
+                  <p className="features-copy text-right pr-8">
                     Arrange swaps with our integrated chat
                   </p>
                   <div className="features-img-parent">
@@ -842,10 +845,29 @@ export default function Home() {
                 viewport={pccSection.viewport}
               >
                 <h1 className="project-subHeading">Process</h1>
-                {/* <img
-                  src={projectContent[4].src}
-                  className="w-full h-auto shadow-xl"
-                /> */}
+                <div className="w-full h-auto shadow-xl">
+                  <img
+                    src={projectContent[10].src}
+                    onLoad={() => {
+                      handleContentLoad(projectContent[10].id);
+                    }}
+                    className="w-full h-auto"
+                  />
+                  <img
+                    src={projectContent[11].src}
+                    onLoad={() => {
+                      handleContentLoad(projectContent[11].id);
+                    }}
+                    className="w-full h-auto"
+                  />
+                  <img
+                    src={projectContent[12].src}
+                    onLoad={() => {
+                      handleContentLoad(projectContent[12].id);
+                    }}
+                    className="w-full h-auto"
+                  />
+                </div>
               </div>
             </motion.div>
           </div>
