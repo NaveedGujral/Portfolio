@@ -128,11 +128,11 @@ body {
   }
 
   .project-card {
-    @apply content-container flex flex-col sm:flex-row justify-between items-start py-20;
+    @apply content-container flex flex-col sm:flex-row justify-between items-start py-4 sm:py-20 gap-12 sm:gap-0;
   }
 
   .project-thumb {
-    @apply w-full sm:flex-[5_5_0%] h-auto justify-center items-center
+    @apply w-full sm:w-5/12 h-auto justify-center items-center
   }
 
   .project-card-img {
@@ -140,7 +140,7 @@ body {
   }
 
   .project-card-info {
-    @apply flex flex-col items-start justify-start gap-6 flex-[5_5_0%];
+    @apply flex flex-col items-start justify-start gap-6 w-full sm:w-5/12;
   }
 
   .project-card-title-row {
@@ -184,6 +184,19 @@ body {
   }
 
   .project-flex-spacer {
-    @apply hidden sm:block flex-[2_2_0%]
+    @apply hidden sm:block w-1/6
+  }
+
+  .features-section {
+    @apply flex flex-row justify-between items-center h-auto w-full sm:w-2/3
+  }
+  .features-img-parent {
+    @apply w-1/3 h-auto
+  }
+  .features-img {
+    @apply object-cover w-full h-auto
+  }
+  .features-copy {
+    @apply body font-light w-2/3
   }
 }

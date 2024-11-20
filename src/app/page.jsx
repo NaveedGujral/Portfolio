@@ -37,6 +37,8 @@ export default function Home() {
   // const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
   const [visualContentOpen, setVisualContentOpen] = useState(false);
+  const [plotTwistContentOpen, setPlotTwistContentOpen] = useState(false);
+  const [reineContentOpen, setReineContentOpen] = useState(false);
   const [visualVidSrc, setVisualVidSrc] = useState("");
   const [loadingProgress, setLoadingProgress] = useState({});
 
@@ -191,12 +193,43 @@ export default function Home() {
       src: "/images/Icons/Tech/IllustratorIcon.png",
     },
   ];
+  const plotTwistIcons = [
+    {
+      id: "React Native",
+      src: "/images/Icons/Tech/ReactNativeIcon.png",
+    },
+    {
+      id: "Javascript",
+      src: "/images/Icons/Tech/JavascriptIcon.png",
+    },
+    {
+      id: "CSS",
+      src: "/images/Icons/Tech/CSSIcon.png",
+    },
+    {
+      id: "Node.js",
+      src: "/images/Icons/Tech/NodeIcon.png",
+    },
+    {
+      id: "SQL",
+      src: "/images/Icons/Tech/SQLIcon.png",
+    },
+    {
+      id: "Supabase",
+      src: "/images/Icons/Tech/SupabaseIcon.png",
+    },
+  ];
   const projectContent = [
     { id: "visualThumb", src: "/images/Thumbs/VisualThumb.png" },
     { id: "PlotTwistThumb", src: "/images/Thumbs/PlotTwistThumb.png" },
     { id: "RCThumb", src: "/images/Thumbs/RCThumb.png" },
     { id: "ChromeWebstore", src: "/images/Icons/Webstore.png" },
     { id: "visWF1", src: "/images/Wireframes/visWF1.png" },
+    { id: "PTLanding", src: "/images/TitleStripPT.png" },
+    { id: "PT_Listbook", src: "/images/PT_Listbook.png" },
+    { id: "PT_ReqSwap", src: "/images/PT_ReqSwap.png" },
+    { id: "PT_Chat", src: "/images/PT_Chat.png" },
+    { id: "PT_Offer", src: "/images/PT_Offer.png" },
   ];
   const noOfContentItems =
     aboutContent.length + techIcons.length + projectContent.length + 1;
@@ -542,7 +575,7 @@ export default function Home() {
               animate={visualContentOpen ? { opacity: 1 } : { opacity: 0 }}
               transition={{
                 duration: visualContentOpen ? 1 : 0,
-                delay: visualContentOpen ? 1 : 0
+                delay: visualContentOpen ? 1 : 0,
               }}
             >
               <div className="pcc-section">
@@ -625,7 +658,23 @@ export default function Home() {
                 A MVP mobile app for swapping books
               </p>
 
-              <CaseStudyButton />
+              <motion.button
+                className="project-button"
+                whileHover={caseStudyButton.hover}
+                whileTap={caseStudyButton.tap}
+                onClick={(event) => {
+                  if (plotTwistContentOpen === true) {
+                    event.preventDefault();
+                    setPlotTwistContentOpen(false);
+                  } else {
+                    event.preventDefault();
+                    setPlotTwistContentOpen(true);
+                    scrollTo("PTContent");
+                  }
+                }}
+              >
+                Case Study
+              </motion.button>
             </div>
             <div className="project-flex-spacer" />
             <div className="project-thumb order-first sm:order-2">
@@ -635,8 +684,170 @@ export default function Home() {
                   handleContentLoad(projectContent[1].id);
                 }}
                 className="project-card-img"
-              ></img>
+              />
             </div>
+          </div>
+
+          <div
+            id="PTContent"
+            className={`project-content-parent ${
+              plotTwistContentOpen ? "max-h-[700vh]" : "max-h-0"
+            }`}
+          >
+            <div className="w-full">
+              <img
+                src={projectContent[5].src}
+                onLoad={() => {
+                  handleContentLoad(projectContent[5].id);
+                }}
+                className={`object-cover w-screen transition-[max-height] duration-1000 ease-in-out ${
+                  plotTwistContentOpen ? "max-h-[200vh]" : "max-h-0"
+                }`}
+              />
+            </div>
+            <motion.div
+              className={`project-collapsible-content ${
+                plotTwistContentOpen ? "pcc-open" : "pcc-closed"
+              }`}
+              initial={{ opacity: 0 }}
+              animate={plotTwistContentOpen ? { opacity: 1 } : { opacity: 0 }}
+              transition={{
+                duration: plotTwistContentOpen ? 1 : 0,
+                delay: plotTwistContentOpen ? 1 : 0,
+              }}
+            >
+              <div className="pcc-section">
+                <h1 className="project-subHeading">Context</h1>
+                <p className="body">
+                  PlotTwist is a mobile app that allows users to swap books with
+                  each other. This project was taken up to a proof of concept
+                  stage and was developed during my time at a coding bootcamp. I
+                  was part of a team of six and my role was to work on{" "}
+                  <span className=" italic font-light">
+                    UI/UX Design, Identity Design, Front-end Development
+                  </span>{" "}
+                  and occasionally{" "}
+                  <span className=" italic font-light">
+                    Back-end Development
+                  </span>
+                  .
+                </p>
+              </div>
+
+              <div
+                className="pcc-section"
+                initial={pccSection.initial}
+                whileInView={pccSection.whileInView}
+                viewport={pccSection.viewport}
+              >
+                <h1 className="project-subHeading">Technologies</h1>
+                <div
+                  className="project-icon-container"
+                  variants={techIconContainer}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{
+                    amount: "some",
+                    once: true,
+                  }}
+                >
+                  {plotTwistIcons.map(({ id, src }, index) => (
+                    <div
+                      key={index}
+                      className="tech-icon group"
+                      variants={techIcon}
+                    >
+                      <h1 className="tech-icon-label group-hover:tech-icon-label-h">
+                        {id}
+                      </h1>
+                      <img
+                        src={src}
+                        onLoad={() => handleContentLoad(id)}
+                        className="tech-icon-img"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <h1 className="project-subHeading">Features</h1>
+              <div
+                className="pcc-section justify-center items-center gap-24"
+                initial={pccSection.initial}
+                whileInView={pccSection.whileInView}
+                viewport={pccSection.viewport}
+              >
+                <div className="features-section">
+                  <p className="features-copy pr-4 text-right">
+                    List your unused books easily with Google Books API
+                  </p>
+                  <div className="features-img-parent">
+                    <img
+                      src={projectContent[6].src}
+                      onLoad={() => {
+                        handleContentLoad(projectContent[6].id);
+                      }}
+                      className="features-img"
+                    />
+                  </div>
+                </div>
+                <div className="features-section">
+                  <div className="features-img-parent">
+                    <img
+                      src={projectContent[7].src}
+                      onLoad={() => {
+                        handleContentLoad(projectContent[7].id);
+                      }}
+                      className="features-img"
+                    />
+                  </div>
+                  <p className="features-copy pl-4">
+                    Find people with the books you want
+                  </p>
+                </div>
+                <div className="features-section">
+                  <p className="features-copy text-right pr-4">
+                    Arrange swaps with our integrated chat
+                  </p>
+                  <div className="features-img-parent">
+                    <img
+                      src={projectContent[8].src}
+                      onLoad={() => {
+                        handleContentLoad(projectContent[8].id);
+                      }}
+                      className="features-img"
+                    />
+                  </div>
+                </div>
+                <div className="features-section flex-col">
+                  <div className="features-img-parent w-full">
+                    <img
+                      src={projectContent[9].src}
+                      onLoad={() => {
+                        handleContentLoad(projectContent[9].id);
+                      }}
+                      className="features-img"
+                    />
+                  </div>
+                  <p className="features-copy w-full text-center py-2 sm:py-12">
+                    Finalise your offer
+                  </p>
+                </div>
+              </div>
+
+              <div
+                className="pcc-section"
+                initial={pccSection.initial}
+                whileInView={pccSection.whileInView}
+                viewport={pccSection.viewport}
+              >
+                <h1 className="project-subHeading">Process</h1>
+                {/* <img
+                  src={projectContent[4].src}
+                  className="w-full h-auto shadow-xl"
+                /> */}
+              </div>
+            </motion.div>
           </div>
 
           {/* Reine Creative card & content */}
