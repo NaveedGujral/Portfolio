@@ -22,6 +22,7 @@ import LandingTitle from "./components/SVG/LandingTitle";
 import InternetIcon from "./components/SVG/InternetIcon";
 import GithubIcon from "./components/SVG/GithubIcon";
 import CaseStudyButton from "./components/CaseStudyButton";
+import PreLoader from "./components/PreLoader";
 
 // assets
 import visualL from "../../public/videos/VisualLandscape.mp4";
@@ -33,8 +34,8 @@ export default function Home() {
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
   const [button, setButton] = useState(false);
-  const [contentLoaded, setContentLoaded] = useState(true);
-  // const [contentLoaded, setContentLoaded] = useState(false);
+  // const [contentLoaded, setContentLoaded] = useState(true);
+  const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
   const [visualContentOpen, setVisualContentOpen] = useState(false);
   const [plotTwistContentOpen, setPlotTwistContentOpen] = useState(false);
@@ -224,24 +225,39 @@ export default function Home() {
     { id: "PlotTwistThumb", src: "/images/Thumbs/PlotTwistThumb.png" },
     { id: "RCThumb", src: "/images/Thumbs/RCThumb.png" },
     { id: "ChromeWebstore", src: "/images/Icons/Webstore.png" },
-    { id: "visWF1", src: "/images/Wireframes/visWF1.png" },
+    { id: "visWF1", src: "/images/Wireframes/visWF1.jpg" },
     { id: "PTLanding", src: "/images/TitleStripPT.png" },
     { id: "PT_Listbook", src: "/images/PT_Listbook.png" },
     { id: "PT_ReqSwap", src: "/images/PT_ReqSwap.png" },
     { id: "PT_Chat", src: "/images/PT_Chat.png" },
     { id: "PT_Offer", src: "/images/PT_Offer.png" },
-    { id: "PTWF_1", src: "/images/Wireframes/PTWF_1.png" },
-    { id: "PTWF_2", src: "/images/Wireframes/PTWF_2.png" },
-    { id: "PTWF_3", src: "/images/Wireframes/PTWF_3.png" },
+    { id: "PTWF_1", src: "/images/Wireframes/PTWF_1.jpg" },
+    { id: "PTWF_2", src: "/images/Wireframes/PTWF_2.jpg" },
+    { id: "PTWF_3", src: "/images/Wireframes/PTWF_3.jpg" },
   ];
   const noOfContentItems =
     aboutContent.length + techIcons.length + projectContent.length + 1;
 
   // functions
 
+  // if (targetElement) {
+  //   event.preventDefault();
+  //   setOpenMenu(false);
+  //   targetElement.scrollIntoView({ behavior: "smooth" });
+  // } else {
+  //   console.error(`Target element with ID "${targetId}" not found.`);
+  // }
+
   const scrollTo = (section) => {
     const element = document.getElementById(section);
-    element.scrollIntoView({ behavior: "smooth" });
+    if (section) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: "smooth" });
+      }, 250);
+    }
+    else {
+      console.error(`${section} not found`)
+    }
   };
 
   const handleResize = useCallback(() => {
@@ -304,26 +320,14 @@ export default function Home() {
       Object.keys(loadingProgress).length === noOfContentItems &&
       window !== undefined
     ) {
-      setContentLoaded(true);
-      console.log("content loaded");
+      setTimeout(() => {
+        setContentLoaded(true);
+      }, 1000);
+
       return;
     }
-
-    // setContentLoaded(false);
+    setContentLoaded(false);
   }, [loadingProgress]);
-
-  useEffect(() => {
-    if (visualContentOpen) {
-      pccSection.viewport = {
-        amount: "some",
-        once: "true",
-      };
-    } else {
-      pccSection.viewport = {
-        amount: "some",
-      };
-    }
-  }, [visualContentOpen]);
 
   // framer motion
 
@@ -355,27 +359,15 @@ export default function Home() {
 
   return (
     <main
-      className={`min-h-screen w-full flex flex-col bg-custom-grey items-center justify-between p-0 overflow-y-visible`}
+      className={`min-h-screen w-full flex flex-col bg-custom-grey items-center justify-between p-0 overflow-hidden`}
     >
+      {/* <PreLoader contentLoaded={contentLoaded} /> */}
+
       <section
         id="landing"
         className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
       >
-        <motion.div
-          className="flex fixed justify-center items-center w-screen h-screen overflow-hidden"
-          initial={{
-            opacity: 0,
-            filter: "blur(12px)",
-          }}
-          animate={{
-            opacity: 1,
-            filter: "blur(0)",
-          }}
-          transition={{
-            duration: 1,
-            easings: easeInOut,
-          }}
-        >
+        <div className="flex fixed justify-center items-center w-screen h-screen overflow-hidden">
           <div className="w-full h-full flex  left-0">
             <Curves
               screenWidth={screenWidth}
@@ -383,11 +375,26 @@ export default function Home() {
               className="z-0"
             />
           </div>
-
-          <div className="absolute w-full h-full flex justify-center items-center p-10">
-            <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
-          </div>
-        </motion.div>
+          {contentLoaded && (
+            <motion.div
+              className="absolute w-full h-full flex justify-center items-center p-10"
+              initial={{
+                opacity: 0,
+                filter: "blur(12px)",
+              }}
+              whileInView={{
+                opacity: 1,
+                filter: "blur(0)",
+                transition: {
+                  duration: 1, // Animation duration
+                  delay: 1,
+                },
+              }}
+            >
+              <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
+            </motion.div>
+          )}
+        </div>
       </section>
 
       <section
@@ -528,7 +535,7 @@ export default function Home() {
                       setVisualContentOpen(true);
                       document.getElementById("visualVideo").currentTime = 0;
                       document.getElementById("visualVideo").play();
-                      scrollTo("visualContent");
+                        scrollTo("visualContent");
                     }
                   }}
                 >
@@ -640,6 +647,7 @@ export default function Home() {
                 <h1 className="project-subHeading">Process</h1>
                 <img
                   src={projectContent[4].src}
+                  onLoad={() => handleContentLoad(projectContent[4].id)}
                   className="w-full h-auto shadow-xl"
                 />
               </div>
@@ -667,11 +675,11 @@ export default function Home() {
                 whileTap={caseStudyButton.tap}
                 onClick={(event) => {
                   if (plotTwistContentOpen === true) {
-                    event.preventDefault();
                     setPlotTwistContentOpen(false);
-                  } else {
                     event.preventDefault();
+                  } else {
                     setPlotTwistContentOpen(true);
+                    event.preventDefault();
                     scrollTo("PTContent");
                   }
                 }}
@@ -704,7 +712,7 @@ export default function Home() {
                   handleContentLoad(projectContent[5].id);
                 }}
                 className={`object-cover w-screen transition-[max-height] duration-1000 ease-in-out ${
-                  plotTwistContentOpen ? "max-h-[200vh]" : "max-h-0"
+                  plotTwistContentOpen ? "max-h-screen" : "max-h-0"
                 }`}
               />
             </div>
@@ -904,12 +912,6 @@ export default function Home() {
 
         <div id="footer" className="content-container h-screen"></div>
       </section>
-
-      <div
-        className={`absolute h-screen w-full bg-red-500 z-50 top-0 transition-opacity duration-500 ${
-          contentLoaded ? "opacity-0" : "opacity-100"
-        }`}
-      ></div>
     </main>
   );
 }
