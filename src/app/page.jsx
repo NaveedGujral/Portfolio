@@ -1,28 +1,19 @@
 "use client";
 
 // Libraries
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  Fragment,
-} from "react";
-import Video from "next-video";
-import "./globals.css";
-import dynamic from "next/dynamic";
-import { chunk } from "lodash"; // Make sure to import the chunk utility
-import Lenis from "lenis";
 import { motion } from "framer-motion";
-import { easeInOut } from "framer-motion/dom";
+import Lenis from "lenis";
+import { chunk } from "lodash"; // Make sure to import the chunk utility
+import { useCallback, useEffect, useRef, useState } from "react";
+import "./globals.css";
 
 // components
 import Curves from "./Curves";
-import LandingTitle from "./components/SVG/LandingTitle";
-import InternetIcon from "./components/SVG/InternetIcon";
-import GithubIcon from "./components/SVG/GithubIcon";
 import CaseStudyButton from "./components/CaseStudyButton";
 import PreLoader from "./components/PreLoader";
+import GithubIcon from "./components/SVG/GithubIcon";
+import InternetIcon from "./components/SVG/InternetIcon";
+import LandingTitle from "./components/SVG/LandingTitle";
 
 // assets
 import visualL from "../../public/videos/VisualLandscape.mp4";
@@ -42,6 +33,7 @@ export default function Home() {
   const [reineContentOpen, setReineContentOpen] = useState(false);
   const [visualVidSrc, setVisualVidSrc] = useState("");
   const [loadingProgress, setLoadingProgress] = useState({});
+  const [loadingPercent, setLoadingPercent] = useState(0.0);
 
   // refs
 
@@ -240,29 +232,20 @@ export default function Home() {
 
   // functions
 
-  // if (targetElement) {
-  //   event.preventDefault();
-  //   setOpenMenu(false);
-  //   targetElement.scrollIntoView({ behavior: "smooth" });
-  // } else {
-  //   console.error(`Target element with ID "${targetId}" not found.`);
-  // }
-
   const scrollTo = (section) => {
     const element = document.getElementById(section);
     if (section) {
       setTimeout(() => {
         element.scrollIntoView({ behavior: "smooth" });
       }, 250);
-    }
-    else {
-      console.error(`${section} not found`)
+    } else {
+      console.error(`${section} not found`);
     }
   };
 
   const handleResize = useCallback(() => {
     let visualSrc = "";
-    if (window) {
+    if (typeof window !== "undefined") {
       setScreenWidth(window.innerWidth);
       setScreenHeight(window.innerHeight);
 
@@ -315,19 +298,23 @@ export default function Home() {
 
   useEffect(() => {
     // checks if all content has loaded and there is the correct amount of props in the loading progress object
+
+    setLoadingPercent(Math.ceil((Object.keys(loadingProgress).length).toFixed(1)/noOfContentItems.toFixed(1)*100))
+
+    console.log(loadingPercent)
+
     if (
       Object.values(loadingProgress).every((item) => item === true) &&
-      Object.keys(loadingProgress).length === noOfContentItems &&
-      window !== undefined
+      Object.keys(loadingProgress).length === noOfContentItems
     ) {
       setTimeout(() => {
         setContentLoaded(true);
-      }, 1000);
+      }, 2000);
 
       return;
     }
     setContentLoaded(false);
-  }, [loadingProgress]);
+  }, [noOfContentItems, loadingProgress, loadingPercent]);
 
   // framer motion
 
@@ -361,7 +348,10 @@ export default function Home() {
     <main
       className={`min-h-screen w-full flex flex-col bg-custom-grey items-center justify-between p-0 overflow-hidden`}
     >
-      {/* <PreLoader contentLoaded={contentLoaded} /> */}
+      <PreLoader
+        contentLoaded={contentLoaded}
+        loadingPercent={loadingPercent}
+      />
 
       <section
         id="landing"
@@ -369,11 +359,13 @@ export default function Home() {
       >
         <div className="flex fixed justify-center items-center w-screen h-screen overflow-hidden">
           <div className="w-full h-full flex  left-0">
-            <Curves
-              screenWidth={screenWidth}
-              screenHeight={screenHeight}
-              className="z-0"
-            />
+            {contentLoaded && (
+              <Curves
+                screenWidth={screenWidth}
+                screenHeight={screenHeight}
+                className="z-0"
+              />
+            )}
           </div>
           {contentLoaded && (
             <motion.div
@@ -535,7 +527,7 @@ export default function Home() {
                       setVisualContentOpen(true);
                       document.getElementById("visualVideo").currentTime = 0;
                       document.getElementById("visualVideo").play();
-                        scrollTo("visualContent");
+                      scrollTo("visualContent");
                     }
                   }}
                 >

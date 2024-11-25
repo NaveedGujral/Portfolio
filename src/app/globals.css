@@ -79,6 +79,9 @@ body {
 }
 
 @layer components {
+  .loading-bar {
+    @apply bg-gradient-to-r absolute from-custom-purple to-custom-orange h-2 left-0 bottom-1/2 top-1/2
+  }
   .btn-header {
     @apply h-8 filter invert text-xl;
   }
