@@ -226,6 +226,7 @@ export default function Home() {
     { id: "PTWF_1", src: "/images/Wireframes/PTWF_1.jpg" },
     { id: "PTWF_2", src: "/images/Wireframes/PTWF_2.jpg" },
     { id: "PTWF_3", src: "/images/Wireframes/PTWF_3.jpg" },
+    { id: "RWF_1", src: "/images/Wireframes/RWF_1.jpg" },
   ];
   const noOfContentItems =
     aboutContent.length + techIcons.length + projectContent.length + 1;
@@ -299,9 +300,15 @@ export default function Home() {
   useEffect(() => {
     // checks if all content has loaded and there is the correct amount of props in the loading progress object
 
-    setLoadingPercent(Math.ceil((Object.keys(loadingProgress).length).toFixed(1)/noOfContentItems.toFixed(1)*100))
+    setLoadingPercent(
+      Math.ceil(
+        (Object.keys(loadingProgress).length.toFixed(1) /
+          noOfContentItems.toFixed(1)) *
+          100
+      )
+    );
 
-    console.log(loadingPercent)
+    console.log(loadingPercent);
 
     if (
       Object.values(loadingProgress).every((item) => item === true) &&
@@ -897,8 +904,99 @@ export default function Home() {
                 A website for a film production company
               </p>
 
-              <CaseStudyButton />
+              <motion.button
+                className="project-button"
+                whileHover={caseStudyButton.hover}
+                whileTap={caseStudyButton.tap}
+                onClick={(event) => {
+                  if (reineContentOpen === true) {
+                    setReineContentOpen(false);
+                    event.preventDefault();
+                  } else {
+                    setReineContentOpen(true);
+                    event.preventDefault();
+                    scrollTo("reineContent");
+                  }
+                }}
+              >
+                Case Study
+              </motion.button>
             </div>
+          </div>
+
+          <div
+            id="reineContent"
+            className={`project-content-parent ${
+              reineContentOpen ? "max-h-[700vh]" : "max-h-0"
+            }`}
+          >
+            <div className="w-full"></div>
+            <motion.div
+              className={`project-collapsible-content ${
+                reineContentOpen ? "pcc-open" : "pcc-closed"
+              }`}
+              initial={{ opacity: 0 }}
+              animate={reineContentOpen ? { opacity: 1 } : { opacity: 0 }}
+              transition={{
+                duration: reineContentOpen ? 1 : 0,
+                delay: reineContentOpen ? 1 : 0,
+              }}
+            >
+              <div className="pcc-section">
+                <h1 className="project-subHeading">Context</h1>
+                <p className="body">
+                  Designed and developed a website for a freelance film-maker who trades under the name Reine Creative. In addition to Web Development I also consulted the client on Service Design and Identity Design.
+                </p>
+              </div>
+              <div
+                className="pcc-section"
+                initial={pccSection.initial}
+                whileInView={pccSection.whileInView}
+                viewport={pccSection.viewport}
+              >
+                <h1 className="project-subHeading">Technologies</h1>
+                <div
+                  className="project-icon-container"
+                  variants={techIconContainer}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{
+                    amount: "some",
+                    once: true,
+                  }}
+                >
+                  {visTechIcons.map(({ id, src }, index) => (
+                    <div
+                      key={index}
+                      className="tech-icon group"
+                      variants={techIcon}
+                    >
+                      <h1 className="tech-icon-label group-hover:tech-icon-label-h">
+                        {id}
+                      </h1>
+                      <img
+                        src={src}
+                        onLoad={() => handleContentLoad(id)}
+                        className="tech-icon-img"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div
+                className="pcc-section"
+                initial={pccSection.initial}
+                whileInView={pccSection.whileInView}
+                viewport={pccSection.viewport}
+              >
+                <h1 className="project-subHeading">Process</h1>
+                <img
+                  src={projectContent[13].src}
+                  onLoad={() => handleContentLoad(projectContent[13].id)}
+                  className="w-full h-auto shadow-xl"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
 
