@@ -14,6 +14,7 @@ import PreLoader from "./components/PreLoader";
 import GithubIcon from "./components/SVG/GithubIcon";
 import InternetIcon from "./components/SVG/InternetIcon";
 import LandingTitle from "./components/SVG/LandingTitle";
+import LogoW from "./components/SVG/LogoW";
 
 // assets
 import visualL from "../../public/videos/VisualLandscape.mp4";
@@ -140,7 +141,7 @@ export default function Home() {
       src: "/images/Icons/Tech/BlenderIcon.png",
     },
   ];
-  const visTechIcons = [
+  const visIcons = [
     {
       id: "HTML",
       src: "/images/Icons/Tech/HTMLIcon.png",
@@ -186,6 +187,48 @@ export default function Home() {
       src: "/images/Icons/Tech/IllustratorIcon.png",
     },
   ];
+  const reineIcons = [
+    {
+      id: "HTML",
+      src: "/images/Icons/Tech/HTMLIcon.png",
+    },
+    {
+      id: "Javascript",
+      src: "/images/Icons/Tech/JavascriptIcon.png",
+    },
+    {
+      id: "CSS",
+      src: "/images/Icons/Tech/CSSIcon.png",
+    },
+    {
+      id: "Tailwind",
+      src: "/images/Icons/Tech/TailwindIcon.png",
+    },
+    {
+      id: "React",
+      src: "/images/Icons/Tech/ReactIcon.png",
+    },
+    {
+      id: "Node.js",
+      src: "/images/Icons/Tech/NodeIcon.png",
+    },
+    {
+      id: "Next.js",
+      src: "/images/Icons/Tech/NextIcon.png",
+    },
+    {
+      id: "Illustrator",
+      src: "/images/Icons/Tech/IllustratorIcon.png",
+    },
+    {
+      id: "Email JS",
+      src: "/images/Icons/Tech/EmailJS.png",
+    },
+    {
+      id: "Vimeo",
+      src: "/images/Icons/Tech/Vimeo.png",
+    },
+  ];
   const plotTwistIcons = [
     {
       id: "React Native",
@@ -211,6 +254,14 @@ export default function Home() {
       id: "Supabase",
       src: "/images/Icons/Tech/SupabaseIcon.png",
     },
+    {
+      id: "Illustrator",
+      src: "/images/Icons/Tech/IllustratorIcon.png",
+    },
+    {
+      id: "Google Books API",
+      src: "/images/Icons/Tech/GoogleBooksIcon.png",
+    },
   ];
   const projectContent = [
     { id: "visualThumb", src: "/images/Thumbs/VisualThumb.png" },
@@ -229,7 +280,7 @@ export default function Home() {
     { id: "RWF_1", src: "/images/Wireframes/RWF_1.jpg" },
   ];
   const noOfContentItems =
-    aboutContent.length + techIcons.length + projectContent.length + 1;
+    aboutContent.length + techIcons.length + projectContent.length + 4;
 
   // functions
 
@@ -238,7 +289,7 @@ export default function Home() {
     if (section) {
       setTimeout(() => {
         element.scrollIntoView({ behavior: "smooth" });
-      }, 250);
+      }, 200);
     } else {
       console.error(`${section} not found`);
     }
@@ -602,29 +653,11 @@ export default function Home() {
                   research which will inform the next round of development.
                 </p>
               </div>
-              <div
-                className="pcc-section"
-                initial={pccSection.initial}
-                whileInView={pccSection.whileInView}
-                viewport={pccSection.viewport}
-              >
+              <div className="pcc-section">
                 <h1 className="project-subHeading">Technologies</h1>
-                <div
-                  className="project-icon-container"
-                  variants={techIconContainer}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{
-                    amount: "some",
-                    once: true,
-                  }}
-                >
-                  {visTechIcons.map(({ id, src }, index) => (
-                    <div
-                      key={index}
-                      className="tech-icon group"
-                      variants={techIcon}
-                    >
+                <div className="project-icon-container">
+                  {visIcons.map(({ id, src }, index) => (
+                    <div key={index} className="tech-icon group">
                       <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                         {id}
                       </h1>
@@ -637,12 +670,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <div
-                className="pcc-section"
-                initial={pccSection.initial}
-                whileInView={pccSection.whileInView}
-                viewport={pccSection.viewport}
-              >
+              <div className="pcc-section">
                 <h1 className="project-subHeading">Process</h1>
                 <img
                   src={projectContent[4].src}
@@ -744,28 +772,17 @@ export default function Home() {
                 </p>
               </div>
 
-              <div
-                className="pcc-section"
-                initial={pccSection.initial}
-                whileInView={pccSection.whileInView}
-                viewport={pccSection.viewport}
-              >
+              <div className="pcc-section">
                 <h1 className="project-subHeading">Technologies</h1>
-                <div
-                  className="project-icon-container"
-                  variants={techIconContainer}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{
-                    amount: "some",
-                    once: true,
-                  }}
-                >
+                <div className="project-icon-container">
                   {plotTwistIcons.map(({ id, src }, index) => (
                     <div
                       key={index}
-                      className="tech-icon group"
-                      variants={techIcon}
+                      className={`tech-icon group ${
+                        id === "Google Books API"
+                          ? "w-1/2 md:w-1/4 lg:w-1/6"
+                          : ""
+                      }`}
                     >
                       <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                         {id}
@@ -781,12 +798,7 @@ export default function Home() {
               </div>
 
               <h1 className="project-subHeading">Features</h1>
-              <div
-                className="pcc-section justify-center items-center gap-24"
-                initial={pccSection.initial}
-                whileInView={pccSection.whileInView}
-                viewport={pccSection.viewport}
-              >
+              <div className="pcc-section justify-center items-center gap-24">
                 <div className="features-section">
                   <p className="features-copy pr-8 text-right">
                     List your unused books easily with Google Books API
@@ -845,12 +857,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div
-                className="pcc-section"
-                initial={pccSection.initial}
-                whileInView={pccSection.whileInView}
-                viewport={pccSection.viewport}
-              >
+              <div className="pcc-section">
                 <h1 className="project-subHeading">Process</h1>
                 <div className="w-full h-auto shadow-xl">
                   <img
@@ -930,6 +937,13 @@ export default function Home() {
               reineContentOpen ? "max-h-[700vh]" : "max-h-0"
             }`}
           >
+            <div className="w-full h-screen bg-[#2A2C41] ">
+              <LogoW
+                className={`object-cover w-1/2 transition-[max-height] duration-1000 ease-in-out ${
+                  reineContentOpen ? "max-h-screen" : "max-h-0"
+                }`}
+              />
+            </div>
             <div className="w-full"></div>
             <motion.div
               className={`project-collapsible-content ${
@@ -945,32 +959,17 @@ export default function Home() {
               <div className="pcc-section">
                 <h1 className="project-subHeading">Context</h1>
                 <p className="body">
-                  Designed and developed a website for a freelance film-maker who trades under the name Reine Creative. In addition to Web Development I also consulted the client on Service Design and Identity Design.
+                  Designed and developed a website for a freelance film-maker
+                  who trades under the name Reine Creative. In addition to Web
+                  Development I also consulted the client on Service Design and
+                  Identity Design.
                 </p>
               </div>
-              <div
-                className="pcc-section"
-                initial={pccSection.initial}
-                whileInView={pccSection.whileInView}
-                viewport={pccSection.viewport}
-              >
+              <div className="pcc-section">
                 <h1 className="project-subHeading">Technologies</h1>
-                <div
-                  className="project-icon-container"
-                  variants={techIconContainer}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{
-                    amount: "some",
-                    once: true,
-                  }}
-                >
-                  {visTechIcons.map(({ id, src }, index) => (
-                    <div
-                      key={index}
-                      className="tech-icon group"
-                      variants={techIcon}
-                    >
+                <div className="project-icon-container">
+                  {reineIcons.map(({ id, src }, index) => (
+                    <div key={index} className="tech-icon group">
                       <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                         {id}
                       </h1>
@@ -983,12 +982,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <div
-                className="pcc-section"
-                initial={pccSection.initial}
-                whileInView={pccSection.whileInView}
-                viewport={pccSection.viewport}
-              >
+              <div className="pcc-section">
                 <h1 className="project-subHeading">Process</h1>
                 <img
                   src={projectContent[13].src}

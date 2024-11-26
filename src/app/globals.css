@@ -116,7 +116,7 @@ body {
   }
 
   .tech-icon {
-    @apply w-1/4 md:w-1/6 lg:w-1/12 h-auto object-contain lg:hover:scale-125 flex flex-col justify-center relative transition-transform duration-500;
+    @apply w-1/4 md:w-1/6 lg:w-1/12 h-auto object-contain lg:hover:scale-110 flex flex-col justify-center relative transition-transform duration-500;
   }
 
   .tech-icon-img {
