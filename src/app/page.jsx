@@ -277,6 +277,7 @@ export default function Home() {
     { id: "PTWF_1", src: "/images/Wireframes/PTWF_1.jpg" },
     { id: "PTWF_2", src: "/images/Wireframes/PTWF_2.jpg" },
     { id: "PTWF_3", src: "/images/Wireframes/PTWF_3.jpg" },
+    { id: "RC_TitleStrip", src: "/images/RCTitleStrip.png" },
     { id: "RWF_1", src: "/images/Wireframes/RWF_1.jpg" },
   ];
   const noOfContentItems =
@@ -289,7 +290,10 @@ export default function Home() {
     if (section) {
       setTimeout(() => {
         element.scrollIntoView({ behavior: "smooth" });
-      }, 200);
+      }, 400);
+      // setTimeout(() => {
+      //   element.scrollIntoView({ behavior: "smooth" });
+      // }, 200);
     } else {
       console.error(`${section} not found`);
     }
@@ -512,7 +516,7 @@ export default function Home() {
         </div>
         <div id="tech" className="content-wrapper bg-custom-white-50">
           <div className="content-container flex-col justify-around">
-            <motion.div className="w-full flex-col justify-around">
+            <motion.div className="w-full flex flex-col gap-6 sm:gap-12 justify-around">
               {iconChunks.map((chunk, index) => (
                 <motion.div
                   key={index}
@@ -531,9 +535,11 @@ export default function Home() {
                       className="tech-icon group"
                       variants={techIcon}
                     >
-                      <h1 className="tech-icon-label group-hover:tech-icon-label-h">
-                        {id}
-                      </h1>
+                      <div className="flex justify-center items-center">
+                        <h1 className="tech-icon-label group-hover:tech-icon-label-h">
+                          {id}
+                        </h1>
+                      </div>
                       <img
                         src={src}
                         onLoad={() => handleContentLoad(id)}
@@ -937,9 +943,11 @@ export default function Home() {
               reineContentOpen ? "max-h-[700vh]" : "max-h-0"
             }`}
           >
-            <div className="w-full h-screen bg-[#2A2C41] ">
-              <LogoW
-                className={`object-cover w-1/2 transition-[max-height] duration-1000 ease-in-out ${
+            <div className="w-full">
+              <img
+                src={projectContent[13].src}
+                onLoad={() => handleContentLoad(projectContent[13].id)}
+                className={`object-cover w-screen transition-[max-height] duration-1000 ease-in-out ${
                   reineContentOpen ? "max-h-screen" : "max-h-0"
                 }`}
               />
@@ -985,8 +993,8 @@ export default function Home() {
               <div className="pcc-section">
                 <h1 className="project-subHeading">Process</h1>
                 <img
-                  src={projectContent[13].src}
-                  onLoad={() => handleContentLoad(projectContent[13].id)}
+                  src={projectContent[14].src}
+                  onLoad={() => handleContentLoad(projectContent[14].id)}
                   className="w-full h-auto shadow-xl"
                 />
               </div>

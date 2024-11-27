@@ -80,7 +80,7 @@ body {
 
 @layer components {
   .loading-bar {
-    @apply bg-gradient-to-r absolute from-custom-purple to-custom-orange h-2 left-0 bottom-1/2 top-1/2
+    @apply bg-gradient-to-r absolute from-custom-purple to-custom-orange h-1 left-0 bottom-1/2 top-1/2
   }
   .btn-header {
     @apply h-8 filter invert text-xl;
@@ -91,7 +91,7 @@ body {
   }
   
   .subHeading {
-    @apply font-JosefinSans font-light text-xl md:text-2xl lg:text-3xl xl:text-5xl;
+    @apply font-JosefinSans font-light text-xl md:text-2xl lg:text-3xl xl:text-4xl;
   }
 
   .project-subHeading {
@@ -103,7 +103,7 @@ body {
   }
 
   .content-container {
-    @apply w-[78%] gap-[2vw] justify-center items-center;
+    @apply w-[67%] gap-[3vw] justify-center items-center;
   }
 
   .tech-icon-container {
@@ -112,7 +112,7 @@ body {
 
   
   .project-icon-container {
-    @apply w-full h-auto flex flex-row flex-wrap -ml-4 lg:-ml-4 2xl:-ml-8;
+    @apply w-full h-8 flex flex-row flex-wrap -ml-4 lg:-ml-4 2xl:-ml-8;
   }
 
   .tech-icon {
@@ -120,10 +120,11 @@ body {
   }
 
   .tech-icon-img {
-    @apply w-full px-4 my-4 lg:px-4 lg:my-4 2xl:px-8 2xl:my-8 h-auto object-contain;
+    @apply w-full px-2 my-2 2xl:px-4 2xl:my-4 h-auto max-h-12 md:max-h-12 object-contain;
   }
+  
   .tech-icon-label {
-    @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 translate-y-[25%] whitespace-nowrap px-2 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-white-50;
+    @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 -translate-y-[100%] xl:-translate-y-[50%] whitespace-nowrap px-2 py-1 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-grey text-custom-white-50;
   }
 
   .tech-icon-label-h {
