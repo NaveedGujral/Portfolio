@@ -1,7 +1,7 @@
 "use client";
 
 // Libraries
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Lenis from "lenis";
 import { chunk } from "lodash"; // Make sure to import the chunk utility
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -15,6 +15,7 @@ import GithubIcon from "./components/SVG/GithubIcon";
 import InternetIcon from "./components/SVG/InternetIcon";
 import LandingTitle from "./components/SVG/LandingTitle";
 import LogoW from "./components/SVG/LogoW";
+import Cross from "./components/SVG/Cross";
 
 // assets
 import visualL from "../../public/videos/VisualLandscape.mp4";
@@ -32,13 +33,21 @@ export default function Home() {
   const [visualContentOpen, setVisualContentOpen] = useState(false);
   const [plotTwistContentOpen, setPlotTwistContentOpen] = useState(false);
   const [reineContentOpen, setReineContentOpen] = useState(false);
+  const [vCloseButton, setVCloseButton] = useState(false);
+  const [pTCloseButton, setPTCloseButton] = useState(false);
+  const [rCCloseButton, setRCCloseButton] = useState(false);
   const [visualVidSrc, setVisualVidSrc] = useState("");
   const [loadingProgress, setLoadingProgress] = useState({});
   const [loadingPercent, setLoadingPercent] = useState(0.0);
 
   // refs
 
-  const visualVidRef = useRef(null);
+  const visualContentRef = useRef(null);
+  const visualContentInView = useInView(visualContentRef, { amount: "some" });
+  const pTContentRef = useRef(null);
+  const pTContentInView = useInView(pTContentRef, { amount: "some" });
+  const rCContentRef = useRef(null);
+  const rCContentInView = useInView(rCContentRef, { amount: "some" });
 
   // content to be loaded
 
@@ -285,15 +294,12 @@ export default function Home() {
 
   // functions
 
-  const scrollTo = (section) => {
+  const scrollTo = (section, timing = 400) => {
     const element = document.getElementById(section);
     if (section) {
       setTimeout(() => {
         element.scrollIntoView({ behavior: "smooth" });
-      }, 400);
-      // setTimeout(() => {
-      //   element.scrollIntoView({ behavior: "smooth" });
-      // }, 200);
+      }, timing);
     } else {
       console.error(`${section} not found`);
     }
@@ -327,6 +333,13 @@ export default function Home() {
     }));
   };
 
+  const closeProject = (cardID, setState) => {
+    scrollTo(cardID);
+    setTimeout(() => {
+      setState(false);
+    }, 600);
+  };
+
   // use effects
 
   useEffect(() => {
@@ -353,8 +366,6 @@ export default function Home() {
   }, [handleResize]);
 
   useEffect(() => {
-    // checks if all content has loaded and there is the correct amount of props in the loading progress object
-
     setLoadingPercent(
       Math.ceil(
         (Object.keys(loadingProgress).length.toFixed(1) /
@@ -377,6 +388,36 @@ export default function Home() {
     }
     setContentLoaded(false);
   }, [noOfContentItems, loadingProgress, loadingPercent]);
+
+  useEffect(() => {
+    if (visualContentOpen && visualContentInView) {
+      setTimeout(() => {
+        setVCloseButton(true);
+      }, 400);
+      return;
+    }
+    setVCloseButton(false);
+  }, [visualContentInView, visualContentOpen, setVCloseButton]);
+
+  useEffect(() => {
+    if (plotTwistContentOpen && pTContentInView) {
+      setTimeout(() => {
+        setPTCloseButton(true);
+      }, 400);
+      return;
+    }
+    setPTCloseButton(false);
+  }, [pTContentInView, plotTwistContentOpen, setPTCloseButton]);
+
+  useEffect(() => {
+    if (reineContentOpen && rCContentInView) {
+      setTimeout(() => {
+        setRCCloseButton(true);
+      }, 400);
+      return;
+    }
+    setRCCloseButton(false);
+  }, [rCContentInView, reineContentOpen, setRCCloseButton]);
 
   // framer motion
 
@@ -559,7 +600,7 @@ export default function Home() {
         >
           {/* Visual card & content */}
 
-          <div className="project-card">
+          <div id="visualCard" className="project-card">
             <div className="project-thumb ">
               <img
                 src={projectContent[0].src}
@@ -616,6 +657,17 @@ export default function Home() {
               visualContentOpen ? "max-h-[700vh]" : "max-h-0"
             }`}
           >
+            <button
+              className={`project-close-button ${
+                vCloseButton ? "translate-x-0" : "translate-x-[200%]"
+              }`}
+              onClick={() => {
+                closeProject("visualCard", setVisualContentOpen);
+              }}
+            >
+              <Cross className="text-custom-grey p-2" />
+            </button>
+
             <div className="w-full">
               <video
                 id="visualVideo"
@@ -637,6 +689,7 @@ export default function Home() {
               className={`project-collapsible-content ${
                 visualContentOpen ? "pcc-open" : "pcc-closed"
               }`}
+              ref={visualContentRef}
               initial={{ opacity: 0 }}
               animate={visualContentOpen ? { opacity: 1 } : { opacity: 0 }}
               transition={{
@@ -689,36 +742,36 @@ export default function Home() {
 
           {/* PlotTwist card & content */}
 
-          <div className="project-card">
+          <div id="pTCard" className="project-card">
             <div className="project-card-info">
-              <div className="project-card-title-row">
-                <h1 className="project-card-title">PlotTwist</h1>
-                <button className="project-card-icon">
-                  <GithubIcon />
-                </button>
-              </div>
-
+              <h1 className="project-card-title">PlotTwist</h1>
               <p className="project-card-desc">
                 A MVP mobile app for swapping books
               </p>
-
-              <motion.button
-                className="project-button"
-                whileHover={caseStudyButton.hover}
-                whileTap={caseStudyButton.tap}
-                onClick={(event) => {
-                  if (plotTwistContentOpen === true) {
-                    setPlotTwistContentOpen(false);
-                    event.preventDefault();
-                  } else {
-                    setPlotTwistContentOpen(true);
-                    event.preventDefault();
-                    scrollTo("PTContent");
-                  }
-                }}
-              >
-                Case Study
-              </motion.button>
+              <div className="h-auto w-full flex flex-row gap-8">
+                <motion.button
+                  className="project-button"
+                  whileHover={caseStudyButton.hover}
+                  whileTap={caseStudyButton.tap}
+                  onClick={(event) => {
+                    if (plotTwistContentOpen === true) {
+                      setPlotTwistContentOpen(false);
+                      event.preventDefault();
+                    } else {
+                      setPlotTwistContentOpen(true);
+                      event.preventDefault();
+                      scrollTo("PTContent");
+                    }
+                  }}
+                >
+                  Case Study
+                </motion.button>
+                <div className="h-12 w-auto flex items-center">
+                  <button className="project-card-icon">
+                    <GithubIcon />
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="project-flex-spacer" />
             <div className="project-thumb order-first sm:order-2">
@@ -738,6 +791,17 @@ export default function Home() {
               plotTwistContentOpen ? "max-h-[4000vh]" : "max-h-0"
             }`}
           >
+            <button
+              className={`project-close-button ${
+                pTCloseButton ? "translate-x-0" : "translate-x-[200%]"
+              }`}
+              onClick={() => {
+                closeProject("pTCard", setPlotTwistContentOpen);
+              }}
+            >
+              <Cross className="text-custom-grey p-2" />
+            </button>
+
             <div className="w-full">
               <img
                 src={projectContent[5].src}
@@ -750,6 +814,7 @@ export default function Home() {
               />
             </div>
             <motion.div
+              ref={pTContentRef}
               className={`project-collapsible-content ${
                 plotTwistContentOpen ? "pcc-open" : "pcc-closed"
               }`}
@@ -894,7 +959,7 @@ export default function Home() {
 
           {/* Reine Creative card & content */}
 
-          <div className="project-card">
+          <div id="rCCard" className="project-card">
             <div className="project-thumb ">
               <img
                 src={projectContent[2].src}
@@ -906,34 +971,34 @@ export default function Home() {
             </div>
             <div className="project-flex-spacer" />
             <div className="project-card-info">
-              <div className="project-card-title-row">
-                <h1 className="project-card-title">Reine Creative</h1>
-                <button className="project-card-icon">
-                  <InternetIcon />
-                </button>
-              </div>
-
+              <h1 className="project-card-title">Reine Creative</h1>
               <p className="project-card-desc">
                 A website for a film production company
               </p>
-
-              <motion.button
-                className="project-button"
-                whileHover={caseStudyButton.hover}
-                whileTap={caseStudyButton.tap}
-                onClick={(event) => {
-                  if (reineContentOpen === true) {
-                    setReineContentOpen(false);
-                    event.preventDefault();
-                  } else {
-                    setReineContentOpen(true);
-                    event.preventDefault();
-                    scrollTo("reineContent");
-                  }
-                }}
-              >
-                Case Study
-              </motion.button>
+              <div className="h-auto w-full flex flex-row gap-8">
+                <motion.button
+                  className="project-button"
+                  whileHover={caseStudyButton.hover}
+                  whileTap={caseStudyButton.tap}
+                  onClick={(event) => {
+                    if (reineContentOpen === true) {
+                      setReineContentOpen(false);
+                      event.preventDefault();
+                    } else {
+                      setReineContentOpen(true);
+                      event.preventDefault();
+                      scrollTo("reineContent");
+                    }
+                  }}
+                >
+                  Case Study
+                </motion.button>
+                <div className="h-12 w-auto flex items-center">
+                  <button className="project-card-icon">
+                    <InternetIcon />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -952,8 +1017,19 @@ export default function Home() {
                 }`}
               />
             </div>
+            <button
+              className={`project-close-button ${
+                rCCloseButton ? "translate-x-0" : "translate-x-[200%]"
+              }`}
+              onClick={() => {
+                closeProject("rCCard", setReineContentOpen);
+              }}
+            >
+              <Cross className="text-custom-grey p-2" />
+            </button>
             <div className="w-full"></div>
             <motion.div
+              ref={rCContentRef}
               className={`project-collapsible-content ${
                 reineContentOpen ? "pcc-open" : "pcc-closed"
               }`}

@@ -80,7 +80,7 @@ body {
 
 @layer components {
   .loading-bar {
-    @apply bg-gradient-to-r absolute from-custom-purple to-custom-orange h-1 left-0 bottom-1/2 top-1/2
+    @apply bg-gradient-to-r absolute from-custom-purple to-custom-orange h-1 left-0 bottom-1/2 top-1/2;
   }
   .btn-header {
     @apply h-8 filter invert text-xl;
@@ -89,13 +89,13 @@ body {
   .body {
     @apply font-JosefinSans font-extralight md:text-base lg:text-lg xl:text-xl;
   }
-  
+
   .subHeading {
     @apply font-JosefinSans font-light text-xl md:text-2xl lg:text-3xl xl:text-4xl;
   }
 
   .project-subHeading {
-    @apply subHeading font-extralight py-4 sm:py-12
+    @apply subHeading font-extralight py-4 sm:py-12;
   }
 
   .content-wrapper {
@@ -110,7 +110,6 @@ body {
     @apply w-full h-auto flex flex-row justify-between;
   }
 
-  
   .project-icon-container {
     @apply w-full h-8 flex flex-row flex-wrap -ml-4 lg:-ml-4 2xl:-ml-8;
   }
@@ -122,9 +121,9 @@ body {
   .tech-icon-img {
     @apply w-full px-2 my-2 2xl:px-4 2xl:my-4 h-auto max-h-12 md:max-h-12 object-contain;
   }
-  
+
   .tech-icon-label {
-    @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 -translate-y-[100%] xl:-translate-y-[50%] whitespace-nowrap px-2 py-1 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-grey text-custom-white-50;
+    @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 -translate-y-[100%] whitespace-nowrap px-2 py-1 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-grey text-custom-white-50;
   }
 
   .tech-icon-label-h {
@@ -136,7 +135,7 @@ body {
   }
 
   .project-thumb {
-    @apply w-full sm:w-5/12 h-auto justify-center items-center
+    @apply w-full sm:w-5/12 h-auto justify-center items-center;
   }
 
   .project-card-img {
@@ -168,7 +167,7 @@ body {
   }
 
   .pcc-section {
-    @apply w-full flex flex-col
+    @apply w-full flex flex-col;
   }
 
   .pcc-open {
@@ -188,19 +187,26 @@ body {
   }
 
   .project-flex-spacer {
-    @apply hidden sm:block w-1/6
+    @apply hidden sm:block w-1/6;
+  }
+
+  .project-close-button {
+    @apply fixed top-0 right-0 m-4 h-12 w-12 rounded-full transition-transform duration-1000 shadow-xl z-20 bg-custom-white-100 hover:scale-110;
   }
 
   .features-section {
-    @apply flex flex-row justify-between items-center h-auto w-full sm:w-2/3
+    @apply flex flex-row justify-between items-center h-auto w-full sm:w-2/3;
   }
+
   .features-img-parent {
-    @apply w-1/3 h-auto
+    @apply w-1/3 h-auto;
   }
+
   .features-img {
-    @apply object-cover w-full h-auto
+    @apply object-cover w-full h-auto;
   }
+
   .features-copy {
-    @apply body font-light w-2/3
+    @apply body font-light w-2/3;
   }
 }
