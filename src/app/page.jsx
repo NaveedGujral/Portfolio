@@ -8,7 +8,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import "./globals.css";
 
 // components
-import Curves from "./Curves";
+import FlowField from "./Curves";
 import CaseStudyButton from "./components/CaseStudyButton";
 import PreLoader from "./components/PreLoader";
 import GithubIcon from "./components/SVG/GithubIcon";
@@ -463,7 +463,7 @@ export default function Home() {
         <div className="flex fixed justify-center items-center w-screen h-screen overflow-hidden">
           <div className="w-full h-full flex  left-0">
             {contentLoaded && (
-              <Curves
+              <FlowField
                 screenWidth={screenWidth}
                 screenHeight={screenHeight}
                 className="z-0"
