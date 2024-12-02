@@ -7,18 +7,20 @@ export default function Curves({ screenWidth, screenHeight }) {
 
     // flow field controls
 
-    const inc = 0.75; // flow field variance - increase for more variation
+    const inc = 0.25; // flow field variance - increase for more variation
+
     const zInc = 0.00025 // flow field variance over time - increase for more variation but less smooth
-    const scale = 120; // size of flow field cells, decreasing can impact performance
     
-    // const particleNo = 1; // number of lines drawn
+    const scale = 150; // size of flow field cells, decreasing can impact performance
+    
     const particleNo = 150; // number of lines drawn
     
     const speedCap = 1.5 // speed of particles drawing the lines
     const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
-    // const angleSeed = Math.PI * 2 // a random angle is picked from 0 to this value in radians
+
     const crossLimit = 2
-    const brushFactor = 15
+    
+    const brushFactor = 9
     const bristleRad = 3
     const bristleOpacity = 15
 
@@ -145,6 +147,7 @@ export default function Curves({ screenWidth, screenHeight }) {
     function sketch(p5) {
 
         p5.setup = () => {
+            p5.noiseSeed(2); // **
             p5.createCanvas(canvasX, canvasY, p5.WEBGL)
             p5.pixelDensity(1)
             p5.background(bgCol.r, bgCol.g, bgCol.b)

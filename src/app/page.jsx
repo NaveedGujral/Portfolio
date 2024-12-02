@@ -27,8 +27,8 @@ export default function Home() {
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
   const [button, setButton] = useState(false);
-  // const [contentLoaded, setContentLoaded] = useState(true);
-  const [contentLoaded, setContentLoaded] = useState(false);
+  const [contentLoaded, setContentLoaded] = useState(true);
+  // const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
   const [visualContentOpen, setVisualContentOpen] = useState(false);
   const [plotTwistContentOpen, setPlotTwistContentOpen] = useState(false);
@@ -386,7 +386,7 @@ export default function Home() {
 
       return;
     }
-    setContentLoaded(false);
+    // setContentLoaded(false);
   }, [noOfContentItems, loadingProgress, loadingPercent]);
 
   useEffect(() => {
@@ -1080,6 +1080,7 @@ export default function Home() {
 
         <div id="footer" className="content-container h-screen"></div>
       </section>
+      
     </main>
   );
 }
