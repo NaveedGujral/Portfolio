@@ -1,14 +1,19 @@
 "use client";
 
 // Libraries
-import { motion, useInView } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import Lenis from "lenis";
 import { chunk } from "lodash"; // Make sure to import the chunk utility
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./globals.css";
 
 // components
-import FlowField from "./Curves";
+import FlowField from "./FlowField";
 import CaseStudyButton from "./components/CaseStudyButton";
 import PreLoader from "./components/PreLoader";
 import GithubIcon from "./components/SVG/GithubIcon";
@@ -26,9 +31,9 @@ export default function Home() {
 
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
-  const [button, setButton] = useState(false);
-  const [contentLoaded, setContentLoaded] = useState(true);
-  // const [contentLoaded, setContentLoaded] = useState(false);
+  const [landing, setLanding] = useState(true);
+  // const [contentLoaded, setContentLoaded] = useState(true);
+  const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
   const [visualContentOpen, setVisualContentOpen] = useState(false);
   const [plotTwistContentOpen, setPlotTwistContentOpen] = useState(false);
@@ -39,6 +44,8 @@ export default function Home() {
   const [visualVidSrc, setVisualVidSrc] = useState("");
   const [loadingProgress, setLoadingProgress] = useState({});
   const [loadingPercent, setLoadingPercent] = useState(0.0);
+
+  const { scrollY } = useScroll();
 
   // refs
 
@@ -374,8 +381,6 @@ export default function Home() {
       )
     );
 
-    console.log(loadingPercent);
-
     if (
       Object.values(loadingProgress).every((item) => item === true) &&
       Object.keys(loadingProgress).length === noOfContentItems
@@ -418,6 +423,16 @@ export default function Home() {
     }
     setRCCloseButton(false);
   }, [rCContentInView, reineContentOpen, setRCCloseButton]);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest >= 2 * screenHeight) {
+      console.log("Page scroll: ", latest);
+      setLanding(false);
+    }
+    else {
+      setLanding(true)
+    }
+  });
 
   // framer motion
 
@@ -486,7 +501,11 @@ export default function Home() {
                 },
               }}
             >
-              <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
+              {landing ? (
+                <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
+              ) : (
+                <></>
+              )}
             </motion.div>
           )}
         </div>
@@ -1080,7 +1099,6 @@ export default function Home() {
 
         <div id="footer" className="content-container h-screen"></div>
       </section>
-      
     </main>
   );
 }
