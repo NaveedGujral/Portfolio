@@ -103,7 +103,7 @@ body {
   }
 
   .content-container {
-    @apply w-[67%] gap-[3vw] justify-center items-center;
+    @apply w-[67%] gap-[3vw] flex justify-center items-center;
   }
 
   .tech-icon-container {
@@ -191,7 +191,7 @@ body {
   }
 
   .project-close-button {
-    @apply fixed top-0 right-0 m-4 h-12 w-12 rounded-full transition-transform duration-1000 shadow-xl z-20 bg-custom-white-100 hover:scale-110;
+    @apply fixed top-0 right-0 m-4 h-12 w-12 rounded-full transition-transform duration-500 shadow-xl z-20 bg-custom-white-100 hover:scale-110;
   }
 
   .features-section {
@@ -208,5 +208,9 @@ body {
 
   .features-copy {
     @apply body font-light w-2/3;
+  }
+
+  .footer-icon {
+    @apply text-custom-white-50 hover:scale-110 transition-transform duration-500 p-4;
   }
 }

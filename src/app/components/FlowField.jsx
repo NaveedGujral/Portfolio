@@ -5,20 +5,24 @@ import { Sketch } from "@p5-wrapper/react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
 // export default function Curves({ screenWidth, screenHeight }) {
-const FlowField = React.memo((props) => {
-  const { screenWidth, screenHeight } = props;
+const FlowField = React.memo(({ screenWidth, screenHeight, seed }) => {
   // flow field controls
+  
+  // const debugging = true;
+  const debugging = false;
 
-  const inc = 0.25; // flow field variance - increase for more variation
-
+  // const inc = 0.25; // flow field variance - increase for more variation
+  const inc = 0.125; // flow field variance - increase for more variation
   const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
+  // const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
 
-  const scale = 150; // size of flow field cells, decreasing can impact performance
+  const scale = 75; // size of flow field cells, decreasing can impact performance
 
   const particleNo = 150; // number of lines drawn
 
-  const speedCap = 1.5; // speed of particles drawing the lines
+  const speedCap = 2.25; // speed of particles drawing the lines
   const angleSeed = Math.PI * 2; // a random angle is picked from 0 to this value in radians
+  // const angleSeed = Math.PI * 4; // a random angle is picked from 0 to this value in radians
 
   const crossLimit = 2;
 
@@ -168,7 +172,7 @@ const FlowField = React.memo((props) => {
 
   function sketch(p5) {
     p5.setup = () => {
-      p5.noiseSeed(2); // **
+      p5.noiseSeed(seed); // **
       p5.createCanvas(canvasX, canvasY, p5.WEBGL);
       p5.pixelDensity(1);
       p5.background(bgCol.r, bgCol.g, bgCol.b);
@@ -183,7 +187,9 @@ const FlowField = React.memo((props) => {
     };
 
     p5.draw = () => {
-      // p5.background(29,7,108, 5) // debugging
+      if (debugging) {
+        p5.background(29, 7, 108, 5); // debugging
+      }
 
       let xOffset = 0;
       for (let x = -cols; x < cols; x++) {
@@ -196,12 +202,16 @@ const FlowField = React.memo((props) => {
           flowfield[index] = vector;
           yOffset += inc;
 
-          // p5.stroke(255); // debugging
+          if (debugging) {
+            p5.stroke(255); // debugging
+          }
           p5.push();
           p5.translate(x * scale, y * scale);
           p5.rotate(vector.heading());
           p5.strokeWeight(1);
-          // p5.line(0, 0, scale, 0) // debugging
+          if (debugging) {
+            p5.line(0, 0, scale, 0); // debugging
+          }
           p5.pop();
         }
         xOffset += inc;

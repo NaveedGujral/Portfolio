@@ -13,13 +13,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import "./globals.css";
 
 // components
-import FlowField from "./FlowField";
-import CaseStudyButton from "./components/CaseStudyButton";
+import FlowField from "./components/FlowField";
 import PreLoader from "./components/PreLoader";
+
+// SVG's
 import GithubIcon from "./components/SVG/GithubIcon";
 import InternetIcon from "./components/SVG/InternetIcon";
+import CVIcon from "./components/SVG/CV";
+import LinkedIn from "./components/SVG/LinkedIn";
 import LandingTitle from "./components/SVG/LandingTitle";
-import LogoW from "./components/SVG/LogoW";
 import Cross from "./components/SVG/Cross";
 
 // assets
@@ -32,6 +34,8 @@ export default function Home() {
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
   const [landing, setLanding] = useState(true);
+  const [seed, setSeed] = useState(5);
+  const [debugFF, setDebugFF] = useState(false);
   // const [contentLoaded, setContentLoaded] = useState(true);
   const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
@@ -233,16 +237,24 @@ export default function Home() {
       src: "/images/Icons/Tech/NextIcon.png",
     },
     {
-      id: "Illustrator",
-      src: "/images/Icons/Tech/IllustratorIcon.png",
-    },
-    {
       id: "Email JS",
       src: "/images/Icons/Tech/EmailJS.png",
     },
     {
       id: "Vimeo",
       src: "/images/Icons/Tech/Vimeo.png",
+    },
+    {
+      id: "Figma",
+      src: "/images/Icons/Tech/FigmaIcon.png",
+    },
+    {
+      id: "Photoshop",
+      src: "/images/Icons/Tech/PhotoshopIcon.png",
+    },
+    {
+      id: "Illustrator",
+      src: "/images/Icons/Tech/IllustratorIcon.png",
     },
   ];
   const plotTwistIcons = [
@@ -269,6 +281,14 @@ export default function Home() {
     {
       id: "Supabase",
       src: "/images/Icons/Tech/SupabaseIcon.png",
+    },
+    {
+      id: "Figma",
+      src: "/images/Icons/Tech/FigmaIcon.png",
+    },
+    {
+      id: "Photoshop",
+      src: "/images/Icons/Tech/PhotoshopIcon.png",
     },
     {
       id: "Illustrator",
@@ -428,9 +448,8 @@ export default function Home() {
     if (latest >= 2 * screenHeight) {
       console.log("Page scroll: ", latest);
       setLanding(false);
-    }
-    else {
-      setLanding(true)
+    } else {
+      setLanding(true);
     }
   });
 
@@ -481,6 +500,7 @@ export default function Home() {
               <FlowField
                 screenWidth={screenWidth}
                 screenHeight={screenHeight}
+                seed={seed}
                 className="z-0"
               />
             )}
@@ -502,7 +522,30 @@ export default function Home() {
               }}
             >
               {landing ? (
-                <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
+                <>
+                  <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
+                  {debugFF && (
+                    <div className="absolute m-6 top-0 right-0 w-auto flex items-center gap-2">
+                      <button
+                        className="bg-white w-8 rounded-full"
+                        onClick={() => {
+                          setSeed(seed + 1);
+                        }}
+                      >
+                        +
+                      </button>
+                      <p className="text-custom-white-50">{seed}</p>
+                      <button
+                        className="bg-white w-8 rounded-full"
+                        onClick={() => {
+                          setSeed(seed - 1);
+                        }}
+                      >
+                        -
+                      </button>
+                    </div>
+                  )}
+                </>
               ) : (
                 <></>
               )}
@@ -517,7 +560,7 @@ export default function Home() {
           contentLoaded ? "flex" : "hidden"
         }`}
       >
-        <div className=" bg-gradient-to-t from-[#1a1a1a] to-transparent w-screen h-[50vh] "></div>
+        <div className=" bg-gradient-to-t from-[#1a1a1a] to-transparent w-full h-[50vh] "></div>
         <div id="intro" className="content-wrapper bg-custom-grey">
           <div className="content-container flex flex-col md:flex-row md:justify-between">
             <motion.div
@@ -569,7 +612,8 @@ export default function Home() {
                   once: true,
                 }}
               >
-                I’m an industrial designer turned digital designer & developer.
+                I’m a digital designer & developer with a background in product
+                design.
               </motion.h2>
             </div>
           </div>
@@ -1062,10 +1106,17 @@ export default function Home() {
               <div className="pcc-section">
                 <h1 className="project-subHeading">Context</h1>
                 <p className="body">
-                  Designed and developed a website for a freelance film-maker
-                  who trades under the name Reine Creative. In addition to Web
-                  Development I also consulted the client on Service Design and
-                  Identity Design.
+                  Designed and built a website for a freelance film-maker who
+                  trades under the name Reine Creative. In addition to
+                  <span className=" italic font-light">
+                    Web Design & Development
+                  </span>
+                  , I also worked on{" "}
+                  <span className=" italic font-light">
+                    Service Design, Identity Design
+                  </span>{" "}
+                  and <span className=" italic font-light">Graphic Design</span>
+                  .
                 </p>
               </div>
               <div className="pcc-section">
@@ -1097,7 +1148,49 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="footer" className="content-container h-screen"></div>
+        <div
+          id="links"
+          className="bg-custom-grey h-[50vh] w-full flex justify-center items-center"
+        >
+          <div className="content-container h-1/2">
+            <div className="h-full flex-[2_2_0%] ">
+              <h1 className="body text-custom-white-50 font-normal">
+                Designed with:
+              </h1>
+              <h1 className="body text-custom-white-50">
+                Figma, Adobe Illustrator
+              </h1>
+              <br></br>
+              <h1 className="body text-custom-white-50 font-normal">
+                Developed with:
+              </h1>
+              <h1 className="body text-custom-white-50">
+                HTML, Javascript, CSS, React, Next.js,<br></br> Framer Motion,
+                Tailwind, P5.js
+              </h1>
+            </div>
+            <div className="h-full flex-[1_1_0%] flex gap-[3vw] items-center">
+              <a
+                className="flex-[1_1_0%]"
+                target="_blank"
+                href="https://www.github.com/NaveedGujral"
+              >
+                <GithubIcon className="footer-icon" />
+              </a>
+              <a
+                className="flex-[1_1_0%]"
+                target="_blank"
+                href="https://www.linkedin.com/in/naveed-gujral"
+              >
+                <LinkedIn className="footer-icon" />
+              </a>
+              <a className="flex-[1_1_0%]" target="_blank" href="/CV.pdf">
+                <CVIcon className="footer-icon" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className=" bg-gradient-to-b from-[#1a1a1a] to-transparent w-full h-[50vh] "></div>
       </section>
     </main>
   );
