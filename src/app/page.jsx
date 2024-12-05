@@ -10,10 +10,14 @@ import {
 import Lenis from "lenis";
 import { chunk } from "lodash"; // Make sure to import the chunk utility
 import { useCallback, useEffect, useRef, useState } from "react";
+import dynamic from 'next/dynamic';
 import "./globals.css";
 
 // components
-import FlowField from "./components/FlowField";
+// import FlowField from "./components/FlowField";
+const FlowField = dynamic(() => import('./components/FlowField'), {
+  ssr: false,
+});
 import PreLoader from "./components/PreLoader";
 
 // SVG's
@@ -394,28 +398,28 @@ export default function Home() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   // smooth scrolling
-  //   const lenis = new Lenis();
-  //   function raf(time) {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   }
-  //   requestAnimationFrame(raf);
-  // }, []);
+  useEffect(() => {
+    // smooth scrolling
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }, []);
 
-  // useEffect(() => {
-  //   handleResize();
+  useEffect(() => {
+    handleResize();
 
-  //   if (typeof window !== "undefined") {
-  //     window.addEventListener("resize", handleResize);
-  //   }
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
+    }
 
-  //   // Cleanup function to remove the event listener when the component unmounts
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, [handleResize]);
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
 
   useEffect(() => {
     setLoadingPercent(
