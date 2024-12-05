@@ -5,30 +5,29 @@ import { Sketch } from "@p5-wrapper/react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
 // export default function Curves({ screenWidth, screenHeight }) {
-const FlowField = React.memo(({ screenWidth, screenHeight, seed }) => {
+const FlowField = React.memo(({ screenWidth, screenHeight, seed, debugging }) => {
   // flow field controls
-  
-  // const debugging = true;
-  const debugging = false;
 
-  // const inc = 0.25; // flow field variance - increase for more variation
-  const inc = 0.125; // flow field variance - increase for more variation
+  const inc = 0.25; // flow field variance - increase for more variation
   const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
+  // const inc = 0.25; // flow field variance - increase for more variation
   // const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
 
   const scale = 75; // size of flow field cells, decreasing can impact performance
+  // const scale = 125; // size of flow field cells, decreasing can impact performance
 
-  const particleNo = 150; // number of lines drawn
+  const particleNo = 200; // number of lines drawn
 
-  const speedCap = 2.25; // speed of particles drawing the lines
+  const speedCap = 2; // speed of particles drawing the lines
   const angleSeed = Math.PI * 2; // a random angle is picked from 0 to this value in radians
   // const angleSeed = Math.PI * 4; // a random angle is picked from 0 to this value in radians
 
   const crossLimit = 2;
 
-  const brushFactor = 9;
-  const bristleRad = 3;
+  const brushFactor = 12;
+  const bristleRad = 2.25;
   const bristleOpacity = 15;
+  // const bristleOpacity = 15;
 
   const canvasX = screenWidth;
   const canvasY = screenHeight;
@@ -50,11 +49,15 @@ const FlowField = React.memo(({ screenWidth, screenHeight, seed }) => {
   function Particle(p5) {
     this.crossCount = 0;
     this.arrayPushCount = 0;
-
+    // this.pos = p5.createVector(
+    //   p5.random(-p5.width/brushFactor, p5.width/brushFactor),
+    //   p5.height /2,
+    //   10
+    // );
     this.pos = p5.createVector(
-      p5.width / 2,
+      -p5.width / 2,
       p5.random(-p5.height / brushFactor, p5.height / brushFactor),
-      10
+      1
     );
     this.vel = p5.createVector(0, 0);
     this.acc = p5.createVector(0, 0);

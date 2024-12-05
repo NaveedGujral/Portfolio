@@ -29,13 +29,18 @@ import visualL from "../../public/videos/VisualLandscape.mp4";
 import visualP from "../../public/videos/VisualPortrait.mp4";
 
 export default function Home() {
+
+  // Flow Field Controls
+  const [seed, setSeed] = useState(5);
+  const debugFF = false;
+  const [flowDirVis, setFlowDirVis] = useState(false)
+  
   // states
 
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
   const [landing, setLanding] = useState(true);
-  const [seed, setSeed] = useState(5);
-  const debugFF = true;
+  
   // const [contentLoaded, setContentLoaded] = useState(true);
   const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
@@ -501,6 +506,7 @@ export default function Home() {
                 screenWidth={screenWidth}
                 screenHeight={screenHeight}
                 seed={seed}
+                debugging={flowDirVis}
                 className="z-0"
               />
             )}
@@ -523,26 +529,40 @@ export default function Home() {
             >
               {landing ? (
                 <>
-                  <LandingTitle className="max-h-screen max-w-screen text-custom-white-50" />
+                  <LandingTitle className="max-h-screen max-w-screen " />
                   {debugFF && (
-                    <div className="absolute m-6 top-0 right-0 w-auto flex items-center gap-2">
-                      <button
-                        className="bg-white w-8 rounded-full"
-                        onClick={() => {
-                          setSeed(seed + 1);
-                        }}
-                      >
-                        +
-                      </button>
-                      <p className="text-custom-white-50">{seed}</p>
-                      <button
-                        className="bg-white w-8 rounded-full"
-                        onClick={() => {
-                          setSeed(seed - 1);
-                        }}
-                      >
-                        -
-                      </button>
+                    <div className="absolute m-6 top-0 right-0 w-auto flex flex-col">
+                      <div className="flex gap-2">
+                        <p className="text-custom-white-50">Seed:</p>
+                        <button
+                          className="bg-white w-8 rounded-full"
+                          onClick={() => {
+                            setSeed(seed + 1);
+                          }}
+                        >
+                          +
+                        </button>
+                        <p className="text-custom-white-50">{seed}</p>
+                        <button
+                          className="bg-white w-8 rounded-full"
+                          onClick={() => {
+                            setSeed(seed - 1);
+                          }}
+                        >
+                          -
+                        </button>
+                      </div>
+                      <div className="flex gap-2">
+                        <p className="text-custom-white-50">Visualise Flow Field:</p>
+                        <button
+                          className="bg-white w-8 rounded-full"
+                          onClick={() => {
+                            setFlowDirVis(!flowDirVis)
+                          }}
+                        >
+                        </button>
+                        <p className="text-custom-white-50">{flowDirVis.toString()}</p>
+                      </div>
                     </div>
                   )}
                 </>
@@ -618,7 +638,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div id="tech" className="content-wrapper pt-40 pb-20 bg-custom-white-50">
+        <div
+          id="tech"
+          className="content-wrapper pt-40 pb-20 bg-custom-white-50"
+        >
           <div className="content-container flex-col justify-around">
             <motion.div className="w-[90%] md:w-full flex flex-col gap-6 sm:gap-12 justify-around">
               {iconChunks.map((chunk, index) => (
@@ -657,7 +680,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="projects" className="content-wrapper pt-20 pb-40 bg-custom-white-50 flex-col gap-24 ">
+        <div
+          id="projects"
+          className="content-wrapper pt-20 pb-40 bg-custom-white-50 flex-col gap-24 "
+        >
           {/* Visual card & content */}
 
           <div id="visualCard" className="project-card">
@@ -1147,7 +1173,7 @@ export default function Home() {
 
         <div
           id="links"
-          className="bg-custom-grey h-[50vh] w-full flex justify-center items-center"
+          className="bg-custom-grey h-[50vh] sm:h-[34vh] w-full flex justify-center items-center"
         >
           <div className="content-container flex-col gap-[3vh] sm:gap-[3vw] sm:flex-row h-1/2">
             <div className="h-full w-full sm:flex-[2_2_0%] flex justify-center flex-col">
@@ -1187,7 +1213,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className=" bg-gradient-to-b from-[#1a1a1a] to-transparent w-full h-[50vh] "></div>
+        <div className=" bg-gradient-to-b from-[#1a1a1a] to-transparent w-full h-[50vh] sm:h-[66vh] "></div>
       </section>
     </main>
   );
