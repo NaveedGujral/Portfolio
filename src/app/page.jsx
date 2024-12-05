@@ -35,7 +35,7 @@ export default function Home() {
   const [screenHeight, setScreenHeight] = useState();
   const [landing, setLanding] = useState(true);
   const [seed, setSeed] = useState(5);
-  const [debugFF, setDebugFF] = useState(false);
+  const debugFF = true;
   // const [contentLoaded, setContentLoaded] = useState(true);
   const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
@@ -618,9 +618,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div id="tech" className="content-wrapper bg-custom-white-50">
+        <div id="tech" className="content-wrapper pt-40 pb-20 bg-custom-white-50">
           <div className="content-container flex-col justify-around">
-            <motion.div className="w-full flex flex-col gap-6 sm:gap-12 justify-around">
+            <motion.div className="w-[90%] md:w-full flex flex-col gap-6 sm:gap-12 justify-around">
               {iconChunks.map((chunk, index) => (
                 <motion.div
                   key={index}
@@ -657,10 +657,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div
-          id="projects"
-          className="content-wrapper bg-custom-white-50 flex-col gap-24 "
-        >
+        <div id="projects" className="content-wrapper pt-20 pb-40 bg-custom-white-50 flex-col gap-24 ">
           {/* Visual card & content */}
 
           <div id="visualCard" className="project-card">
@@ -851,7 +848,7 @@ export default function Home() {
           <div
             id="PTContent"
             className={`project-content-parent ${
-              plotTwistContentOpen ? "max-h-[4000vh]" : "max-h-0"
+              plotTwistContentOpen ? "max-h-[5000vh]" : "max-h-0"
             }`}
           >
             <button
@@ -1152,8 +1149,8 @@ export default function Home() {
           id="links"
           className="bg-custom-grey h-[50vh] w-full flex justify-center items-center"
         >
-          <div className="content-container h-1/2">
-            <div className="h-full flex-[2_2_0%] ">
+          <div className="content-container flex-col gap-[3vh] sm:gap-[3vw] sm:flex-row h-1/2">
+            <div className="h-full w-full sm:flex-[2_2_0%] flex justify-center flex-col">
               <h1 className="body text-custom-white-50 font-normal">
                 Designed with:
               </h1>
@@ -1169,13 +1166,13 @@ export default function Home() {
                 Tailwind, P5.js
               </h1>
             </div>
-            <div className="h-full flex-[1_1_0%] flex gap-[3vw] items-center">
+            <div className="h-full w-full sm:flex-[1_1_0%] flex gap-[3vw] items-center">
               <a
                 className="flex-[1_1_0%]"
                 target="_blank"
                 href="https://www.github.com/NaveedGujral"
               >
-                <GithubIcon className="footer-icon" />
+                <GithubIcon className="footer-icon -translate-x-6" />
               </a>
               <a
                 className="flex-[1_1_0%]"
@@ -1185,7 +1182,7 @@ export default function Home() {
                 <LinkedIn className="footer-icon" />
               </a>
               <a className="flex-[1_1_0%]" target="_blank" href="/CV.pdf">
-                <CVIcon className="footer-icon" />
+                <CVIcon className="footer-icon translate-x-6" />
               </a>
             </div>
           </div>

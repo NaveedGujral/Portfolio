@@ -103,7 +103,7 @@ body {
   }
 
   .content-container {
-    @apply w-[67%] gap-[3vw] flex justify-center items-center;
+    @apply w-[90%] lg:w-[67%] lg:gap-[3vw] flex justify-center items-center;
   }
 
   .tech-icon-container {
@@ -111,11 +111,11 @@ body {
   }
 
   .project-icon-container {
-    @apply w-full h-8 flex flex-row flex-wrap -ml-4 lg:-ml-4 2xl:-ml-8;
+    @apply w-full h-auto flex flex-row flex-wrap -ml-4 lg:-ml-4 2xl:-ml-8;
   }
 
   .tech-icon {
-    @apply w-1/4 md:w-1/6 lg:w-1/12 h-auto object-contain lg:hover:scale-110 flex flex-col justify-center relative transition-transform duration-500;
+    @apply w-1/4 py-2 md:p-0 md:w-1/6 lg:w-1/12 h-auto object-contain lg:hover:scale-110 flex flex-col justify-center relative transition-transform duration-500;
   }
 
   .tech-icon-img {
@@ -131,7 +131,7 @@ body {
   }
 
   .project-card {
-    @apply content-container flex flex-col sm:flex-row justify-between items-start py-4 sm:py-20 gap-12 sm:gap-0;
+    @apply content-container w-[90%] lg:w-[67%] flex flex-col sm:flex-row justify-between items-start py-4 sm:py-20 gap-12 sm:gap-0;
   }
 
   .project-thumb {
@@ -179,7 +179,7 @@ body {
   }
 
   .project-card-icon {
-    @apply md:w-[25px] lg:w-[30px] xl:w-[45px] 2xl:w-[35px] text-custom-grey hover:text-custom-purple transition-colors duration-500;
+    @apply h-12 p-2 w-12 text-custom-grey hover:text-custom-purple transition-colors duration-500;
   }
 
   .project-button {
@@ -211,6 +211,6 @@ body {
   }
 
   .footer-icon {
-    @apply text-custom-white-50 hover:scale-110 transition-transform duration-500 p-4;
+    @apply text-custom-white-50 hover:scale-110 transition-transform duration-500 p-6 sm:p-0 lg:p-2 xl:p-4;
   }
 }
