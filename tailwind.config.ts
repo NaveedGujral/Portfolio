@@ -22,8 +22,8 @@ const config: Config = {
               100:'#e8eded',
               150:'#d0dcdc',
             },       
-          blue: '#2397be',
-          red: '#e94d35',
+          purple: '#4819f0',
+          orange: '#e94d35',
         }
       }
     },
