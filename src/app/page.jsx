@@ -386,27 +386,6 @@ export default function Home() {
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
-
-    handleResize();
-
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", handleResize);
-    }
-
-    // Cleanup function to remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    // smooth scrolling
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
   }, []);
 
   useEffect(() => {
