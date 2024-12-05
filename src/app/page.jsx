@@ -29,18 +29,17 @@ import visualL from "../../public/videos/VisualLandscape.mp4";
 import visualP from "../../public/videos/VisualPortrait.mp4";
 
 export default function Home() {
-
   // Flow Field Controls
   const [seed, setSeed] = useState(5);
   const debugFF = false;
-  const [flowDirVis, setFlowDirVis] = useState(false)
-  
+  const [flowDirVis, setFlowDirVis] = useState(false);
+
   // states
 
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
   const [landing, setLanding] = useState(true);
-  
+
   // const [contentLoaded, setContentLoaded] = useState(true);
   const [contentLoaded, setContentLoaded] = useState(false);
   const [iconChunks, setIconChunks] = useState([]);
@@ -382,9 +381,7 @@ export default function Home() {
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
-  }, []);
 
-  useEffect(() => {
     handleResize();
 
     if (typeof window !== "undefined") {
@@ -395,7 +392,30 @@ export default function Home() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [handleResize]);
+  }, []);
+
+  // useEffect(() => {
+  //   // smooth scrolling
+  //   const lenis = new Lenis();
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
+  //   requestAnimationFrame(raf);
+  // }, []);
+
+  // useEffect(() => {
+  //   handleResize();
+
+  //   if (typeof window !== "undefined") {
+  //     window.addEventListener("resize", handleResize);
+  //   }
+
+  //   // Cleanup function to remove the event listener when the component unmounts
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, [handleResize]);
 
   useEffect(() => {
     setLoadingPercent(
@@ -553,15 +573,18 @@ export default function Home() {
                         </button>
                       </div>
                       <div className="flex gap-2">
-                        <p className="text-custom-white-50">Visualise Flow Field:</p>
+                        <p className="text-custom-white-50">
+                          Visualise Flow Field:
+                        </p>
                         <button
                           className="bg-white w-8 rounded-full"
                           onClick={() => {
-                            setFlowDirVis(!flowDirVis)
+                            setFlowDirVis(!flowDirVis);
                           }}
-                        >
-                        </button>
-                        <p className="text-custom-white-50">{flowDirVis.toString()}</p>
+                        ></button>
+                        <p className="text-custom-white-50">
+                          {flowDirVis.toString()}
+                        </p>
                       </div>
                     </div>
                   )}
