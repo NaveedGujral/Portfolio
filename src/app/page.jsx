@@ -424,6 +424,7 @@ export default function Home() {
 
   useEffect(() => {
     console.log(loadingProgress);
+    console.log(loadingPercent);
     setLoadingPercent(
       Math.ceil(
         (Object.keys(loadingProgress).length.toFixed(1) /
@@ -442,7 +443,7 @@ export default function Home() {
 
       return;
     }
-    // setContentLoaded(false);
+    setContentLoaded(false);
   }, [noOfContentItems, loadingProgress, loadingPercent]);
 
   useEffect(() => {
@@ -636,6 +637,7 @@ export default function Home() {
                 loading="eager"
                 width={1064}
                 height={1076}
+                alt="Picture of Naveed Gujral"
               />
               <div className="gradBorderCore blur-[2px]" />
               <div className="gradBorder blur-sm" />
@@ -705,6 +707,7 @@ export default function Home() {
                         loading="eager"
                         width={316}
                         height={316}
+                        alt={id}
                       />
                     </motion.div>
                   ))}
@@ -728,10 +731,10 @@ export default function Home() {
                   handleContentLoad(projectContent[0].id);
                 }}
                 className="project-card-img"
-                // className="project-card-img"
                 loading="eager"
                 width={740}
                 height={561}
+                alt="Title image for the Visual project"
               />
             </div>
             <div className="project-flex-spacer" />
@@ -770,7 +773,9 @@ export default function Home() {
                       handleContentLoad(projectContent[3].id);
                     }}
                     loading="eager"
-                    fill={true}
+                    width={496}
+                    height={150}
+                    alt="Google Chrome Webstore Icon"
                   />
                 </div>
               </div>
@@ -851,7 +856,9 @@ export default function Home() {
                         onLoad={() => handleContentLoad(id)}
                         className="tech-icon-img"
                         loading="eager"
-                        fill={true}
+                        width={316}
+                        height={316}
+                        alt={id}
                       />
                     </div>
                   ))}
@@ -864,7 +871,9 @@ export default function Home() {
                   onLoad={() => handleContentLoad(projectContent[4].id)}
                   className="w-full h-auto shadow-xl"
                   loading="eager"
-                  fill={true}
+                  width={1920}
+                  height={3370}
+                  alt="Wireframe for the Visual project"
                 />
               </div>
             </motion.div>
@@ -912,7 +921,9 @@ export default function Home() {
                 }}
                 className="project-card-img"
                 loading="eager"
-                fill={true}
+                width={750}
+                height={405}
+                alt="Title image for the PlotTwist project"
               />
             </div>
           </div>
@@ -944,7 +955,9 @@ export default function Home() {
                   plotTwistContentOpen ? "max-h-screen" : "max-h-0"
                 }`}
                 loading="eager"
-                fill={true}
+                width={1920}
+                height={1080}
+                alt="Banner image for the PlotTwist project"
               />
             </div>
             <motion.div
@@ -997,7 +1010,9 @@ export default function Home() {
                         onLoad={() => handleContentLoad(id)}
                         className="tech-icon-img"
                         loading="eager"
-                        fill={true}
+                        width={316}
+                        height={316}
+                        alt={id}
                       />
                     </div>
                   ))}
@@ -1018,7 +1033,9 @@ export default function Home() {
                       }}
                       className="features-img"
                       loading="eager"
-                      fill={true}
+                      width={336}
+                      height={689}
+                      alt="A phone that demonstrates how to list a book with the PlotTwist mobile app."
                     />
                   </div>
                 </div>
@@ -1031,7 +1048,9 @@ export default function Home() {
                       }}
                       className="features-img"
                       loading="eager"
-                      fill={true}
+                      width={336}
+                      height={689}
+                      alt="A phone that demonstrates how to find books on the PlotTwist mobile app."
                     />
                   </div>
                   <p className="features-copy pl-8">
@@ -1050,7 +1069,9 @@ export default function Home() {
                       }}
                       className="features-img"
                       loading="eager"
-                      fill={true}
+                      width={336}
+                      height={689}
+                      alt="A phone that demonstrates how to request a swap on the PlotTwist mobile app."
                     />
                   </div>
                 </div>
@@ -1063,7 +1084,9 @@ export default function Home() {
                       }}
                       className="features-img"
                       loading="eager"
-                      fill={true}
+                      width={1008}
+                      height={689}
+                      alt="A phone that demonstrates how to manage offers on the PlotTwist mobile app."
                     />
                   </div>
                   <p className="features-copy w-full text-center py-2 sm:py-12">
@@ -1082,7 +1105,9 @@ export default function Home() {
                     }}
                     className="w-full h-auto"
                     loading="eager"
-                    fill={true}
+                    width={1921}
+                    height={5956}
+                    alt="Wireframe 1 for the PlotTwist project"
                   />
                   <Image
                     src={projectContent[11].src}
@@ -1091,7 +1116,9 @@ export default function Home() {
                     }}
                     className="w-full h-auto"
                     loading="eager"
-                    fill={true}
+                    width={1921}
+                    height={5961}
+                    alt="Wireframe 2 for the PlotTwist project"
                   />
                   <Image
                     src={projectContent[12].src}
@@ -1100,7 +1127,9 @@ export default function Home() {
                     }}
                     className="w-full h-auto"
                     loading="eager"
-                    fill={true}
+                    width={1921}
+                    height={8182}
+                    alt="Wireframe 3 for the PlotTwist project"
                   />
                 </div>
               </div>
@@ -1118,7 +1147,9 @@ export default function Home() {
                 }}
                 className="project-card-img"
                 loading="eager"
-                fill={true}
+                width={750}
+                height={405}
+                alt="Title image for the Reine Creative project"
               />
             </div>
             <div className="project-flex-spacer" />
@@ -1168,7 +1199,9 @@ export default function Home() {
                   reineContentOpen ? "max-h-screen" : "max-h-0"
                 }`}
                 loading="eager"
-                fill={true}
+                width={1920}
+                height={1080}
+                alt="Banner image for the Reine Creative project"
               />
             </div>
             <button
@@ -1223,7 +1256,9 @@ export default function Home() {
                         onLoad={() => handleContentLoad(id)}
                         className="tech-icon-img"
                         loading="eager"
-                        fill={true}
+                        width={316}
+                        height={316}
+                        alt={id}
                       />
                     </div>
                   ))}
@@ -1236,7 +1271,9 @@ export default function Home() {
                   onLoad={() => handleContentLoad(projectContent[14].id)}
                   className="w-full h-auto shadow-xl"
                   loading="eager"
-                  fill={true}
+                  width={1920}
+                  height={3370}
+                  alt="Wireframe for the Reine Creative project"
                 />
               </div>
             </motion.div>
