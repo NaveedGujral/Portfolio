@@ -786,7 +786,7 @@ export default function Home() {
                 id="visualVideo"
                 src={visualVidSrc}
                 onLoadStart={() => {
-                  handleContentLoad("visualVid", false);
+                  // handleContentLoad("visualVid", false);
                 }}
                 onLoadedData={() => {
                   handleContentLoad("visualVid");
