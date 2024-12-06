@@ -744,18 +744,20 @@ export default function Home() {
                 >
                   Case Study
                 </motion.button>
-                <div className="h-12 w-auto">
-                  <Image
-                    className="object-contain h-full"
-                    src={projectContent[3].src}
-                    onLoad={() => {
-                      handleContentLoad(projectContent[3].id);
-                    }}
-                    loading="eager"
-                    width={496}
-                    height={150}
-                    alt="Google Chrome Webstore Icon"
-                  />
+                <div className="h-12 w-full">
+                  <a className="h-12 w-auto flex justify-start" href="https://chromewebstore.google.com/detail/visual-beta/idpelhhfjeobialmecpnepiblbgnaffb?hl=en-GB&pli=1" target="_blank">
+                    <Image
+                      className="h-12 w-auto"
+                      src={projectContent[3].src}
+                      onLoad={() => {
+                        handleContentLoad(projectContent[3].id);
+                      }}
+                      loading="eager"
+                      width={496}
+                      height={150}
+                      alt="Google Chrome Webstore Icon"
+                    />
+                  </a>
                 </div>
               </div>
             </div>
@@ -885,9 +887,9 @@ export default function Home() {
                   Case Study
                 </motion.button>
                 <div className="h-12 w-auto flex items-center">
-                  <button className="project-card-icon">
+                  <a className="project-card-icon" href="https://github.com/NaveedGujral/plotTwist" target="_blank">
                     <GithubIcon />
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1156,9 +1158,9 @@ export default function Home() {
                   Case Study
                 </motion.button>
                 <div className="h-12 w-auto flex items-center">
-                  <button className="project-card-icon">
+                  <a className="project-card-icon" href="https://reinecreative.co.uk/" target="_blank">
                     <InternetIcon />
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
