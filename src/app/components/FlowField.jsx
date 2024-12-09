@@ -11,17 +11,13 @@ const FlowField = React.memo(
 
     const inc = 0.25; // flow field variance - increase for more variation
     const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
-    // const inc = 0.25; // flow field variance - increase for more variation
-    // const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
 
     const scale = 75; // size of flow field cells, decreasing can impact performance
-    // const scale = 125; // size of flow field cells, decreasing can impact performance
 
     const particleNo = 200; // number of lines drawn
 
     const speedCap = 2; // speed of particles drawing the lines
     const angleSeed = Math.PI * 2; // a random angle is picked from 0 to this value in radians
-    // const angleSeed = Math.PI * 4; // a random angle is picked from 0 to this value in radians
 
     const crossLimit = 2;
 
@@ -38,8 +34,6 @@ const FlowField = React.memo(
     const col1 = { r: 151, g: 71, b: 255 }; // purple
     const col2 = { r: 255, g: 61, b: 31 }; // orange
 
-    // const bgCol = {r:0, g:2 , b:51}
-    // const col1 = {r:255, g:113, b:91}
 
     let cols, rows;
     let zOffset = 0;
@@ -50,11 +44,6 @@ const FlowField = React.memo(
     function Particle(p5) {
       this.crossCount = 0;
       this.arrayPushCount = 0;
-      // this.pos = p5.createVector(
-      //   p5.random(-p5.width/brushFactor, p5.width/brushFactor),
-      //   p5.height /2,
-      //   10
-      // );
       this.pos = p5.createVector(
         -p5.width / 2,
         p5.random(-p5.height / brushFactor, p5.height / brushFactor),

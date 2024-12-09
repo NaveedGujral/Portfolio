@@ -660,7 +660,7 @@ export default function Home() {
                   whileInView="show"
                   viewport={{
                     amount: "some",
-                    // once: true,
+                    once: true,
                   }}
                 >
                   {chunk.map(({ id, src }, subIndex) => (
