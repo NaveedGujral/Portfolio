@@ -470,7 +470,8 @@ export default function Home() {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.25,
+        duration: 1,
+        delay: 0.5
       },
     },
   };
@@ -483,12 +484,6 @@ export default function Home() {
   const caseStudyButton = {
     hover: { scale: 1.05 },
     tap: { scale: 0.95 },
-  };
-
-  const pccSection = {
-    transition: {
-      duration: 1,
-    },
   };
 
   return (
@@ -655,7 +650,7 @@ export default function Home() {
           className="content-wrapper pt-40 pb-20 bg-custom-white-50"
         >
           <div className="content-container flex-col justify-around">
-            <motion.div className="w-[90%] md:w-full flex flex-col gap-6 sm:gap-12 justify-around">
+            <div className="w-[90%] md:w-full flex flex-col gap-6 sm:gap-12 justify-around">
               {iconChunks.map((chunk, index) => (
                 <motion.div
                   key={index}
@@ -665,11 +660,11 @@ export default function Home() {
                   whileInView="show"
                   viewport={{
                     amount: "some",
-                    once: true,
+                    // once: true,
                   }}
                 >
                   {chunk.map(({ id, src }, subIndex) => (
-                    <motion.div
+                    <div
                       key={subIndex}
                       className="tech-icon group"
                       variants={techIcon}
@@ -688,11 +683,11 @@ export default function Home() {
                         height={316}
                         alt={id}
                       />
-                    </motion.div>
+                    </div>
                   ))}
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
 
@@ -745,7 +740,11 @@ export default function Home() {
                   Case Study
                 </motion.button>
                 <div className="h-12 w-full">
-                  <a className="h-12 w-auto flex justify-start" href="https://chromewebstore.google.com/detail/visual-beta/idpelhhfjeobialmecpnepiblbgnaffb?hl=en-GB&pli=1" target="_blank">
+                  <a
+                    className="h-12 w-auto flex justify-start"
+                    href="https://chromewebstore.google.com/detail/visual-beta/idpelhhfjeobialmecpnepiblbgnaffb?hl=en-GB&pli=1"
+                    target="_blank"
+                  >
                     <Image
                       className="h-12 w-auto"
                       src={projectContent[3].src}
@@ -887,7 +886,11 @@ export default function Home() {
                   Case Study
                 </motion.button>
                 <div className="h-12 w-auto flex items-center">
-                  <a className="project-card-icon" href="https://github.com/NaveedGujral/plotTwist" target="_blank">
+                  <a
+                    className="project-card-icon"
+                    href="https://github.com/NaveedGujral/plotTwist"
+                    target="_blank"
+                  >
                     <GithubIcon />
                   </a>
                 </div>
@@ -1158,7 +1161,11 @@ export default function Home() {
                   Case Study
                 </motion.button>
                 <div className="h-12 w-auto flex items-center">
-                  <a className="project-card-icon" href="https://reinecreative.co.uk/" target="_blank">
+                  <a
+                    className="project-card-icon"
+                    href="https://reinecreative.co.uk/"
+                    target="_blank"
+                  >
                     <InternetIcon />
                   </a>
                 </div>
