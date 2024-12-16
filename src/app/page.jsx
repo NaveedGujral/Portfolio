@@ -402,8 +402,6 @@ export default function Home() {
   }, [handleResize]);
 
   useEffect(() => {
-    console.log(loadingProgress);
-    console.log(loadingPercent);
     setLoadingPercent(
       Math.ceil(
         (Object.keys(loadingProgress).length.toFixed(1) /
