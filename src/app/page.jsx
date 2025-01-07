@@ -346,8 +346,8 @@ export default function Home() {
   const handleResize = useCallback(() => {
     let visualSrc = "";
     if (typeof window !== "undefined") {
-      setScreenWidth(window.outerWidth);
-      setScreenHeight(window.outerHeight);
+      setScreenWidth(window.innerWidth);
+      setScreenHeight(window.innerHeight);
 
       if (window.innerWidth < window.innerHeight) {
         setIconChunks(chunk(techIcons, 4));
@@ -404,7 +404,21 @@ export default function Home() {
   }, [handleResize]);
 
   useEffect(() => {
-    console.log(screenWidth)
+
+    // desktop & tablet canvas dim changes
+    if (screenWidth > 640) {
+      setCanvasWidth(screenWidth)
+      setCanvasHeight(screenHeight)
+    }
+
+    // mobile canvas dim changes
+    if (screenWidth <= 640) {
+      if (canvasWidth !== screenWidth) {
+        setCanvasWidth(screenWidth)
+        setCanvasHeight(screenHeight)
+      }
+    }
+
   }, [screenWidth, screenHeight]);
 
   useEffect(() => {
@@ -507,8 +521,8 @@ export default function Home() {
           <div className="w-full h-full flex  left-0">
             {contentLoaded && (
               <FlowField
-                screenWidth={screenWidth}
-                screenHeight={screenHeight}
+                canvasWidth={canvasWidth}
+                canvasHeight={canvasHeight}
                 seed={seed}
                 debugging={flowDirVis}
                 className="z-0"

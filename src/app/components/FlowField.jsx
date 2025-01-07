@@ -6,7 +6,7 @@ import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
 // export default function Curves({ screenWidth, screenHeight }) {
 const FlowField = React.memo(
-  ({ screenWidth, screenHeight, seed, debugging }) => {
+  ({ canvasWidth, canvasHeight, seed, debugging }) => {
     // flow field controls
 
     const inc = 0.25; // flow field variance - increase for more variation
@@ -26,8 +26,8 @@ const FlowField = React.memo(
     const bristleOpacity = 15;
     // const bristleOpacity = 15;
 
-    const canvasX = screenWidth;
-    const canvasY = screenHeight;
+    const canvasX = canvasWidth;
+    const canvasY = canvasHeight;
 
     // colours
     const bgCol = { r: 26, g: 26, b: 26 };
