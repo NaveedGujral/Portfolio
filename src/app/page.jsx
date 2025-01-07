@@ -43,6 +43,8 @@ export default function Home() {
 
   const [screenWidth, setScreenWidth] = useState();
   const [screenHeight, setScreenHeight] = useState();
+  const [canvasWidth, setCanvasWidth] = useState();
+  const [canvasHeight, setCanvasHeight] = useState();
   const [landing, setLanding] = useState(true);
 
   // const [contentLoaded, setContentLoaded] = useState(true);
@@ -344,8 +346,8 @@ export default function Home() {
   const handleResize = useCallback(() => {
     let visualSrc = "";
     if (typeof window !== "undefined") {
-      setScreenWidth(window.innerWidth);
-      setScreenHeight(window.innerHeight);
+      setScreenWidth(window.outerWidth);
+      setScreenHeight(window.outerHeight);
 
       if (window.innerWidth < window.innerHeight) {
         setIconChunks(chunk(techIcons, 4));
@@ -400,6 +402,10 @@ export default function Home() {
       window.removeEventListener("resize", handleResize);
     };
   }, [handleResize]);
+
+  useEffect(() => {
+    console.log(screenWidth)
+  }, [screenWidth, screenHeight]);
 
   useEffect(() => {
     setLoadingPercent(
