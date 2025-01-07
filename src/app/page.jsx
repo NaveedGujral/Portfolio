@@ -409,14 +409,14 @@ export default function Home() {
           100
       )
     );
-
+    // console.log(loadingProgress);
     if (
       Object.values(loadingProgress).every((item) => item === true) &&
       Object.keys(loadingProgress).length === noOfContentItems
     ) {
       setTimeout(() => {
         setContentLoaded(true);
-      }, 2000);
+      }, 1000);
 
       return;
     }
@@ -469,7 +469,7 @@ export default function Home() {
       opacity: 1,
       transition: {
         duration: 1,
-        delay: 0.5
+        delay: 0.5,
       },
     },
   };
@@ -781,9 +781,6 @@ export default function Home() {
               <video
                 id="visualVideo"
                 src={visualVidSrc}
-                onLoadStart={() => {
-                  handleContentLoad("visualVid", false);
-                }}
                 onLoadedData={() => {
                   handleContentLoad("visualVid");
                 }}

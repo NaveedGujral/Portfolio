@@ -11,7 +11,7 @@ function PreLoader({ contentLoaded, loadingPercent }) {
           key="preloader"
           className="absolute h-screen w-full bg-custom-grey z-50 top-0"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 1 } }}
+          exit={{ opacity: 0, transition: { duration: 2 } }}
         >
           <motion.div
             className="loading-bar opacity-25 round-full"
