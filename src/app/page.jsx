@@ -508,10 +508,10 @@ export default function Home() {
     <main
       className={`min-h-screen w-full flex flex-col bg-custom-grey items-center justify-between p-0 overflow-hidden`}
     >
-      <PreLoader
+      {/* <PreLoader
         contentLoaded={contentLoaded}
         loadingPercent={loadingPercent}
-      />
+      /> */}
 
       <section
         id="landing"
