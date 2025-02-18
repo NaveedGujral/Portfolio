@@ -12,7 +12,8 @@ import { chunk } from "lodash"; // Make sure to import the chunk utility
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import "./globals.css";
-import { CldImage } from 'next-cloudinary'
+import { CldImage, CldVideoPlayer } from "next-cloudinary";
+import "next-cloudinary/dist/cld-video-player.css";
 
 // components
 // import FlowField from "./components/FlowField";
@@ -30,8 +31,8 @@ import LandingTitle from "./components/SVG/LandingTitle";
 import Cross from "./components/SVG/Cross";
 
 // assets
-import visualL from "../../public/videos/VisualLandscape.mp4";
-import visualP from "../../public/videos/VisualPortrait.mp4";
+const visualL = "https://res.cloudinary.com/dpfsll4qm/video/upload/v1739882439/VisualLandscape_jbycwo.mp4";
+const visualP = "https://res.cloudinary.com/dpfsll4qm/video/upload/v1739882445/VisualPortrait_mzun6v.mp4";
 
 export default function Home() {
   // Flow Field Controls
@@ -73,7 +74,12 @@ export default function Home() {
 
   // content to be loaded
 
-  const aboutContent = [{ id: "profilePic", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/Me_qvs5dc.png" }];
+  const aboutContent = [
+    {
+      id: "profilePic",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/Me_qvs5dc.png",
+    },
+  ];
   const techIcons = [
     {
       id: "HTML",
@@ -275,7 +281,7 @@ export default function Home() {
     },
     {
       id: "Javascript",
-      src:  "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/JavascriptIcon_gnve5z.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/JavascriptIcon_gnve5z.png",
     },
     {
       id: "CSS",
@@ -311,21 +317,66 @@ export default function Home() {
     },
   ];
   const projectContent = [
-    { id: "visualThumb", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/VisualThumb_r2ggpx.png" },
-    { id: "PlotTwistThumb", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PlotTwistThumb_yunk6p.png" },
-    { id: "RCThumb", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/RCThumb_lodymc.png" },
-    { id: "ChromeWebstore", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/Webstore_p5vulf.png" },
-    { id: "visWF1", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/visWF1_cqmktd.jpg" },
-    { id: "PTLanding", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/TitleStripPT_lnfh42.png" },
-    { id: "PT_Listbook", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Listbook_zb6hdw.png" },
-    { id: "PT_ReqSwap", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/PT_ReqSwap_qfymt9.png" },
-    { id: "PT_Chat", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Chat_lhkykk.png" },
-    { id: "PT_Offer", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Offer_vqadwa.png" },
-    { id: "PTWF_1", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882423/PTWF_1_wil19b.jpg" },
-    { id: "PTWF_2", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PTWF_2_ggrjn9.jpg" },
-    { id: "PTWF_3", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PTWF_3_wyz5j8.jpg" },
-    { id: "RC_TitleStrip", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/RCTitleStrip_zdibgi.png" },
-    { id: "RWF_1", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/RWF_1_p4jhuk.jpg" },
+    {
+      id: "visualThumb",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/VisualThumb_r2ggpx.png",
+    },
+    {
+      id: "PlotTwistThumb",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PlotTwistThumb_yunk6p.png",
+    },
+    {
+      id: "RCThumb",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/RCThumb_lodymc.png",
+    },
+    {
+      id: "ChromeWebstore",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/Webstore_p5vulf.png",
+    },
+    {
+      id: "visWF1",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/visWF1_cqmktd.jpg",
+    },
+    {
+      id: "PTLanding",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/TitleStripPT_lnfh42.png",
+    },
+    {
+      id: "PT_Listbook",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Listbook_zb6hdw.png",
+    },
+    {
+      id: "PT_ReqSwap",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/PT_ReqSwap_qfymt9.png",
+    },
+    {
+      id: "PT_Chat",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Chat_lhkykk.png",
+    },
+    {
+      id: "PT_Offer",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Offer_vqadwa.png",
+    },
+    {
+      id: "PTWF_1",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882423/PTWF_1_wil19b.jpg",
+    },
+    {
+      id: "PTWF_2",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PTWF_2_ggrjn9.jpg",
+    },
+    {
+      id: "PTWF_3",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PTWF_3_wyz5j8.jpg",
+    },
+    {
+      id: "RC_TitleStrip",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/RCTitleStrip_zdibgi.png",
+    },
+    {
+      id: "RWF_1",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/RWF_1_p4jhuk.jpg",
+    },
   ];
   const noOfContentItems =
     aboutContent.length + techIcons.length + projectContent.length + 4;
@@ -344,7 +395,7 @@ export default function Home() {
   };
 
   const handleResize = useCallback(() => {
-    let visualSrc = "";
+    let visualSrc = visualL;
     if (typeof window !== "undefined") {
       setScreenWidth(window.innerWidth);
       setScreenHeight(window.innerHeight);
@@ -404,21 +455,19 @@ export default function Home() {
   }, [handleResize]);
 
   useEffect(() => {
-
     // desktop & tablet canvas dim changes
     if (screenWidth > 640) {
-      setCanvasWidth(screenWidth)
-      setCanvasHeight(screenHeight)
+      setCanvasWidth(screenWidth);
+      setCanvasHeight(screenHeight);
     }
 
     // mobile canvas dim changes
     if (screenWidth <= 640) {
       if (canvasWidth !== screenWidth) {
-        setCanvasWidth(screenWidth)
-        setCanvasHeight(screenHeight)
+        setCanvasWidth(screenWidth);
+        setCanvasHeight(screenHeight);
       }
     }
-
   }, [screenWidth, screenHeight]);
 
   useEffect(() => {
