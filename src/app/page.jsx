@@ -12,6 +12,7 @@ import { chunk } from "lodash"; // Make sure to import the chunk utility
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import "./globals.css";
+import { CldImage } from 'next-cloudinary'
 
 // components
 // import FlowField from "./components/FlowField";
@@ -31,7 +32,6 @@ import Cross from "./components/SVG/Cross";
 // assets
 import visualL from "../../public/videos/VisualLandscape.mp4";
 import visualP from "../../public/videos/VisualPortrait.mp4";
-import Image from "next/image";
 
 export default function Home() {
   // Flow Field Controls
@@ -73,259 +73,259 @@ export default function Home() {
 
   // content to be loaded
 
-  const aboutContent = [{ id: "profilePic", src: "/images/Me.png" }];
+  const aboutContent = [{ id: "profilePic", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/Me_qvs5dc.png" }];
   const techIcons = [
     {
       id: "HTML",
-      src: "/images/Icons/Tech/HTMLIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/HTMLIcon_vbj5fr.png",
     },
     {
       id: "Javascript",
-      src: "/images/Icons/Tech/JavascriptIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/JavascriptIcon_gnve5z.png",
     },
     {
       id: "CSS",
-      src: "/images/Icons/Tech/CSSIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/CSSIcon_gt9bxk.png",
     },
     {
       id: "Python",
-      src: "/images/Icons/Tech/PythonIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/PythonIcon_enctuf.png",
     },
     {
       id: "C++",
-      src: "/images/Icons/Tech/CIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/CIcon_qewxie.png",
     },
     {
       id: "Tailwind",
-      src: "/images/Icons/Tech/TailwindIcon.png",
-    },
-    {
-      id: "React Native",
-      src: "/images/Icons/Tech/ReactNativeIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/TailwindIcon_nzma3s.png",
     },
     {
       id: "React",
-      src: "/images/Icons/Tech/ReactIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/ReactIcon_sdy9y4.png",
+    },
+    {
+      id: "React Native",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/ReactNativeIcon_vqj7v7.png",
     },
     {
       id: "Node.js",
-      src: "/images/Icons/Tech/NodeIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/NodeIcon_k07ehv.png",
     },
     {
       id: "Next.js",
-      src: "/images/Icons/Tech/NextIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/NextIcon_vq0ihj.png",
     },
     {
       id: "React Spring",
-      src: "/images/Icons/Tech/ReactSpringIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/ReactSpringIcon_mfqs3i.png",
     },
     {
       id: "Framer Motion",
-      src: "/images/Icons/Tech/FramerMotionIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/FramerMotionIcon_ybaztq.png",
     },
     {
       id: "Plasmo",
-      src: "/images/Icons/Tech/PlasmoIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/plasmoIcon_q3vjo5.png",
     },
     {
       id: "p5.js",
-      src: "/images/Icons/Tech/P5JSIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/P5JSIcon_oc5fqe.png",
     },
     {
       id: "Three.js",
-      src: "/images/Icons/Tech/ThreeIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/ThreeIcon_xpodmy.png",
     },
     {
       id: "GLSL",
-      src: "/images/Icons/Tech/GLSLIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/GLSLIcon_n4d8fl.png",
     },
     {
       id: "SQL",
-      src: "/images/Icons/Tech/SQLIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/SQLIcon_cgrl03.png",
     },
     {
-      id: "postgresSQL",
-      src: "/images/Icons/Tech/PostGresSQLIcon.png",
+      id: "postgreSQL",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/PostgresSQLIcon_hrh2ut.png",
     },
     {
       id: "Supabase",
-      src: "/images/Icons/Tech/SupabaseIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/supabaseIcon_pxae76.png",
     },
     {
       id: "Figma",
-      src: "/images/Icons/Tech/FigmaIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/FigmaIcon_gtuuiw.png",
     },
     {
       id: "Photoshop",
-      src: "/images/Icons/Tech/PhotoshopIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/PhotoshopIcon_jdhoti.png",
     },
     {
       id: "Illustrator",
-      src: "/images/Icons/Tech/IllustratorIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/IllustratorIcon_pkbvgc.png",
     },
     {
       id: "Indesign",
-      src: "/images/Icons/Tech/IndesignIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/IndesignIcon_k2nlnm.png",
     },
     {
       id: "Blender",
-      src: "/images/Icons/Tech/BlenderIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882416/BlenderIcon_x7up4x.png",
     },
   ];
   const visIcons = [
     {
       id: "HTML",
-      src: "/images/Icons/Tech/HTMLIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/HTMLIcon_vbj5fr.png",
     },
     {
       id: "Javascript",
-      src: "/images/Icons/Tech/JavascriptIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/JavascriptIcon_gnve5z.png",
     },
     {
       id: "CSS",
-      src: "/images/Icons/Tech/CSSIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/CSSIcon_gt9bxk.png",
     },
     {
       id: "Tailwind",
-      src: "/images/Icons/Tech/TailwindIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/TailwindIcon_nzma3s.png",
     },
     {
       id: "React",
-      src: "/images/Icons/Tech/ReactIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/ReactIcon_sdy9y4.png",
     },
     {
       id: "Node.js",
-      src: "/images/Icons/Tech/NodeIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/NodeIcon_k07ehv.png",
     },
     {
       id: "Next.js",
-      src: "/images/Icons/Tech/NextIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/NextIcon_vq0ihj.png",
     },
     {
       id: "Plasmo",
-      src: "/images/Icons/Tech/PlasmoIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/plasmoIcon_q3vjo5.png",
     },
     {
       id: "Three.js",
-      src: "/images/Icons/Tech/ThreeIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/ThreeIcon_xpodmy.png",
     },
     {
       id: "GLSL",
-      src: "/images/Icons/Tech/GLSLIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/GLSLIcon_n4d8fl.png",
     },
     {
       id: "Illustrator",
-      src: "/images/Icons/Tech/IllustratorIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/IllustratorIcon_pkbvgc.png",
     },
   ];
   const reineIcons = [
     {
       id: "HTML",
-      src: "/images/Icons/Tech/HTMLIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/HTMLIcon_vbj5fr.png",
     },
     {
       id: "Javascript",
-      src: "/images/Icons/Tech/JavascriptIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/JavascriptIcon_gnve5z.png",
     },
     {
       id: "CSS",
-      src: "/images/Icons/Tech/CSSIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/CSSIcon_gt9bxk.png",
     },
     {
       id: "Tailwind",
-      src: "/images/Icons/Tech/TailwindIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/TailwindIcon_nzma3s.png",
     },
     {
       id: "React",
-      src: "/images/Icons/Tech/ReactIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/ReactIcon_sdy9y4.png",
     },
     {
       id: "Node.js",
-      src: "/images/Icons/Tech/NodeIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/NodeIcon_k07ehv.png",
     },
     {
       id: "Next.js",
-      src: "/images/Icons/Tech/NextIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/NextIcon_vq0ihj.png",
     },
     {
       id: "Email JS",
-      src: "/images/Icons/Tech/EmailJS.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/EmailJS_tqv42l.png",
     },
     {
       id: "Vimeo",
-      src: "/images/Icons/Tech/Vimeo.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/EmailJS_tqv42l.png",
     },
     {
       id: "Figma",
-      src: "/images/Icons/Tech/FigmaIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/FigmaIcon_gtuuiw.png",
     },
     {
       id: "Photoshop",
-      src: "/images/Icons/Tech/PhotoshopIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/PhotoshopIcon_jdhoti.png",
     },
     {
       id: "Illustrator",
-      src: "/images/Icons/Tech/IllustratorIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/IllustratorIcon_pkbvgc.png",
     },
   ];
   const plotTwistIcons = [
     {
       id: "React Native",
-      src: "/images/Icons/Tech/ReactNativeIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882419/ReactNativeIcon_vqj7v7.png",
     },
     {
       id: "Javascript",
-      src: "/images/Icons/Tech/JavascriptIcon.png",
+      src:  "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/JavascriptIcon_gnve5z.png",
     },
     {
       id: "CSS",
-      src: "/images/Icons/Tech/CSSIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/CSSIcon_gt9bxk.png",
     },
     {
       id: "Node.js",
-      src: "/images/Icons/Tech/NodeIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/NodeIcon_k07ehv.png",
     },
     {
       id: "SQL",
-      src: "/images/Icons/Tech/SQLIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/SQLIcon_cgrl03.png",
     },
     {
       id: "Supabase",
-      src: "/images/Icons/Tech/SupabaseIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/supabaseIcon_pxae76.png",
     },
     {
       id: "Figma",
-      src: "/images/Icons/Tech/FigmaIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/FigmaIcon_gtuuiw.png",
     },
     {
       id: "Photoshop",
-      src: "/images/Icons/Tech/PhotoshopIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/PhotoshopIcon_jdhoti.png",
     },
     {
       id: "Illustrator",
-      src: "/images/Icons/Tech/IllustratorIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/IllustratorIcon_pkbvgc.png",
     },
     {
       id: "Google Books API",
-      src: "/images/Icons/Tech/GoogleBooksIcon.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/GoogleBooksIcon_imnsg7.png",
     },
   ];
   const projectContent = [
-    { id: "visualThumb", src: "/images/Thumbs/VisualThumb.png" },
-    { id: "PlotTwistThumb", src: "/images/Thumbs/PlotTwistThumb.png" },
-    { id: "RCThumb", src: "/images/Thumbs/RCThumb.png" },
-    { id: "ChromeWebstore", src: "/images/Icons/Webstore.png" },
-    { id: "visWF1", src: "/images/Wireframes/visWF1.jpg" },
-    { id: "PTLanding", src: "/images/TitleStripPT.png" },
-    { id: "PT_Listbook", src: "/images/PT_Listbook.png" },
-    { id: "PT_ReqSwap", src: "/images/PT_ReqSwap.png" },
-    { id: "PT_Chat", src: "/images/PT_Chat.png" },
-    { id: "PT_Offer", src: "/images/PT_Offer.png" },
-    { id: "PTWF_1", src: "/images/Wireframes/PTWF_1.jpg" },
-    { id: "PTWF_2", src: "/images/Wireframes/PTWF_2.jpg" },
-    { id: "PTWF_3", src: "/images/Wireframes/PTWF_3.jpg" },
-    { id: "RC_TitleStrip", src: "/images/RCTitleStrip.png" },
-    { id: "RWF_1", src: "/images/Wireframes/RWF_1.jpg" },
+    { id: "visualThumb", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/VisualThumb_r2ggpx.png" },
+    { id: "PlotTwistThumb", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PlotTwistThumb_yunk6p.png" },
+    { id: "RCThumb", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/RCThumb_lodymc.png" },
+    { id: "ChromeWebstore", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/Webstore_p5vulf.png" },
+    { id: "visWF1", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/visWF1_cqmktd.jpg" },
+    { id: "PTLanding", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/TitleStripPT_lnfh42.png" },
+    { id: "PT_Listbook", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Listbook_zb6hdw.png" },
+    { id: "PT_ReqSwap", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/PT_ReqSwap_qfymt9.png" },
+    { id: "PT_Chat", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Chat_lhkykk.png" },
+    { id: "PT_Offer", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882421/PT_Offer_vqadwa.png" },
+    { id: "PTWF_1", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882423/PTWF_1_wil19b.jpg" },
+    { id: "PTWF_2", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PTWF_2_ggrjn9.jpg" },
+    { id: "PTWF_3", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/PTWF_3_wyz5j8.jpg" },
+    { id: "RC_TitleStrip", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/RCTitleStrip_zdibgi.png" },
+    { id: "RWF_1", src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882424/RWF_1_p4jhuk.jpg" },
   ];
   const noOfContentItems =
     aboutContent.length + techIcons.length + projectContent.length + 4;
@@ -622,7 +622,7 @@ export default function Home() {
                 once: true,
               }}
             >
-              <Image
+              <CldImage
                 src={aboutContent[0].src}
                 onLoad={() => handleContentLoad(aboutContent[0].id)}
                 className="relative w-full h-full z-10 rounded-[14px] scale-[0.99]"
@@ -692,7 +692,7 @@ export default function Home() {
                           {id}
                         </h1>
                       </div>
-                      <Image
+                      <CldImage
                         src={src}
                         onLoad={() => handleContentLoad(id)}
                         className="tech-icon-img"
@@ -717,7 +717,7 @@ export default function Home() {
 
           <div id="visualCard" className="project-card">
             <div className="project-thumb">
-              <Image
+              <CldImage
                 src={projectContent[0].src}
                 onLoad={() => {
                   handleContentLoad(projectContent[0].id);
@@ -763,7 +763,7 @@ export default function Home() {
                     href="https://chromewebstore.google.com/detail/visual-beta/idpelhhfjeobialmecpnepiblbgnaffb?hl=en-GB&pli=1"
                     target="_blank"
                   >
-                    <Image
+                    <CldImage
                       className="h-12 w-auto"
                       src={projectContent[3].src}
                       onLoad={() => {
@@ -846,7 +846,7 @@ export default function Home() {
                       <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                         {id}
                       </h1>
-                      <Image
+                      <CldImage
                         src={src}
                         onLoad={() => handleContentLoad(id)}
                         className="tech-icon-img"
@@ -861,7 +861,7 @@ export default function Home() {
               </div>
               <div className="pcc-section">
                 <h1 className="project-subHeading">Process</h1>
-                <Image
+                <CldImage
                   src={projectContent[4].src}
                   onLoad={() => handleContentLoad(projectContent[4].id)}
                   className="w-full h-auto shadow-xl"
@@ -913,7 +913,7 @@ export default function Home() {
             </div>
             <div className="project-flex-spacer" />
             <div className="project-thumb order-first sm:order-2">
-              <Image
+              <CldImage
                 src={projectContent[1].src}
                 onLoad={() => {
                   handleContentLoad(projectContent[1].id);
@@ -945,7 +945,7 @@ export default function Home() {
             </button>
 
             <div className="w-full">
-              <Image
+              <CldImage
                 src={projectContent[5].src}
                 onLoad={() => {
                   handleContentLoad(projectContent[5].id);
@@ -1004,7 +1004,7 @@ export default function Home() {
                       <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                         {id}
                       </h1>
-                      <Image
+                      <CldImage
                         src={src}
                         onLoad={() => handleContentLoad(id)}
                         className="tech-icon-img"
@@ -1025,7 +1025,7 @@ export default function Home() {
                     List your unused books easily with Google Books API
                   </p>
                   <div className="features-img-parent">
-                    <Image
+                    <CldImage
                       src={projectContent[6].src}
                       onLoad={() => {
                         handleContentLoad(projectContent[6].id);
@@ -1040,7 +1040,7 @@ export default function Home() {
                 </div>
                 <div className="features-section">
                   <div className="features-img-parent">
-                    <Image
+                    <CldImage
                       src={projectContent[7].src}
                       onLoad={() => {
                         handleContentLoad(projectContent[7].id);
@@ -1061,7 +1061,7 @@ export default function Home() {
                     Arrange swaps with our integrated chat
                   </p>
                   <div className="features-img-parent">
-                    <Image
+                    <CldImage
                       src={projectContent[8].src}
                       onLoad={() => {
                         handleContentLoad(projectContent[8].id);
@@ -1076,7 +1076,7 @@ export default function Home() {
                 </div>
                 <div className="features-section flex-col">
                   <div className="features-img-parent w-full">
-                    <Image
+                    <CldImage
                       src={projectContent[9].src}
                       onLoad={() => {
                         handleContentLoad(projectContent[9].id);
@@ -1097,7 +1097,7 @@ export default function Home() {
               <div className="pcc-section">
                 <h1 className="project-subHeading">Process</h1>
                 <div className="w-full h-auto shadow-xl">
-                  <Image
+                  <CldImage
                     src={projectContent[10].src}
                     onLoad={() => {
                       handleContentLoad(projectContent[10].id);
@@ -1108,7 +1108,7 @@ export default function Home() {
                     height={5956}
                     alt="Wireframe 1 for the PlotTwist project"
                   />
-                  <Image
+                  <CldImage
                     src={projectContent[11].src}
                     onLoad={() => {
                       handleContentLoad(projectContent[11].id);
@@ -1119,7 +1119,7 @@ export default function Home() {
                     height={5961}
                     alt="Wireframe 2 for the PlotTwist project"
                   />
-                  <Image
+                  <CldImage
                     src={projectContent[12].src}
                     onLoad={() => {
                       handleContentLoad(projectContent[12].id);
@@ -1139,7 +1139,7 @@ export default function Home() {
 
           <div id="rCCard" className="project-card">
             <div className="project-thumb ">
-              <Image
+              <CldImage
                 src={projectContent[2].src}
                 onLoad={() => {
                   handleContentLoad(projectContent[2].id);
@@ -1195,7 +1195,7 @@ export default function Home() {
             }`}
           >
             <div className="w-full">
-              <Image
+              <CldImage
                 src={projectContent[13].src}
                 onLoad={() => handleContentLoad(projectContent[13].id)}
                 className={`object-cover w-screen transition-[max-height] duration-1000 ease-in-out ${
@@ -1254,7 +1254,7 @@ export default function Home() {
                       <h1 className="tech-icon-label group-hover:tech-icon-label-h">
                         {id}
                       </h1>
-                      <Image
+                      <CldImage
                         src={src}
                         onLoad={() => handleContentLoad(id)}
                         className="tech-icon-img"
@@ -1269,7 +1269,7 @@ export default function Home() {
               </div>
               <div className="pcc-section">
                 <h1 className="project-subHeading">Process</h1>
-                <Image
+                <CldImage
                   src={projectContent[14].src}
                   onLoad={() => handleContentLoad(projectContent[14].id)}
                   className="w-full h-auto shadow-xl"
