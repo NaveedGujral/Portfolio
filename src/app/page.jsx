@@ -259,7 +259,7 @@ export default function Home() {
     },
     {
       id: "Vimeo",
-      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/EmailJS_tqv42l.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882420/Vimeo_ylohtg.png",
     },
     {
       id: "Figma",
