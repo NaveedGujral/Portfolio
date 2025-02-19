@@ -1,0 +1,17 @@
+[
+build.environment
+]
+  CLOUDINARY_CLOUD_NAME = "dpfsll4qm"
+  CLOUDINARY_API_KEY = "993132916459993"
+  CLOUDINARY_API_SECRET = "m52-mtuAxfF1WVCdE3rC7-j7uLI"
+
+[[
+plugins
+]]
+  package = "netlify-plugin-cloudinary"
+  [
+plugins.inputs
+]
+    cloud_name = env.CLOUDINARY_CLOUD_NAME
+    api_key = env.CLOUDINARY_API_KEY
+    api_secret = env.CLOUDINARY_API_SECRET
