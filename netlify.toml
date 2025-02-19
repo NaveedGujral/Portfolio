@@ -1,4 +1,10 @@
 [
+build
+]
+  command = "npm run build"
+  publish = "out"
+
+[
 build.environment
 ]
   CLOUDINARY_CLOUD_NAME = "dpfsll4qm"
