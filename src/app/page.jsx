@@ -32,13 +32,15 @@ import LandingTitle from "./components/SVG/LandingTitle";
 import Cross from "./components/SVG/Cross";
 
 // assets
-const visualL = "https://res.cloudinary.com/dpfsll4qm/video/upload/v1739882439/VisualLandscape_jbycwo.mp4";
-const visualP = "https://res.cloudinary.com/dpfsll4qm/video/upload/v1739882445/VisualPortrait_mzun6v.mp4";
+const visualL =
+  "https://res.cloudinary.com/dpfsll4qm/video/upload/v1739882439/VisualLandscape_jbycwo.mp4";
+const visualP =
+  "https://res.cloudinary.com/dpfsll4qm/video/upload/v1739882445/VisualPortrait_mzun6v.mp4";
 
 export default function Home() {
   // Flow Field Controls
   // const [seed, setSeed] = useState(2);
-  const [seed, setSeed] = useState(2);
+  const [seed, setSeed] = useState(3);
   const debugFF = false;
   const [flowDirVis, setFlowDirVis] = useState(false);
 
@@ -254,6 +256,10 @@ export default function Home() {
     {
       id: "Next.js",
       src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882418/NextIcon_vq0ihj.png",
+    },
+    {
+      id: "Framer Motion",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882417/FramerMotionIcon_ybaztq.png",
     },
     {
       id: "Email JS",
@@ -487,7 +493,7 @@ export default function Home() {
     ) {
       setTimeout(() => {
         setContentLoaded(true);
-      }, 2000);
+      }, 500);
 
       return;
     }
@@ -569,8 +575,8 @@ export default function Home() {
         className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
       >
         <div className="flex fixed justify-center items-center w-screen h-screen overflow-hidden">
-          <div className="w-full h-full flex  left-0">
-            {/* {contentLoaded && ( */}
+          <div className=" w-full h-full flex left-0">
+            {contentLoaded && (
               <FlowField
                 canvasWidth={canvasWidth}
                 canvasHeight={canvasHeight}
@@ -578,9 +584,72 @@ export default function Home() {
                 debugging={false}
                 className="z-0"
               />
-            {/* )} */}
+            )}
           </div>
         </div>
+        {contentLoaded && (
+          <motion.div
+            className="absolute w-full h-full flex justify-center items-center p-10"
+            initial={{
+              opacity: 0,
+              filter: "blur(12px)",
+            }}
+            animate={{
+              opacity: 1,
+              filter: "blur(0)",
+              transition: {
+                duration: 1, // Animation duration
+                delay: 1,
+              },
+            }}
+          >
+            {landing ? (
+              <>
+                <LandingTitle className="max-h-[50vh] max-w-[50vw] " />
+                {debugFF && (
+                  <div className="absolute m-6 top-0 right-0 w-auto flex flex-col">
+                    <div className="flex gap-2">
+                      <p className="text-custom-white-50">Seed:</p>
+                      <button
+                        className="bg-white w-8 rounded-full"
+                        onClick={() => {
+                          setSeed(seed + 1);
+                        }}
+                      >
+                        +
+                      </button>
+                      <p className="text-custom-white-50">{seed}</p>
+                      <button
+                        className="bg-white w-8 rounded-full"
+                        onClick={() => {
+                          setSeed(seed - 1);
+                        }}
+                      >
+                        -
+                      </button>
+                    </div>
+                    <div className="flex gap-2">
+                      <p className="text-custom-white-50">
+                        Visualise Flow Field:
+                      </p>
+                      <button
+                        className="bg-white w-8 rounded-full"
+                        onClick={() => {
+                          setFlowDirVis(!flowDirVis);
+                        }}
+                      ></button>
+                      <p className="text-custom-white-50">
+                        {flowDirVis.toString()}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <></>
+            )}
+          </motion.div>
+        )}
       </section>
 
       <section
@@ -1315,7 +1384,6 @@ export default function Home() {
         </div>
         <div className=" bg-gradient-to-b from-[#1a1a1a] to-transparent w-full h-[50vh] sm:h-[66vh] "></div>
       </section>
-      
     </main>
   );
 }

@@ -10,16 +10,18 @@ const FlowField = React.memo(
     // flow field controls
 
     const inc = 0.2; // flow field variance - increase for more variation
-    const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
+    const zInc = 0.000125; // flow field variance over time - increase for more variation but less smooth
+    // const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
 
     const scale = 75; // size of flow field cells, decreasing can impact performance
 
     const particleNo = 200; // number of lines drawn
 
-    const speedCap = 1.5; // speed of particles drawing the lines
+    const speedCap = 1.75; // speed of particles drawing the lines
+    // const speedCap = 1.5; // speed of particles drawing the lines
     const angleSeed = Math.PI * 4; // a random angle is picked from 0 to this value in radians
 
-    const crossLimit = 27;
+    const crossLimit = 3;
 
     const brushFactor = 12;
     const bristleRad = 2;
