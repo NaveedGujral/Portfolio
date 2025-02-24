@@ -37,7 +37,8 @@ const visualP = "https://res.cloudinary.com/dpfsll4qm/video/upload/v1739882445/V
 
 export default function Home() {
   // Flow Field Controls
-  const [seed, setSeed] = useState(5);
+  // const [seed, setSeed] = useState(2);
+  const [seed, setSeed] = useState(2);
   const debugFF = false;
   const [flowDirVis, setFlowDirVis] = useState(false);
 
@@ -569,15 +570,15 @@ export default function Home() {
       >
         <div className="flex fixed justify-center items-center w-screen h-screen overflow-hidden">
           <div className="w-full h-full flex  left-0">
-            {contentLoaded && (
+            {/* {contentLoaded && ( */}
               <FlowField
                 canvasWidth={canvasWidth}
                 canvasHeight={canvasHeight}
                 seed={seed}
-                debugging={flowDirVis}
+                debugging={false}
                 className="z-0"
               />
-            )}
+            {/* )} */}
           </div>
         </div>
       </section>
@@ -1314,6 +1315,7 @@ export default function Home() {
         </div>
         <div className=" bg-gradient-to-b from-[#1a1a1a] to-transparent w-full h-[50vh] sm:h-[66vh] "></div>
       </section>
+      
     </main>
   );
 }
