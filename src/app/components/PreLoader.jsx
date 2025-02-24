@@ -1,49 +1,84 @@
 "use client";
 
-import { AnimatePresence, motion, easeInOut } from "framer-motion";
+import {
+  AnimatePresence,
+  motion as m,
+  easeInOut,
+  usePresence,
+} from "framer-motion";
 import { useState, useEffect } from "react";
+import LandingTitle from "./SVG/LandingTitle";
 
 function PreLoader({ contentLoaded, loadingPercent }) {
+  const [landing, setLanding] = useState(!contentLoaded);
+  const [isPresent, safeToRemove] = usePresence();
+
+  useEffect(() => {
+    console.log(contentLoaded)
+    setLanding(!contentLoaded);
+    contentLoaded && setTimeout(safeToRemove, 500); // Duration + Delay
+  }, [contentLoaded]);
+
   return (
     <AnimatePresence>
-      {!contentLoaded && (
-        <motion.div
-          key="preloader"
-          className="absolute h-screen w-full bg-custom-grey z-50 top-0"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 2 } }}
-        >
-          <motion.div
-            className="loading-bar opacity-25 round-full"
-            initial={{ width: "0%" }}
-            animate={{
-              width: `${loadingPercent}%`,
-              transition: { ease: easeInOut, duration: 2 },
-              
-            }}
-          ></motion.div>
-          <motion.div
-            className="loading-bar blur-[2px]"
-            initial={{ width: "0%" }}
-            animate={{
-              width: `${loadingPercent}%`,
-              transition: { ease: easeInOut, duration: 2 },
-              
-            }}
-          ></motion.div>
-          <motion.div
-            className="loading-bar blur-sm"
-            initial={{ width: "0%" }}
-            animate={{
-              width: `${loadingPercent}%`,
-              transition: { ease: easeInOut, duration: 2 },
-              
-            }}
-          ></motion.div>
-        </motion.div>
+      {isPresent && (
+        <m.div
+          className="absolute w-full h-full flex justify-center items-center p-10 bg-purple-500 z-50"
+          initial={{
+            opacity: 0,
+            filter: "blur(12px)",
+          }}
+          animate={{
+            opacity: 1,
+            filter: "blur(0)",
+            delay: 1,
+            duration: 2,
+          }}
+          exit={{
+            opacity: 0,
+            filter: "blur(12px)",
+            delay: 1,
+            duration: 2,
+          }}
+        ></m.div>
       )}
     </AnimatePresence>
   );
+  // return (
+  //   <AnimatePresence>
+  //     {!contentLoaded && (
+  //       <m.div
+  //         className="absolute w-full h-full flex justify-center items-center p-10 bg-purple-500 z-50"
+  //         initial={{
+  //           opacity: 0,
+  //           filter: "blur(12px)",
+  //         }}
+  //         animate={{
+  //           opacity: 1,
+  //           filter: "blur(0px)",
+  //           delay: 1,
+  //           duration: 2,
+  //         }}
+  //         exit={{
+  //           opacity: 0,
+  //           filter: "blur(12px)",
+  //         }}
+  //       >
+  //         {/* {landing && (
+  //           <m.div
+  //             exit={{
+  //               opacity: 0,
+  //               filter: "blur(12px)",
+  //               delay: 1,
+  //               duration: 2,
+  //             }}
+  //           >
+  //             <LandingTitle className="max-h-[50vh] max-w-[50vw] " />
+  //           </m.div>
+  //         )} */}
+  //       </m.div>
+  //     )}
+  //   </AnimatePresence>
+  // );
 }
-
 export default PreLoader;

@@ -486,7 +486,7 @@ export default function Home() {
     ) {
       setTimeout(() => {
         setContentLoaded(true);
-      }, 1000);
+      }, 2000);
 
       return;
     }
@@ -558,10 +558,10 @@ export default function Home() {
     <main
       className={`min-h-screen w-full flex flex-col bg-custom-grey items-center justify-between p-0 overflow-hidden`}
     >
-      {/* <PreLoader
+      <PreLoader
         contentLoaded={contentLoaded}
         loadingPercent={loadingPercent}
-      /> */}
+      />
 
       <section
         id="landing"
@@ -579,69 +579,6 @@ export default function Home() {
               />
             )}
           </div>
-          {contentLoaded && (
-            <motion.div
-              className="absolute w-full h-full flex justify-center items-center p-10"
-              initial={{
-                opacity: 0,
-                filter: "blur(12px)",
-              }}
-              whileInView={{
-                opacity: 1,
-                filter: "blur(0)",
-                transition: {
-                  duration: 1, // Animation duration
-                  delay: 1,
-                },
-              }}
-            >
-              {landing ? (
-                <>
-                  <LandingTitle className="max-h-screen max-w-screen " />
-                  {debugFF && (
-                    <div className="absolute m-6 top-0 right-0 w-auto flex flex-col">
-                      <div className="flex gap-2">
-                        <p className="text-custom-white-50">Seed:</p>
-                        <button
-                          className="bg-white w-8 rounded-full"
-                          onClick={() => {
-                            setSeed(seed + 1);
-                          }}
-                        >
-                          +
-                        </button>
-                        <p className="text-custom-white-50">{seed}</p>
-                        <button
-                          className="bg-white w-8 rounded-full"
-                          onClick={() => {
-                            setSeed(seed - 1);
-                          }}
-                        >
-                          -
-                        </button>
-                      </div>
-                      <div className="flex gap-2">
-                        <p className="text-custom-white-50">
-                          Visualise Flow Field:
-                        </p>
-                        <button
-                          className="bg-white w-8 rounded-full"
-                          onClick={() => {
-                            setFlowDirVis(!flowDirVis);
-                          }}
-                        ></button>
-                        <p className="text-custom-white-50">
-                          {flowDirVis.toString()}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <></>
-              )}
-            </motion.div>
-          )}
         </div>
       </section>
 
