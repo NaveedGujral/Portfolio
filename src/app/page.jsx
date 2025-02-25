@@ -40,7 +40,7 @@ const visualP =
 export default function Home() {
   // Flow Field Controls
   // const [seed, setSeed] = useState(2);
-  const [seed, setSeed] = useState(3);
+  const [seed, setSeed] = useState(2);
   const debugFF = false;
   const [flowDirVis, setFlowDirVis] = useState(false);
 
@@ -605,7 +605,7 @@ export default function Home() {
           >
             {landing ? (
               <>
-                <LandingTitle className="max-h-[50vh] max-w-[50vw] " />
+                <LandingTitle className="max-h-[66vh] max-w-[66vw] " />
                 {debugFF && (
                   <div className="absolute m-6 top-0 right-0 w-auto flex flex-col">
                     <div className="flex gap-2">

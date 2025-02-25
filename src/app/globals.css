@@ -78,6 +78,15 @@ body {
   }
 }
 
+.loading {
+  animation: fadeInOut 2s infinite alternate;
+}
+
+@keyframes fadeInOut {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
+
 @layer components {
   .loading-bar {
     @apply bg-gradient-to-r absolute from-custom-purple to-custom-orange h-1 left-0 bottom-1/2 top-1/2;

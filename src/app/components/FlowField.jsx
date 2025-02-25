@@ -10,7 +10,7 @@ const FlowField = React.memo(
     // flow field controls
 
     const inc = 0.2; // flow field variance - increase for more variation
-    const zInc = 0.000125; // flow field variance over time - increase for more variation but less smooth
+    const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
     // const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
 
     const scale = 75; // size of flow field cells, decreasing can impact performance
@@ -23,7 +23,7 @@ const FlowField = React.memo(
 
     const crossLimit = 3;
 
-    const brushFactor = 12;
+    const brushFactor = 15;
     const bristleRad = 2;
     const bristleOpacity = 15;
 
