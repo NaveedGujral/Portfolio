@@ -9,22 +9,23 @@ const FlowField = React.memo(
   ({ canvasWidth, canvasHeight, seed, debugging }) => {
     // flow field controls
 
-    const inc = 0.25; // flow field variance - increase for more variation
+    const inc = 0.2; // flow field variance - increase for more variation
     const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
+    // const zInc = 0.00025; // flow field variance over time - increase for more variation but less smooth
 
     const scale = 75; // size of flow field cells, decreasing can impact performance
 
     const particleNo = 200; // number of lines drawn
 
-    const speedCap = 2; // speed of particles drawing the lines
-    const angleSeed = Math.PI * 2; // a random angle is picked from 0 to this value in radians
+    const speedCap = 1.75; // speed of particles drawing the lines
+    // const speedCap = 1.5; // speed of particles drawing the lines
+    const angleSeed = Math.PI * 4; // a random angle is picked from 0 to this value in radians
 
-    const crossLimit = 2;
+    const crossLimit = 3;
 
-    const brushFactor = 12;
-    const bristleRad = 2.25;
+    const brushFactor = 15;
+    const bristleRad = 2;
     const bristleOpacity = 15;
-    // const bristleOpacity = 15;
 
     const canvasX = canvasWidth;
     const canvasY = canvasHeight;
@@ -49,6 +50,11 @@ const FlowField = React.memo(
         p5.random(-p5.height / brushFactor, p5.height / brushFactor),
         1
       );
+      // this.pos = p5.createVector(
+      //   p5.width / 2,
+      //   p5.random(-p5.height / brushFactor, p5.height / brushFactor),
+      //   1
+      // );
       this.vel = p5.createVector(0, 0);
       this.acc = p5.createVector(0, 0);
       this.maxSpeed = speedCap;

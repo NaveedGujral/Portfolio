@@ -78,6 +78,15 @@ body {
   }
 }
 
+.loading {
+  animation: fadeInOut 2s infinite alternate;
+}
+
+@keyframes fadeInOut {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
+
 @layer components {
   .loading-bar {
     @apply bg-gradient-to-r absolute from-custom-purple to-custom-orange h-1 left-0 bottom-1/2 top-1/2;
@@ -115,7 +124,7 @@ body {
   }
 
   .tech-icon {
-    @apply w-1/4 py-2 md:p-0 md:w-1/6 lg:w-1/12 h-auto object-contain lg:hover:scale-110 flex flex-col justify-center relative transition-transform duration-500;
+    @apply w-1/4 py-2 md:p-0 md:w-1/6 lg:w-1/12 h-auto object-contain hover:scale-110 flex flex-col justify-center relative transition-transform duration-500;
   }
 
   .tech-icon-img {
@@ -123,7 +132,7 @@ body {
   }
 
   .tech-icon-label {
-    @apply body hidden lg:flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 -translate-y-[100%] whitespace-nowrap px-2 py-1 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-grey text-custom-white-50;
+    @apply body flex text-base justify-center items-center font-light text-center absolute left-1/2 -translate-x-1/2 -translate-y-[100%] whitespace-nowrap px-2 py-1 top-0 w-auto h-auto opacity-0 rounded-full duration-500 bg-custom-grey text-custom-white-50;
   }
 
   .tech-icon-label-h {
