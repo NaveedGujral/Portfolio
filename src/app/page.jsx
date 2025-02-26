@@ -3,7 +3,7 @@
 
 // Libraries
 import {
-  motion,
+  motion as m,
   useInView,
   useScroll,
   useMotionValueEvent,
@@ -561,6 +561,21 @@ export default function Home() {
     tap: { scale: 0.95 },
   };
 
+  const projectCard = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+    },
+    show: {
+      opacity: 1,
+      y: 0, // Slide in to its original position
+      transition: {
+        duration: 0.5, // Animation duration
+        delay: 0.1,
+      },
+    },
+  };
+
   return (
     <main
       className={`min-h-screen w-full flex flex-col bg-custom-grey items-center justify-between p-0 overflow-hidden`}
@@ -588,7 +603,7 @@ export default function Home() {
           </div>
         </div>
         {contentLoaded && (
-          <motion.div
+          <m.div
             className="absolute w-full h-full flex justify-center items-center p-10"
             initial={{
               opacity: 0,
@@ -648,7 +663,7 @@ export default function Home() {
             ) : (
               <></>
             )}
-          </motion.div>
+          </m.div>
         )}
       </section>
 
@@ -661,7 +676,7 @@ export default function Home() {
         <div className=" bg-gradient-to-t from-[#1a1a1a] to-transparent w-full h-[50vh] "></div>
         <div id="intro" className="content-wrapper bg-custom-grey">
           <div className="content-container flex flex-col md:flex-row md:justify-between">
-            <motion.div
+            <m.div
               className="flex-[4_4_0%] w-[80%] md:w-full justify-center items-center flex relative"
               initial={{
                 opacity: 0,
@@ -691,10 +706,10 @@ export default function Home() {
               <div className="gradBorderCore blur-[2px]" />
               <div className="gradBorder blur-sm" />
               <div className="gradBorder blur-md" />
-            </motion.div>
+            </m.div>
             <div className=" flex-[1_1_0%]"></div>
             <div className=" w-[80%] md:flex-[7_7_0%]">
-              <motion.h2
+              <m.h2
                 className="subHeading text-custom-white-50 pt-8 pb-2 md:p-0"
                 initial={{
                   opacity: 0,
@@ -714,9 +729,9 @@ export default function Home() {
                   once: true,
                 }}
               >
-                I’m a digital designer & developer with a background in product
-                design.
-              </motion.h2>
+                I’m a digital designer & developer with a background in
+                industrial design.
+              </m.h2>
             </div>
           </div>
         </div>
@@ -727,7 +742,7 @@ export default function Home() {
           <div className="content-container flex-col justify-around">
             <div className="w-[90%] md:w-full flex flex-col gap-6 sm:gap-12 justify-around">
               {iconChunks.map((chunk, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   className="tech-icon-container"
                   variants={techIconContainer}
@@ -760,7 +775,7 @@ export default function Home() {
                       />
                     </div>
                   ))}
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -772,7 +787,17 @@ export default function Home() {
         >
           {/* Visual card & content */}
 
-          <div id="visualCard" className="project-card">
+          <m.div
+            id="visualCard"
+            className="project-card"
+            variants={projectCard}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              amount: "all",
+              once: true,
+            }}
+          >
             <div className="project-thumb">
               <CldImage
                 src={projectContent[0].src}
@@ -794,7 +819,7 @@ export default function Home() {
                 A chrome extension for visualising music
               </p>
               <div className="h-auto w-full flex flex-row gap-8">
-                <motion.button
+                <m.button
                   className="project-button"
                   whileHover={caseStudyButton.hover}
                   whileTap={caseStudyButton.tap}
@@ -813,7 +838,7 @@ export default function Home() {
                   }}
                 >
                   Case Study
-                </motion.button>
+                </m.button>
                 <div className="h-12 w-full">
                   <a
                     className="h-12 w-auto flex justify-start"
@@ -835,7 +860,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </m.div>
 
           <div
             id="visualContent"
@@ -868,7 +893,7 @@ export default function Home() {
                 }`}
               />
             </div>
-            <motion.div
+            <m.div
               className={`project-collapsible-content ${
                 visualContentOpen ? "pcc-open" : "pcc-closed"
               }`}
@@ -928,19 +953,29 @@ export default function Home() {
                   alt="Wireframe for the Visual project"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* PlotTwist card & content */}
 
-          <div id="pTCard" className="project-card">
+          <m.div
+            id="pTCard"
+            className="project-card"
+            variants={projectCard}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              amount: "all",
+              once: true,
+            }}
+          >
             <div className="project-card-info">
               <h1 className="project-card-title">PlotTwist</h1>
               <p className="project-card-desc">
                 A MVP mobile app for swapping books
               </p>
               <div className="h-auto w-full flex flex-row gap-8">
-                <motion.button
+                <m.button
                   className="project-button"
                   whileHover={caseStudyButton.hover}
                   whileTap={caseStudyButton.tap}
@@ -956,7 +991,7 @@ export default function Home() {
                   }}
                 >
                   Case Study
-                </motion.button>
+                </m.button>
                 <div className="h-12 w-auto flex items-center">
                   <a
                     className="project-card-icon"
@@ -982,7 +1017,7 @@ export default function Home() {
                 alt="Title image for the PlotTwist project"
               />
             </div>
-          </div>
+          </m.div>
 
           <div
             id="PTContent"
@@ -1016,7 +1051,7 @@ export default function Home() {
                 alt="Banner image for the PlotTwist project"
               />
             </div>
-            <motion.div
+            <m.div
               ref={pTContentRef}
               className={`project-collapsible-content ${
                 plotTwistContentOpen ? "pcc-open" : "pcc-closed"
@@ -1189,12 +1224,22 @@ export default function Home() {
                   />
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Reine Creative card & content */}
 
-          <div id="rCCard" className="project-card">
+          <m.div
+            id="rCCard"
+            className="project-card"
+            variants={projectCard}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              amount: "all",
+              once: true,
+            }}
+          >
             <div className="project-thumb ">
               <CldImage
                 src={projectContent[2].src}
@@ -1215,7 +1260,7 @@ export default function Home() {
                 A website for a film production company
               </p>
               <div className="h-auto w-full flex flex-row gap-8">
-                <motion.button
+                <m.button
                   className="project-button"
                   whileHover={caseStudyButton.hover}
                   whileTap={caseStudyButton.tap}
@@ -1231,7 +1276,7 @@ export default function Home() {
                   }}
                 >
                   Case Study
-                </motion.button>
+                </m.button>
                 <div className="h-12 w-auto flex items-center">
                   <a
                     className="project-card-icon"
@@ -1243,7 +1288,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </m.div>
 
           <div
             id="reineContent"
@@ -1275,7 +1320,7 @@ export default function Home() {
               <Cross className="text-custom-grey p-2" />
             </button>
             <div className="w-full"></div>
-            <motion.div
+            <m.div
               ref={rCContentRef}
               className={`project-collapsible-content ${
                 reineContentOpen ? "pcc-open" : "pcc-closed"
@@ -1336,7 +1381,7 @@ export default function Home() {
                   alt="Wireframe for the Reine Creative project"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
