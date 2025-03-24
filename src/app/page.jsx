@@ -591,7 +591,7 @@ export default function Home() {
         className="flex w-full h-screen top-0 justify-center items-center overflow-hidden"
       >
         <div className="flex fixed justify-center items-center w-full h-full overflow-hidden">
-          <div className=" w-full h-full flex left-0">
+          <div className=" w-screen h-screen flex left-0">
             {/* {contentLoaded && (
               <FlowField
                 canvasWidth={canvasWidth}

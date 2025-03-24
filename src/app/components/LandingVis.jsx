@@ -1,5 +1,5 @@
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
@@ -7,6 +7,7 @@ import * as THREE from "three";
 const vertexShader = `
 uniform float u_particleHeight;
 uniform float u_time;
+uniform float u_t_coeff;
 varying vec3 adjustedPosition;
 varying float gradientMix;
 
@@ -110,12 +111,14 @@ float pnoise(vec3 P, vec3 rep)
 void main() {
     
     adjustedPosition = position;
-    adjustedPosition.y = 0.25 * sin(pnoise(position + u_time * 0.125, vec3(10.0)));
+    // adjustedPosition.y = pnoise(position/60.0 + u_time * 0.5, vec3(2.0));
+    adjustedPosition.y = ((sin(pnoise(position/50.0  + u_time * u_t_coeff, vec3(15.0))) * 0.5) + 0.5) * u_particleHeight;
     // adjustedPosition.y = pnoise(position + u_time * 0.25, vec3(10.0));
 
-    gradientMix = clamp(adjustedPosition.y, 0.0 , 1.0);
+    // gradientMix = clamp(adjustedPosition.y - 0.5, 0.0 , 1.0);
+    gradientMix = clamp(adjustedPosition.y/u_particleHeight - 0.5, 0.0, 1.0);
 
-    gl_PointSize = 2.0;
+    gl_PointSize = 1.0;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(adjustedPosition, 1.0);
 }
 `;
@@ -134,13 +137,14 @@ void main() {
 }
 `;
 
-export default function LandingVis({ width, height }) {
-  const planeGap = 0.025;
+export default function LandingVis() {
+  const planeGap = 0.5;
+  const planeDim = 120
 
   const positions = useMemo(() => {
     const posArr = [];
-    for (let x = -8; x <= 8; x += planeGap) {
-      for (let z = -4.5; z <= 4.5; z += planeGap) {
+    for (let x = -planeDim; x <= planeDim; x += planeGap) {
+      for (let z = -planeDim; z <= planeDim; z += planeGap) {
         posArr.push(x, 0, z);
       }
     }
@@ -149,13 +153,16 @@ export default function LandingVis({ width, height }) {
 
   function Particles() {
     const planeRef = useRef();
+    const { viewport } = useThree();
 
     const uniforms = useMemo(
       () => ({
         u_colorA: { value: new THREE.Color("#93DCE5") },
         u_colorB: { value: new THREE.Color("#E172DC") },
         u_time: { type: "f", value: 0.0 },
-        u_particleHeight: { type: "f", value: 2.0 },
+        u_t_coeff: { type: "f", value: 0.125 },
+        u_particleHeight: { type: "f", value: 50.0 },
+        u_noise_coeff:{type: "f", value: 50.0}
       }),
       []
     );
@@ -199,19 +206,21 @@ export default function LandingVis({ width, height }) {
 
   return (
     <Canvas
-      camera={{ position: [-2, 1, 2], fov: 25, aspect: 16 / 9 }}
+        camera={{ position: [105, 85, -105], fov: 25, 
+            // aspect: 16 / 9
+         }}
     //   camera={{ position: [-45, 30, 0], fov: 25, aspect: 16 / 9 }}
-      className="h-full w-full"
+      className="h-screen w-screen"
     >
       <Particles />
 
       <EffectComposer>
         <Bloom
-          intensity={1.0} // 0.0 - 10.0
-          radius={0.0} // 0.0 - 1.0
+          intensity={7.5} // 0.0 - 10.0
+          radius={1.0} // 0.0 - 1.0
           luminanceThreshold={1.0} // 0.0 - 1.0
           luminanceSmoothing={1.0} // 0.0 - 1.0
-          opacity={1.0} // 0.0 - 1.0
+          opacity={0.0} // 0.0 - 1.0
           mipmapBlur={true}
         />
       </EffectComposer>
