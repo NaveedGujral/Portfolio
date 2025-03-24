@@ -9,7 +9,7 @@ uniform float u_particleHeight;
 uniform float u_time;
 uniform float u_t_coeff;
 varying vec3 adjustedPosition;
-varying float gradientMix;
+varying float particleHeight;
 
 // perlin noise - start
 
@@ -111,12 +111,10 @@ float pnoise(vec3 P, vec3 rep)
 void main() {
     
     adjustedPosition = position;
-    // adjustedPosition.y = pnoise(position/60.0 + u_time * 0.5, vec3(2.0));
-    adjustedPosition.y = ((sin(pnoise(position/50.0  + u_time * u_t_coeff, vec3(15.0))) * 0.5) + 0.5) * u_particleHeight;
-    // adjustedPosition.y = pnoise(position + u_time * 0.25, vec3(10.0));
 
-    // gradientMix = clamp(adjustedPosition.y - 0.5, 0.0 , 1.0);
-    gradientMix = clamp(adjustedPosition.y/u_particleHeight - 0.5, 0.0, 1.0);
+    adjustedPosition.y = ((sin(pnoise(position/50.0  + u_time * u_t_coeff, vec3(15.0))) * 0.5) + 0.5) * u_particleHeight;
+
+    particleHeight = adjustedPosition.y/u_particleHeight;
 
     gl_PointSize = 1.0;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(adjustedPosition, 1.0);
@@ -127,19 +125,20 @@ const fragmentShader = `
 uniform vec3 u_colorA;
 uniform vec3 u_colorB;
 varying vec3 adjustedPosition;
-varying float gradientMix;
+varying float particleHeight;
 
 void main() {
-    // vec3 color = mix(vec3(u_colorA), vec3(u_colorB), gradientMix);
-    // gl_FragColor = vec4(color, distanceAsMixValue);
-    // gl_FragColor = vec4(u_colorA, 1.0);
-    gl_FragColor = vec4(u_colorA, gradientMix);
+    float colorMix = clamp(particleHeight, 0.0, 1.0);
+    float opacityMix = clamp(particleHeight - 0.25, 0.0, 1.0);
+
+    vec3 color = mix(vec3(u_colorA), vec3(u_colorB), colorMix);
+    gl_FragColor = vec4(color, opacityMix);
 }
 `;
 
 export default function LandingVis() {
   const planeGap = 0.5;
-  const planeDim = 120
+  const planeDim = 150
 
   const positions = useMemo(() => {
     const posArr = [];
@@ -157,12 +156,12 @@ export default function LandingVis() {
 
     const uniforms = useMemo(
       () => ({
-        u_colorA: { value: new THREE.Color("#93DCE5") },
-        u_colorB: { value: new THREE.Color("#E172DC") },
+        u_colorA: { value: new THREE.Color("#ff3d1f") },
+        u_colorB: { value: new THREE.Color("#9747ff") },
         u_time: { type: "f", value: 0.0 },
         u_t_coeff: { type: "f", value: 0.125 },
-        u_particleHeight: { type: "f", value: 50.0 },
-        u_noise_coeff:{type: "f", value: 50.0}
+        u_noise_coeff:{type: "f", value: 75.0},
+        u_particleHeight: { type: "f", value: 25.0 },
       }),
       []
     );
@@ -216,11 +215,11 @@ export default function LandingVis() {
 
       <EffectComposer>
         <Bloom
-          intensity={7.5} // 0.0 - 10.0
+          intensity={1.0} // 0.0 - 10.0
           radius={1.0} // 0.0 - 1.0
-          luminanceThreshold={1.0} // 0.0 - 1.0
-          luminanceSmoothing={1.0} // 0.0 - 1.0
-          opacity={0.0} // 0.0 - 1.0
+          luminanceThreshold={0.0} // 0.0 - 1.0
+          luminanceSmoothing={0.0} // 0.0 - 1.0
+          opacity={1.0} // 0.0 - 1.0
           mipmapBlur={true}
         />
       </EffectComposer>
