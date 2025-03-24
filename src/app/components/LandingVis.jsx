@@ -1,6 +1,10 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import {
+  Bloom,
+  EffectComposer,
+  DepthOfField,
+} from "@react-three/postprocessing";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
@@ -8,6 +12,7 @@ const vertexShader = `
 uniform float u_particleHeight;
 uniform float u_time;
 uniform float u_t_coeff;
+uniform float u_noise_factor;
 varying vec3 adjustedPosition;
 varying float particleHeight;
 
@@ -112,11 +117,11 @@ void main() {
     
     adjustedPosition = position;
 
-    adjustedPosition.y = ((sin(pnoise(position/50.0  + u_time * u_t_coeff, vec3(15.0))) * 0.5) + 0.5) * u_particleHeight;
+    adjustedPosition.y = ((sin(pnoise(position/u_noise_factor  + u_time * u_t_coeff, vec3(15.0))) * 0.5) + 0.5) * u_particleHeight;
 
     particleHeight = adjustedPosition.y/u_particleHeight;
 
-    gl_PointSize = 1.0;
+    gl_PointSize = 2.0;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(adjustedPosition, 1.0);
 }
 `;
@@ -128,17 +133,29 @@ varying vec3 adjustedPosition;
 varying float particleHeight;
 
 void main() {
-    float colorMix = clamp(particleHeight, 0.0, 1.0);
-    float opacityMix = clamp(particleHeight - 0.25, 0.0, 1.0);
+    
 
-    vec3 color = mix(vec3(u_colorA), vec3(u_colorB), colorMix);
+    // Create a circular shape by checking distance from center
+    vec2 coord = gl_PointCoord - vec2(1.0); // Move origin to center
+      if (dot(coord, coord) > 1.0) { // 0.25 is radius squared
+        discard; // Outside circle, don't render
+      }
+        
+        // Create a soft edge effect
+    float distance = length(coord);
+    float alpha = 2.0 - smoothstep(0.95, 1.0, distance);
+
+    float colorMix = clamp(particleHeight, 0.0, 1.0);
+    float opacityMix = clamp(particleHeight - 0.425, 0.0, 1.0) * alpha;
+
+    vec3 color = mix(vec3(u_colorB), vec3(u_colorA), colorMix);
     gl_FragColor = vec4(color, opacityMix);
 }
 `;
 
 export default function LandingVis() {
-  const planeGap = 0.5;
-  const planeDim = 150
+  const planeGap = 0.25;
+  const planeDim = 150;
 
   const positions = useMemo(() => {
     const posArr = [];
@@ -159,9 +176,9 @@ export default function LandingVis() {
         u_colorA: { value: new THREE.Color("#ff3d1f") },
         u_colorB: { value: new THREE.Color("#9747ff") },
         u_time: { type: "f", value: 0.0 },
-        u_t_coeff: { type: "f", value: 0.125 },
-        u_noise_coeff:{type: "f", value: 75.0},
-        u_particleHeight: { type: "f", value: 25.0 },
+        u_t_coeff: { type: "f", value: 0.1 },
+        u_noise_factor: { type: "f", value: 60.0 },
+        u_particleHeight: { type: "f", value: 75.0 },
       }),
       []
     );
@@ -205,27 +222,10 @@ export default function LandingVis() {
 
   return (
     <Canvas
-        camera={{ position: [105, 85, -105], fov: 25, 
-            // aspect: 16 / 9
-         }}
-    //   camera={{ position: [-45, 30, 0], fov: 25, aspect: 16 / 9 }}
+      camera={{ position: [105, 85, -105], fov: 25 }}
       className="h-screen w-screen"
     >
       <Particles />
-
-      <EffectComposer>
-        <Bloom
-          intensity={1.0} // 0.0 - 10.0
-          radius={1.0} // 0.0 - 1.0
-          luminanceThreshold={0.0} // 0.0 - 1.0
-          luminanceSmoothing={0.0} // 0.0 - 1.0
-          opacity={1.0} // 0.0 - 1.0
-          mipmapBlur={true}
-        />
-      </EffectComposer>
-
-      <OrbitControls />
-      <CameraTracker />
     </Canvas>
   );
 }

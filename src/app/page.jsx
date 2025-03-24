@@ -606,7 +606,7 @@ export default function Home() {
         </div>
         {/* {contentLoaded && ( */}
 
-        {/* <m.div
+        <m.div
           className="absolute w-full h-full flex justify-center items-center p-10"
           initial={{
             opacity: 0,
@@ -624,49 +624,11 @@ export default function Home() {
           {landing ? (
             <>
               <LandingTitle className="max-h-[66vh] max-w-[66vw] " />
-              {debugFF && (
-                <div className="absolute m-6 top-0 right-0 w-auto flex flex-col">
-                  <div className="flex gap-2">
-                    <p className="text-custom-white-50">Seed:</p>
-                    <button
-                      className="bg-white w-8 rounded-full"
-                      onClick={() => {
-                        setSeed(seed + 1);
-                      }}
-                    >
-                      +
-                    </button>
-                    <p className="text-custom-white-50">{seed}</p>
-                    <button
-                      className="bg-white w-8 rounded-full"
-                      onClick={() => {
-                        setSeed(seed - 1);
-                      }}
-                    >
-                      -
-                    </button>
-                  </div>
-                  <div className="flex gap-2">
-                    <p className="text-custom-white-50">
-                      Visualise Flow Field:
-                    </p>
-                    <button
-                      className="bg-white w-8 rounded-full"
-                      onClick={() => {
-                        setFlowDirVis(!flowDirVis);
-                      }}
-                    ></button>
-                    <p className="text-custom-white-50">
-                      {flowDirVis.toString()}
-                    </p>
-                  </div>
-                </div>
-              )}
             </>
           ) : (
             <></>
           )}
-        </m.div> */}
+        </m.div>
 
         {/* )} */}
       </section>
