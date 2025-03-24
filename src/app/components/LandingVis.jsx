@@ -1,5 +1,5 @@
 import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
@@ -41,14 +41,13 @@ void main() {
 `;
 
 export default function LandingVis({ width, height }) {
-
   const planeDistance = 31.5;
   const planeGap = 0.5;
 
   const positions = useMemo(() => {
     const posArr = [];
-    for (let x = -width/32; x <= width/32; x += planeGap) {
-      for (let z = -30; z <= 30; z += planeGap) {
+    for (let x = -80; x <= 80; x += planeGap) {
+      for (let z = -45; z <= 45; z += planeGap) {
         posArr.push(x, 0, z);
       }
     }
@@ -85,13 +84,27 @@ export default function LandingVis({ width, height }) {
       </points>
     );
   }
+
+  function CameraTracker() {
+    // Use useFrame to get updates every frame
+    useFrame((state) => {
+      console.log("Camera position:", state.camera.position);
+      // Optional: Log rotation if needed
+      console.log("Camera rotation:", state.camera.rotation);
+    });
+
+    // Component doesn't render anything
+    return null;
+  }
+
   return (
     <Canvas
-      camera={{ position: [0, 100, 63], fov: 30, aspect: width / height }}
-      className= 'h-full w-full'
+      camera={{ position: [-45, 30, 0], fov: 25, aspect: 16 / 9 }}
+      className="h-full w-full"
     >
       <Plane />
-      <OrbitControls />
+      {/* <OrbitControls /> */}
+      {/* <CameraTracker /> */}
     </Canvas>
   );
 }
