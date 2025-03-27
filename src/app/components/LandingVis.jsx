@@ -128,7 +128,6 @@ void main() {
 
 const fragmentShader = `
 uniform vec3 u_colorA;
-uniform vec3 u_colorB;
 varying vec3 adjustedPosition;
 varying float particleHeight;
 
@@ -145,15 +144,13 @@ void main() {
     float distance = length(coord);
     float alpha = 2.0 - smoothstep(0.95, 1.0, distance);
 
-    float colorMix = clamp(particleHeight, 0.0, 1.0);
-    float opacityMix = clamp(particleHeight - 0.425, 0.0, 1.0) * alpha;
-
-    vec3 color = mix(vec3(u_colorB), vec3(u_colorA), colorMix);
-    gl_FragColor = vec4(color, opacityMix);
+    float opacityMix = clamp(particleHeight - 0.4, 0.0, 1.0) * alpha;
+    // float opacityMix = clamp(particleHeight - 0.425, 0.0, 1.0) * alpha;
+    gl_FragColor = vec4(u_colorA, opacityMix);
 }
 `;
 
-export default function LandingVis() {
+export default function LandingVis({render}) {
   const planeGap = 0.25;
   const planeDim = 150;
 
@@ -173,11 +170,10 @@ export default function LandingVis() {
 
     const uniforms = useMemo(
       () => ({
-        u_colorA: { value: new THREE.Color("#ff3d1f") },
-        u_colorB: { value: new THREE.Color("#9747ff") },
-        u_time: { type: "f", value: 0.0 },
-        u_t_coeff: { type: "f", value: 0.1 },
-        u_noise_factor: { type: "f", value: 60.0 },
+        u_colorA: { value: new THREE.Color("#9747ff") },
+        u_time: { type: "f", value: 0.2 },
+        u_t_coeff: { type: "f", value: 0.05 },
+        u_noise_factor: { type: "f", value: 90.0 },
         u_particleHeight: { type: "f", value: 75.0 },
       }),
       []
@@ -222,6 +218,7 @@ export default function LandingVis() {
 
   return (
     <Canvas
+      frameloop={render ? "always" : "never"}
       camera={{ position: [105, 85, -105], fov: 25 }}
       className="h-screen w-screen"
     >

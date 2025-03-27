@@ -15,7 +15,7 @@ function PreLoader({ contentLoaded, loadingPercent }) {
     <AnimatePresence>
       {!contentLoaded && (
         <m.div
-          className="absolute w-full h-full flex justify-center items-center p-10 z-50"
+          className="absolute w-full h-full flex justify-center items-center p-10 z-50 bg-custom-grey"
           animate={{
             opacity: 1,
           }}
