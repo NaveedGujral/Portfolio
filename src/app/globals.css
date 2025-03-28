@@ -108,7 +108,7 @@ body {
   }
 
   .content-wrapper {
-    @apply w-full h-auto flex flex-col justify-center items-center py-40;
+    @apply w-full h-auto flex flex-col justify-center items-center py-40 ;
   }
 
   .content-container {

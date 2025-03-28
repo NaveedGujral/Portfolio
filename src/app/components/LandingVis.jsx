@@ -146,7 +146,7 @@ void main() {
     float alpha = 2.0 - smoothstep(0.95, 1.0, distance);
 
     float colorMix = clamp(particleHeight - 0.425, 0.0, 1.0);
-    float opacityMix = clamp(particleHeight - 0.425, 0.0, 1.0) * alpha;
+    float opacityMix = clamp(particleHeight - 0.45, 0.0, 1.0) * alpha;
     
     vec3 color = mix(vec3(u_colorA), vec3(u_colorB), colorMix);
     
@@ -155,7 +155,7 @@ void main() {
 }
 `;
 
-export default function LandingVis() {
+export default function LandingVis({render}) {
   const planeGap = 0.25;
   const planeDim = 150;
 
@@ -178,9 +178,12 @@ export default function LandingVis() {
         u_colorA: { value: new THREE.Color("#9747ff") },
         u_colorB: { value: new THREE.Color("#ffffff") },
         u_time: { type: "f", value: 0.0 },
-        u_t_coeff: { type: "f", value: 0.05 },
-        u_noise_factor: { type: "f", value: 60.0 },
-        u_particleHeight: { type: "f", value: 75.0 },
+        // u_t_coeff: { type: "f", value: 0.025 },
+        u_t_coeff: { type: "f", value: 0.1 },
+        u_noise_factor: { type: "f", value: 120.0 },
+        // u_noise_factor: { type: "f", value: 80.0 },
+        // u_particleHeight: { type: "f", value: 90.0 },
+        u_particleHeight: { type: "f", value: 90.0 },
       }),
       []
     );
@@ -226,6 +229,7 @@ export default function LandingVis() {
     <Canvas
       camera={{ position: [105, 85, -105], fov: 25 }}
       className="h-screen w-screen"
+      frameloop={render ? "always" : "never"}
     >
       <Particles />
       <OrbitControls />
