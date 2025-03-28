@@ -468,21 +468,21 @@ export default function Home() {
     };
   }, [handleResize]);
 
-  useEffect(() => {
-    // desktop & tablet canvas dim changes
-    if (screenWidth > 640) {
-      setCanvasWidth(screenWidth);
-      setCanvasHeight(screenHeight);
-    }
+  // useEffect(() => {
+  //   // desktop & tablet canvas dim changes
+  //   if (screenWidth > 640) {
+  //     setCanvasWidth(screenWidth);
+  //     setCanvasHeight(screenHeight);
+  //   }
 
-    // mobile canvas dim changes
-    if (screenWidth <= 640) {
-      if (canvasWidth !== screenWidth) {
-        setCanvasWidth(screenWidth);
-        setCanvasHeight(screenHeight);
-      }
-    }
-  }, [screenWidth, screenHeight]);
+  //   // mobile canvas dim changes
+  //   if (screenWidth <= 640) {
+  //     if (canvasWidth !== screenWidth) {
+  //       setCanvasWidth(screenWidth);
+  //       setCanvasHeight(screenHeight);
+  //     }
+  //   }
+  // }, [screenWidth, screenHeight]);
 
   // useEffect(() => {
   //   setLoadingPercent(
@@ -506,55 +506,55 @@ export default function Home() {
   //   setContentLoaded(false);
   // }, [noOfContentItems, loadingProgress, loadingPercent]);
 
-  useEffect(() => {
-    if (visualContentOpen && visualContentInView) {
-      setTimeout(() => {
-        setVCloseButton(true);
-      }, 400);
-      return;
-    }
-    setVCloseButton(false);
-  }, [visualContentInView, visualContentOpen, setVCloseButton]);
+  // useEffect(() => {
+  //   if (visualContentOpen && visualContentInView) {
+  //     setTimeout(() => {
+  //       setVCloseButton(true);
+  //     }, 400);
+  //     return;
+  //   }
+  //   setVCloseButton(false);
+  // }, [visualContentInView, visualContentOpen, setVCloseButton]);
 
-  useEffect(() => {
-    if (plotTwistContentOpen && pTContentInView) {
-      setTimeout(() => {
-        setPTCloseButton(true);
-      }, 400);
-      return;
-    }
-    setPTCloseButton(false);
-  }, [pTContentInView, plotTwistContentOpen, setPTCloseButton]);
+  // useEffect(() => {
+  //   if (plotTwistContentOpen && pTContentInView) {
+  //     setTimeout(() => {
+  //       setPTCloseButton(true);
+  //     }, 400);
+  //     return;
+  //   }
+  //   setPTCloseButton(false);
+  // }, [pTContentInView, plotTwistContentOpen, setPTCloseButton]);
 
-  useEffect(() => {
-    if (reineContentOpen && rCContentInView) {
-      setTimeout(() => {
-        setRCCloseButton(true);
-      }, 400);
-      return;
-    }
-    setRCCloseButton(false);
-  }, [rCContentInView, reineContentOpen, setRCCloseButton]);
+  // useEffect(() => {
+  //   if (reineContentOpen && rCContentInView) {
+  //     setTimeout(() => {
+  //       setRCCloseButton(true);
+  //     }, 400);
+  //     return;
+  //   }
+  //   setRCCloseButton(false);
+  // }, [rCContentInView, reineContentOpen, setRCCloseButton]);
 
-  useEffect(() => {
-    if(projectsInView === true && footerInView === false) {
-      setRender3D(false)
-      return
-    }
-    if(footerInView === true) {
-      setRender3D(true)
-      return
-    }
-    setRender3D(true)
-  }, [projectsInView, footerInView]);
+  // useEffect(() => {
+  //   if(projectsInView === true && footerInView === false) {
+  //     setRender3D(false)
+  //     return
+  //   }
+  //   if(footerInView === true) {
+  //     setRender3D(true)
+  //     return
+  //   }
+  //   setRender3D(true)
+  // }, [projectsInView, footerInView]);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest >= 2 * screenHeight) {
-      setLanding(false);
-    } else {
-      setLanding(true);
-    }
-  });
+  // useMotionValueEvent(scrollY, "change", (latest) => {
+  //   if (latest >= 2 * screenHeight) {
+  //     setLanding(false);
+  //   } else {
+  //     setLanding(true);
+  //   }
+  // });
 
   // framer motion
 
@@ -609,7 +609,9 @@ export default function Home() {
       >
         <div className="flex fixed justify-center items-center w-full h-full overflow-hidden">
           <div className=" w-screen h-screen flex left-0">
-            <LandingVis width={canvasWidth} height={canvasHeight} render={setRender3D}/>
+            <LandingVis width={canvasWidth} height={canvasHeight} 
+            // render={setRender3D}
+            />
           </div>
         </div>
         {contentLoaded && (
@@ -703,6 +705,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <div
           id="tech"
           className="content-wrapper pt-40 pb-20 bg-custom-white-50"
@@ -714,12 +717,12 @@ export default function Home() {
                   key={index}
                   className="tech-icon-container"
                   variants={techIconContainer}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{
-                    amount: "some",
-                    once: true,
-                  }}
+                  // initial="hidden"
+                  // whileInView="show"
+                  // viewport={{
+                  //   amount: "some",
+                  //   once: true,
+                  // }}
                 >
                   {chunk.map(({ id, src }, subIndex) => (
                     <div
@@ -748,7 +751,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
 
         <div
           id="footer"
@@ -793,6 +795,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <div className=" w-full h-[50vh] sm:h-[66vh] "></div>
       </section>
     </main>
