@@ -342,7 +342,7 @@ export default function Home() {
     },
     {
       id: "PTLanding",
-      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1739882422/TitleStripPT_lnfh42.png",
+      src: "https://res.cloudinary.com/dpfsll4qm/image/upload/v1743599319/TitleStripPT_lnfh42.png",
     },
     {
       id: "PT_Listbook",
@@ -745,8 +745,8 @@ export default function Home() {
 
         <div
           id="projects"
-          // className="content-wrapper pt-20 pb-40 bg-custom-white-50 flex-col gap-24"
-          className="content-wrapper pt-20 pb-40 backdrop-invert backdrop-grayscale flex-col gap-24"
+          className="content-wrapper pt-20 pb-40 flex-col gap-24"
+          // className="content-wrapper pt-20 pb-40 backdrop-invert backdrop-grayscale flex-col gap-24"
           ref={projectsRef}
         >
           {/* Visual card & content */}
