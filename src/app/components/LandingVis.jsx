@@ -178,11 +178,8 @@ export default function LandingVis({render}) {
         u_colorA: { value: new THREE.Color("#9747ff") },
         u_colorB: { value: new THREE.Color("#ffffff") },
         u_time: { type: "f", value: 0.0 },
-        // u_t_coeff: { type: "f", value: 0.025 },
         u_t_coeff: { type: "f", value: 0.1 },
-        u_noise_factor: { type: "f", value: 120.0 },
-        // u_noise_factor: { type: "f", value: 80.0 },
-        // u_particleHeight: { type: "f", value: 90.0 },
+        u_noise_factor: { type: "f", value: 120.0 },        
         u_particleHeight: { type: "f", value: 90.0 },
       }),
       []

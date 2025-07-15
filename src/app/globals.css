@@ -160,11 +160,11 @@ body {
   }
 
   .project-card-title {
-    @apply subHeading;
+    @apply subHeading text-custom-white-50;
   }
 
   .project-card-desc {
-    @apply body;
+    @apply body text-custom-white-50;
   }
 
   .project-content-parent {
